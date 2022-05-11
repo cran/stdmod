@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="Shu Fai Cheung" />
+
+<meta name="date" content="2022-05-10" />
+
+<title>A Quick Start Guide on Using std_selected()</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+<script>// Hide empty <a> tag within highlighted CodeBlock for screen reader accessibility (see https://github.com/jgm/pandoc/issues/6352#issuecomment-626106786) -->
+// v0.0.1
+// Written by JooYoung Seo (jooyoung@psu.edu) and Atsushi Yasumoto on June 1st, 2020.
+
+document.addEventListener('DOMContentLoaded', function() {
+  const codeList = document.getElementsByClassName("sourceCode");
+  for (var i = 0; i < codeList.length; i++) {
+    var linkList = codeList[i].getElementsByTagName('a');
+    for (var j = 0; j < linkList.length; j++) {
+      if (linkList[j].innerHTML === "") {
+        linkList[j].setAttribute('aria-hidden', 'true');
+      }
+    }
+  }
+});
+</script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">A Quick Start Guide on Using std_selected()</h1>
+<h4 class="author">Shu Fai Cheung</h4>
+<h4 class="date">2022-05-10</h4>
+
+
+
+<div id="this-guide-shows-to-use-std_selected-to" class="section level1">
+<h1>This Guide Shows to use <code>std_selected()</code> to:</h1>
+<ul>
+<li><p>get the correct standardized regression coefficients of a moderated regression model, and</p></li>
+<li><p>form the valid confidence intervals of the standardized regression coefficients using nonparametric bootstrapping that takes into account the sampling variation due to standardization.</p></li>
+</ul>
+</div>
+<div id="sample-dataset" class="section level1">
+<h1>Sample Dataset</h1>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(stdmod)</span>
+<span id="cb1-2"><a href="#cb1-2"></a>dat &lt;-<span class="st"> </span>sleep_emo_con</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="kw">head</span>(dat, <span class="dv">3</span>)</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="co">#&gt; # A tibble: 3 × 6</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="co">#&gt;   case_id sleep_duration  cons  emot   age gender</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="co">#&gt;     &lt;int&gt;          &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; </span></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="co">#&gt; 1       1              6   3.6   3.6    20 female</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="co">#&gt; 2       2              4   3.8   2.4    20 female</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="co">#&gt; 3       3              7   4.3   2.7    20 female</span></span></code></pre></div>
+<p>This dataset has 500 cases, with sleep duration (measured in average hours), conscientiousness, emotional stability, age, and gender (a <code>&quot;female&quot;</code> and <code>&quot;male&quot;</code>).</p>
+<p>The names of some variables are shortened for readability:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">colnames</span>(dat)[<span class="dv">2</span><span class="op">:</span><span class="dv">4</span>] &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;sleep&quot;</span>, <span class="st">&quot;cons&quot;</span>, <span class="st">&quot;emot&quot;</span>)</span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="kw">head</span>(dat, <span class="dv">3</span>)</span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="co">#&gt; # A tibble: 3 × 6</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="co">#&gt;   case_id sleep  cons  emot   age gender</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="co">#&gt;     &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; </span></span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="co">#&gt; 1       1     6   3.6   3.6    20 female</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="co">#&gt; 2       2     4   3.8   2.4    20 female</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a><span class="co">#&gt; 3       3     7   4.3   2.7    20 female</span></span></code></pre></div>
+</div>
+<div id="model" class="section level1">
+<h1>Model</h1>
+<p>Suppose this is the moderated regression model:</p>
+<ul>
+<li><p>Dependent variable (Outcome Variable): sleep duration (<code>sleep</code>)</p></li>
+<li><p>Independent variable (Predictor / Focal Variable): emotional stability (<code>emot</code>)</p></li>
+<li><p>Moderator: conscientiousness (<code>cons</code>)</p></li>
+<li><p>Control variables: <code>age</code> and <code>gender</code></p></li>
+</ul>
+<p><code>lm()</code> can be used to fit this model:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>lm_out &lt;-<span class="st"> </span><span class="kw">lm</span>(sleep <span class="op">~</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>gender <span class="op">+</span><span class="st"> </span>emot <span class="op">*</span><span class="st"> </span>cons,</span>
+<span id="cb3-2"><a href="#cb3-2"></a>             <span class="dt">dat =</span> dat)</span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="kw">summary</span>(lm_out)</span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="co">#&gt; </span></span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="co">#&gt; lm(formula = sleep ~ age + gender + emot * cons, data = dat)</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="co">#&gt; </span></span>
+<span id="cb3-8"><a href="#cb3-8"></a><span class="co">#&gt; Residuals:</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a><span class="co">#&gt;     Min      1Q  Median      3Q     Max </span></span>
+<span id="cb3-10"><a href="#cb3-10"></a><span class="co">#&gt; -6.0841 -0.7882  0.0089  0.9440  6.1189 </span></span>
+<span id="cb3-11"><a href="#cb3-11"></a><span class="co">#&gt; </span></span>
+<span id="cb3-12"><a href="#cb3-12"></a><span class="co">#&gt; Coefficients:</span></span>
+<span id="cb3-13"><a href="#cb3-13"></a><span class="co">#&gt;             Estimate Std. Error t value Pr(&gt;|t|)   </span></span>
+<span id="cb3-14"><a href="#cb3-14"></a><span class="co">#&gt; (Intercept)  1.85154    1.35224   1.369  0.17155   </span></span>
+<span id="cb3-15"><a href="#cb3-15"></a><span class="co">#&gt; age          0.01789    0.02133   0.838  0.40221   </span></span>
+<span id="cb3-16"><a href="#cb3-16"></a><span class="co">#&gt; gendermale  -0.26127    0.16579  -1.576  0.11570   </span></span>
+<span id="cb3-17"><a href="#cb3-17"></a><span class="co">#&gt; emot         1.32151    0.45039   2.934  0.00350 **</span></span>
+<span id="cb3-18"><a href="#cb3-18"></a><span class="co">#&gt; cons         1.20385    0.37062   3.248  0.00124 **</span></span>
+<span id="cb3-19"><a href="#cb3-19"></a><span class="co">#&gt; emot:cons   -0.33140    0.13273  -2.497  0.01286 * </span></span>
+<span id="cb3-20"><a href="#cb3-20"></a><span class="co">#&gt; ---</span></span>
+<span id="cb3-21"><a href="#cb3-21"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
+<span id="cb3-22"><a href="#cb3-22"></a><span class="co">#&gt; </span></span>
+<span id="cb3-23"><a href="#cb3-23"></a><span class="co">#&gt; Residual standard error: 1.384 on 494 degrees of freedom</span></span>
+<span id="cb3-24"><a href="#cb3-24"></a><span class="co">#&gt; Multiple R-squared:  0.0548, Adjusted R-squared:  0.04523 </span></span>
+<span id="cb3-25"><a href="#cb3-25"></a><span class="co">#&gt; F-statistic: 5.728 on 5 and 494 DF,  p-value: 3.768e-05</span></span></code></pre></div>
+<p>The unstandardized moderation effect is significant, B = -0.3314. For each one unit increase of conscientiousness score, the effect of emotional stability decreases by 0.3314.</p>
+</div>
+<div id="correct-standardization-for-the-moderated-regression" class="section level1">
+<h1>Correct Standardization For the Moderated Regression</h1>
+<p>Suppose we want to find the correct standardized solution for the moderated regression, that is, all variables except for categorical variables are standardized. In a moderated regression model, the product term should be formed <em>after</em> standardization.</p>
+<p>Instead of doing the standardization ourselves before calling <code>lm()</code>, we can pass the <code>lm()</code> output to <code>std_selected()</code>, and use <code>~ .</code> for the arguments <code>to_scale</code> and <code>to_center</code>.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>lm_stdall &lt;-<span class="st"> </span><span class="kw">std_selected</span>(lm_out,</span>
+<span id="cb4-2"><a href="#cb4-2"></a>                          <span class="dt">to_scale =</span> <span class="op">~</span><span class="st"> </span>.,</span>
+<span id="cb4-3"><a href="#cb4-3"></a>                          <span class="dt">to_center =</span> <span class="op">~</span><span class="st"> </span>.)</span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="kw">summary</span>(lm_stdall)</span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="co">#&gt; </span></span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="co">#&gt; Selected variable(s) are centered by mean and/or scaled by SD</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="co">#&gt; - Variable(s) centered: sleep age gender emot cons</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="co">#&gt; - Variable(s) scaled: sleep age gender emot cons</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a><span class="co">#&gt; </span></span>
+<span id="cb4-10"><a href="#cb4-10"></a><span class="co">#&gt;        centered_by scaled_by                            Note</span></span>
+<span id="cb4-11"><a href="#cb4-11"></a><span class="co">#&gt; sleep     6.776333 1.4168291 Standardized (mean = 0, SD = 1)</span></span>
+<span id="cb4-12"><a href="#cb4-12"></a><span class="co">#&gt; age      22.274000 2.9407857 Standardized (mean = 0, SD = 1)</span></span>
+<span id="cb4-13"><a href="#cb4-13"></a><span class="co">#&gt; gender          NA        NA Nonnumeric                     </span></span>
+<span id="cb4-14"><a href="#cb4-14"></a><span class="co">#&gt; emot      2.713200 0.7629613 Standardized (mean = 0, SD = 1)</span></span>
+<span id="cb4-15"><a href="#cb4-15"></a><span class="co">#&gt; cons      3.343200 0.6068198 Standardized (mean = 0, SD = 1)</span></span>
+<span id="cb4-16"><a href="#cb4-16"></a><span class="co">#&gt; </span></span>
+<span id="cb4-17"><a href="#cb4-17"></a><span class="co">#&gt; Note:</span></span>
+<span id="cb4-18"><a href="#cb4-18"></a><span class="co">#&gt; - Categorical variables will not be centered or scaled even if requested.</span></span>
+<span id="cb4-19"><a href="#cb4-19"></a><span class="co">#&gt; </span></span>
+<span id="cb4-20"><a href="#cb4-20"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb4-21"><a href="#cb4-21"></a><span class="co">#&gt; lm(formula = sleep ~ age + gender + emot * cons, data = dat_mod)</span></span>
+<span id="cb4-22"><a href="#cb4-22"></a><span class="co">#&gt; </span></span>
+<span id="cb4-23"><a href="#cb4-23"></a><span class="co">#&gt; Residuals:</span></span>
+<span id="cb4-24"><a href="#cb4-24"></a><span class="co">#&gt;     Min      1Q  Median      3Q     Max </span></span>
+<span id="cb4-25"><a href="#cb4-25"></a><span class="co">#&gt; -4.2941 -0.5563  0.0063  0.6663  4.3187 </span></span>
+<span id="cb4-26"><a href="#cb4-26"></a><span class="co">#&gt; </span></span>
+<span id="cb4-27"><a href="#cb4-27"></a><span class="co">#&gt; Coefficients:</span></span>
+<span id="cb4-28"><a href="#cb4-28"></a><span class="co">#&gt;             Estimate Std. Error t value Pr(&gt;|t|)   </span></span>
+<span id="cb4-29"><a href="#cb4-29"></a><span class="co">#&gt; (Intercept)  0.05492    0.04883   1.125  0.26124   </span></span>
+<span id="cb4-30"><a href="#cb4-30"></a><span class="co">#&gt; age          0.03712    0.04428   0.838  0.40221   </span></span>
+<span id="cb4-31"><a href="#cb4-31"></a><span class="co">#&gt; gendermale  -0.18440    0.11702  -1.576  0.11570   </span></span>
+<span id="cb4-32"><a href="#cb4-32"></a><span class="co">#&gt; emot         0.11501    0.04493   2.560  0.01076 * </span></span>
+<span id="cb4-33"><a href="#cb4-33"></a><span class="co">#&gt; cons         0.13050    0.04517   2.889  0.00403 **</span></span>
+<span id="cb4-34"><a href="#cb4-34"></a><span class="co">#&gt; emot:cons   -0.10829    0.04337  -2.497  0.01286 * </span></span>
+<span id="cb4-35"><a href="#cb4-35"></a><span class="co">#&gt; ---</span></span>
+<span id="cb4-36"><a href="#cb4-36"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
+<span id="cb4-37"><a href="#cb4-37"></a><span class="co">#&gt; </span></span>
+<span id="cb4-38"><a href="#cb4-38"></a><span class="co">#&gt; Residual standard error: 0.9771 on 494 degrees of freedom</span></span>
+<span id="cb4-39"><a href="#cb4-39"></a><span class="co">#&gt; Multiple R-squared:  0.0548, Adjusted R-squared:  0.04523 </span></span>
+<span id="cb4-40"><a href="#cb4-40"></a><span class="co">#&gt; F-statistic: 5.728 on 5 and 494 DF,  p-value: 3.768e-05</span></span>
+<span id="cb4-41"><a href="#cb4-41"></a><span class="co">#&gt; </span></span>
+<span id="cb4-42"><a href="#cb4-42"></a><span class="co">#&gt; Note:</span></span>
+<span id="cb4-43"><a href="#cb4-43"></a><span class="co">#&gt; - Estimates and their statistics are based on the data after mean-centering, scaling, or standardization.</span></span></code></pre></div>
+<p>In this example, the coefficient of the product term, which naturally can be called the<br />
+<strong>standardized moderation effect</strong>, is significant, B = -0.1083. For each one <em>standard deviation</em> increase of conscientiousness score, the <strong>standardized effect</strong> of emotional stability decreases by 0.1083.</p>
+<div id="the-arguments" class="section level2">
+<h2>The Arguments</h2>
+<p>Standardization is equivalent to centering by mean and then scaling by (dividing by) standard deviation.<br />
+The argument <code>to_center</code> specifies the variables to be centered by their means, and the argument <code>to_scale</code> specifies the variables to be scaled by their standard deviations. The formula interface of <code>lm()</code> is used in these two arguments, with the variables on the right hand side being the variables to be centered and/or scaled.</p>
+<p>The “<code>.</code>” on the right hand side represents all variables in the model, including the outcome variable (sleep duration in this example).</p>
+<p><code>std_selected()</code> will also skip categorical variables automatically skipped because standardizing them will make their coefficients not easy to interpret.</p>
+</div>
+<div id="advantage" class="section level2">
+<h2>Advantage</h2>
+<p>Using <code>std_selected</code> minimizes impact on the workflow. Do regression as usual. Get the correct standardized coefficients only when we need to interpret them.</p>
+</div>
+<div id="nonparametric-bootstrap-confidence-intervals" class="section level2">
+<h2>Nonparametric Bootstrap Confidence Intervals</h2>
+<p>There is one problem with standardized coefficients. The confidence intervals based on ordinary least squares (OLS) fitted to the standardized variables do not take into account the sampling variation of the sample means and standard deviations (Yuan &amp; Chan, 2011). Cheung, Cheung, Lau, Hui, and Vong (2022) suggest using nonparametric bootstrapping, with standardization conducted in each bootstrap sample.</p>
+<p>This can be done by <code>std_selected_boot()</code>, a wrapper of <code>std_selected()</code>:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">set.seed</span>(<span class="dv">870432</span>)</span>
+<span id="cb5-2"><a href="#cb5-2"></a>lm_stdall_boot &lt;-<span class="st"> </span><span class="kw">std_selected_boot</span>(lm_out,</span>
+<span id="cb5-3"><a href="#cb5-3"></a>                        <span class="dt">to_scale =</span> <span class="op">~</span><span class="st"> </span>.,</span>
+<span id="cb5-4"><a href="#cb5-4"></a>                        <span class="dt">to_center =</span> <span class="op">~</span><span class="st"> </span>.,</span>
+<span id="cb5-5"><a href="#cb5-5"></a>                        <span class="dt">nboot =</span> <span class="dv">5000</span>)</span></code></pre></div>
+<p>The minimum additional argument is <code>nboot</code>, the number of bootstrap samples.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">summary</span>(lm_stdall_boot)</span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="co">#&gt; </span></span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="co">#&gt; Selected variable(s) are centered by mean and/or scaled by SD</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="co">#&gt; - Variable(s) centered: sleep age gender emot cons</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="co">#&gt; - Variable(s) scaled: sleep age gender emot cons</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a><span class="co">#&gt; </span></span>
+<span id="cb6-7"><a href="#cb6-7"></a><span class="co">#&gt;        centered_by scaled_by                            Note</span></span>
+<span id="cb6-8"><a href="#cb6-8"></a><span class="co">#&gt; sleep     6.776333 1.4168291 Standardized (mean = 0, SD = 1)</span></span>
+<span id="cb6-9"><a href="#cb6-9"></a><span class="co">#&gt; age      22.274000 2.9407857 Standardized (mean = 0, SD = 1)</span></span>
+<span id="cb6-10"><a href="#cb6-10"></a><span class="co">#&gt; gender          NA        NA Nonnumeric                     </span></span>
+<span id="cb6-11"><a href="#cb6-11"></a><span class="co">#&gt; emot      2.713200 0.7629613 Standardized (mean = 0, SD = 1)</span></span>
+<span id="cb6-12"><a href="#cb6-12"></a><span class="co">#&gt; cons      3.343200 0.6068198 Standardized (mean = 0, SD = 1)</span></span>
+<span id="cb6-13"><a href="#cb6-13"></a><span class="co">#&gt; </span></span>
+<span id="cb6-14"><a href="#cb6-14"></a><span class="co">#&gt; Note:</span></span>
+<span id="cb6-15"><a href="#cb6-15"></a><span class="co">#&gt; - Categorical variables will not be centered or scaled even if requested.</span></span>
+<span id="cb6-16"><a href="#cb6-16"></a><span class="co">#&gt; - Nonparametric bootstrapping 95% confidence intervals computed.</span></span>
+<span id="cb6-17"><a href="#cb6-17"></a><span class="co">#&gt; - The number of bootstrap samples is 5000.</span></span>
+<span id="cb6-18"><a href="#cb6-18"></a><span class="co">#&gt; </span></span>
+<span id="cb6-19"><a href="#cb6-19"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb6-20"><a href="#cb6-20"></a><span class="co">#&gt; lm(formula = sleep ~ age + gender + emot * cons, data = dat_mod)</span></span>
+<span id="cb6-21"><a href="#cb6-21"></a><span class="co">#&gt; </span></span>
+<span id="cb6-22"><a href="#cb6-22"></a><span class="co">#&gt; Residuals:</span></span>
+<span id="cb6-23"><a href="#cb6-23"></a><span class="co">#&gt;     Min      1Q  Median      3Q     Max </span></span>
+<span id="cb6-24"><a href="#cb6-24"></a><span class="co">#&gt; -4.2941 -0.5563  0.0063  0.6663  4.3187 </span></span>
+<span id="cb6-25"><a href="#cb6-25"></a><span class="co">#&gt; </span></span>
+<span id="cb6-26"><a href="#cb6-26"></a><span class="co">#&gt; Coefficients:</span></span>
+<span id="cb6-27"><a href="#cb6-27"></a><span class="co">#&gt;              Estimate  CI Lower  CI Upper Std. Error t value Pr(&gt;|t|)   </span></span>
+<span id="cb6-28"><a href="#cb6-28"></a><span class="co">#&gt; (Intercept)  0.054919  0.007176  0.104459   0.048827   1.125  0.26124   </span></span>
+<span id="cb6-29"><a href="#cb6-29"></a><span class="co">#&gt; age          0.037125 -0.034742  0.107166   0.044280   0.838  0.40221   </span></span>
+<span id="cb6-30"><a href="#cb6-30"></a><span class="co">#&gt; gendermale  -0.184402 -0.439171  0.078317   0.117016  -1.576  0.11570   </span></span>
+<span id="cb6-31"><a href="#cb6-31"></a><span class="co">#&gt; emot         0.115014  0.029085  0.201193   0.044927   2.560  0.01076 * </span></span>
+<span id="cb6-32"><a href="#cb6-32"></a><span class="co">#&gt; cons         0.130502  0.028767  0.226530   0.045167   2.889  0.00403 **</span></span>
+<span id="cb6-33"><a href="#cb6-33"></a><span class="co">#&gt; emot:cons   -0.108292 -0.204263 -0.008952   0.043374  -2.497  0.01286 * </span></span>
+<span id="cb6-34"><a href="#cb6-34"></a><span class="co">#&gt; ---</span></span>
+<span id="cb6-35"><a href="#cb6-35"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
+<span id="cb6-36"><a href="#cb6-36"></a><span class="co">#&gt; </span></span>
+<span id="cb6-37"><a href="#cb6-37"></a><span class="co">#&gt; Residual standard error: 0.9771 on 494 degrees of freedom</span></span>
+<span id="cb6-38"><a href="#cb6-38"></a><span class="co">#&gt; Multiple R-squared:  0.0548, Adjusted R-squared:  0.04523 </span></span>
+<span id="cb6-39"><a href="#cb6-39"></a><span class="co">#&gt; F-statistic: 5.728 on 5 and 494 DF,  p-value: 3.768e-05</span></span>
+<span id="cb6-40"><a href="#cb6-40"></a><span class="co">#&gt; </span></span>
+<span id="cb6-41"><a href="#cb6-41"></a><span class="co">#&gt; Note:</span></span>
+<span id="cb6-42"><a href="#cb6-42"></a><span class="co">#&gt; - Estimates and their statistics are based on the data after mean-centering, scaling, or standardization.</span></span>
+<span id="cb6-43"><a href="#cb6-43"></a><span class="co">#&gt; - [CI Lower, CI Upper] are bootstrap percentile confidence intervals.</span></span>
+<span id="cb6-44"><a href="#cb6-44"></a><span class="co">#&gt; - Std. Error are not bootstrap SEs.</span></span></code></pre></div>
+<p>The output is similar to that of <code>std_selected()</code>, with additional information on the bootstrapping process.</p>
+<p>The 95% bootstrap percentile confidence interval of the standardized moderation effect is -0.2043 to -0.0090.</p>
+</div>
+</div>
+<div id="standardize-independent-variable-focal-variable-and-moderator" class="section level1">
+<h1>Standardize Independent Variable (Focal Variable) and Moderator</h1>
+<p><code>std_selected()</code> and <code>std_selected_boot()</code> can also be used to standardize only selected variables. There are cases in which we do not want to standardize some continuous variables because they are measured on interpretable units, such as hours.</p>
+<p>Suppose we want to standardize only emotional stability and conscientiousness, and do not standardize sleep duration. We just list <code>emot</code> and <code>cons</code> on <code>to_center</code> and <code>to_scale</code>:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>lm_std1 &lt;-<span class="st"> </span><span class="kw">std_selected</span>(lm_out,</span>
+<span id="cb7-2"><a href="#cb7-2"></a>                        <span class="dt">to_scale =</span> <span class="op">~</span><span class="st"> </span>emot <span class="op">+</span><span class="st"> </span>cons,</span>
+<span id="cb7-3"><a href="#cb7-3"></a>                        <span class="dt">to_center =</span> <span class="op">~</span><span class="st"> </span>emot <span class="op">+</span><span class="st"> </span>cons)</span>
+<span id="cb7-4"><a href="#cb7-4"></a><span class="kw">summary</span>(lm_std1)</span>
+<span id="cb7-5"><a href="#cb7-5"></a><span class="co">#&gt; </span></span>
+<span id="cb7-6"><a href="#cb7-6"></a><span class="co">#&gt; Selected variable(s) are centered by mean and/or scaled by SD</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a><span class="co">#&gt; - Variable(s) centered: emot cons</span></span>
+<span id="cb7-8"><a href="#cb7-8"></a><span class="co">#&gt; - Variable(s) scaled: emot cons</span></span>
+<span id="cb7-9"><a href="#cb7-9"></a><span class="co">#&gt; </span></span>
+<span id="cb7-10"><a href="#cb7-10"></a><span class="co">#&gt;        centered_by scaled_by                            Note</span></span>
+<span id="cb7-11"><a href="#cb7-11"></a><span class="co">#&gt; sleep       0.0000 1.0000000                                </span></span>
+<span id="cb7-12"><a href="#cb7-12"></a><span class="co">#&gt; age         0.0000 1.0000000                                </span></span>
+<span id="cb7-13"><a href="#cb7-13"></a><span class="co">#&gt; gender          NA        NA Nonnumeric                     </span></span>
+<span id="cb7-14"><a href="#cb7-14"></a><span class="co">#&gt; emot        2.7132 0.7629613 Standardized (mean = 0, SD = 1)</span></span>
+<span id="cb7-15"><a href="#cb7-15"></a><span class="co">#&gt; cons        3.3432 0.6068198 Standardized (mean = 0, SD = 1)</span></span>
+<span id="cb7-16"><a href="#cb7-16"></a><span class="co">#&gt; </span></span>
+<span id="cb7-17"><a href="#cb7-17"></a><span class="co">#&gt; Note:</span></span>
+<span id="cb7-18"><a href="#cb7-18"></a><span class="co">#&gt; - Categorical variables will not be centered or scaled even if requested.</span></span>
+<span id="cb7-19"><a href="#cb7-19"></a><span class="co">#&gt; </span></span>
+<span id="cb7-20"><a href="#cb7-20"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb7-21"><a href="#cb7-21"></a><span class="co">#&gt; lm(formula = sleep ~ age + gender + emot * cons, data = dat_mod)</span></span>
+<span id="cb7-22"><a href="#cb7-22"></a><span class="co">#&gt; </span></span>
+<span id="cb7-23"><a href="#cb7-23"></a><span class="co">#&gt; Residuals:</span></span>
+<span id="cb7-24"><a href="#cb7-24"></a><span class="co">#&gt;     Min      1Q  Median      3Q     Max </span></span>
+<span id="cb7-25"><a href="#cb7-25"></a><span class="co">#&gt; -6.0841 -0.7882  0.0089  0.9440  6.1189 </span></span>
+<span id="cb7-26"><a href="#cb7-26"></a><span class="co">#&gt; </span></span>
+<span id="cb7-27"><a href="#cb7-27"></a><span class="co">#&gt; Coefficients:</span></span>
+<span id="cb7-28"><a href="#cb7-28"></a><span class="co">#&gt;             Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
+<span id="cb7-29"><a href="#cb7-29"></a><span class="co">#&gt; (Intercept)  6.45575    0.47828  13.498  &lt; 2e-16 ***</span></span>
+<span id="cb7-30"><a href="#cb7-30"></a><span class="co">#&gt; age          0.01789    0.02133   0.838  0.40221    </span></span>
+<span id="cb7-31"><a href="#cb7-31"></a><span class="co">#&gt; gendermale  -0.26127    0.16579  -1.576  0.11570    </span></span>
+<span id="cb7-32"><a href="#cb7-32"></a><span class="co">#&gt; emot         0.16295    0.06365   2.560  0.01076 *  </span></span>
+<span id="cb7-33"><a href="#cb7-33"></a><span class="co">#&gt; cons         0.18490    0.06399   2.889  0.00403 ** </span></span>
+<span id="cb7-34"><a href="#cb7-34"></a><span class="co">#&gt; emot:cons   -0.15343    0.06145  -2.497  0.01286 *  </span></span>
+<span id="cb7-35"><a href="#cb7-35"></a><span class="co">#&gt; ---</span></span>
+<span id="cb7-36"><a href="#cb7-36"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
+<span id="cb7-37"><a href="#cb7-37"></a><span class="co">#&gt; </span></span>
+<span id="cb7-38"><a href="#cb7-38"></a><span class="co">#&gt; Residual standard error: 1.384 on 494 degrees of freedom</span></span>
+<span id="cb7-39"><a href="#cb7-39"></a><span class="co">#&gt; Multiple R-squared:  0.0548, Adjusted R-squared:  0.04523 </span></span>
+<span id="cb7-40"><a href="#cb7-40"></a><span class="co">#&gt; F-statistic: 5.728 on 5 and 494 DF,  p-value: 3.768e-05</span></span>
+<span id="cb7-41"><a href="#cb7-41"></a><span class="co">#&gt; </span></span>
+<span id="cb7-42"><a href="#cb7-42"></a><span class="co">#&gt; Note:</span></span>
+<span id="cb7-43"><a href="#cb7-43"></a><span class="co">#&gt; - Estimates and their statistics are based on the data after mean-centering, scaling, or standardization.</span></span></code></pre></div>
+<p>The <em>partially</em> standardized moderation effect is -0.1534. For each one <em>standard deviation</em> increase of conscientiousness score, the <em>partially</em> standardized effect of emotional stability decreases by 0.1534.</p>
+<div id="nonparametric-bootstrap-confidence-intervals-1" class="section level2">
+<h2>Nonparametric Bootstrap Confidence Intervals</h2>
+<p>The function <code>std_selected_boot()</code> can also be used to form the nonparametric bootstrap confidence interval when only some of the variables are standardized:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">set.seed</span>(<span class="dv">870432</span>)</span>
+<span id="cb8-2"><a href="#cb8-2"></a>lm_std1_boot &lt;-<span class="st"> </span><span class="kw">std_selected_boot</span>(lm_out,</span>
+<span id="cb8-3"><a href="#cb8-3"></a>                        <span class="dt">to_scale =</span> <span class="op">~</span><span class="st"> </span>emot <span class="op">+</span><span class="st"> </span>cons,</span>
+<span id="cb8-4"><a href="#cb8-4"></a>                        <span class="dt">to_center =</span> <span class="op">~</span><span class="st"> </span>emot <span class="op">+</span><span class="st"> </span>cons,</span>
+<span id="cb8-5"><a href="#cb8-5"></a>                        <span class="dt">nboot =</span> <span class="dv">5000</span>)</span></code></pre></div>
+<p>Again, the only additional argument is <code>nboot</code>.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">summary</span>(lm_std1_boot)</span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="co">#&gt; </span></span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="co">#&gt; Selected variable(s) are centered by mean and/or scaled by SD</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="co">#&gt; - Variable(s) centered: emot cons</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a><span class="co">#&gt; - Variable(s) scaled: emot cons</span></span>
+<span id="cb9-6"><a href="#cb9-6"></a><span class="co">#&gt; </span></span>
+<span id="cb9-7"><a href="#cb9-7"></a><span class="co">#&gt;        centered_by scaled_by                            Note</span></span>
+<span id="cb9-8"><a href="#cb9-8"></a><span class="co">#&gt; sleep       0.0000 1.0000000                                </span></span>
+<span id="cb9-9"><a href="#cb9-9"></a><span class="co">#&gt; age         0.0000 1.0000000                                </span></span>
+<span id="cb9-10"><a href="#cb9-10"></a><span class="co">#&gt; gender          NA        NA Nonnumeric                     </span></span>
+<span id="cb9-11"><a href="#cb9-11"></a><span class="co">#&gt; emot        2.7132 0.7629613 Standardized (mean = 0, SD = 1)</span></span>
+<span id="cb9-12"><a href="#cb9-12"></a><span class="co">#&gt; cons        3.3432 0.6068198 Standardized (mean = 0, SD = 1)</span></span>
+<span id="cb9-13"><a href="#cb9-13"></a><span class="co">#&gt; </span></span>
+<span id="cb9-14"><a href="#cb9-14"></a><span class="co">#&gt; Note:</span></span>
+<span id="cb9-15"><a href="#cb9-15"></a><span class="co">#&gt; - Categorical variables will not be centered or scaled even if requested.</span></span>
+<span id="cb9-16"><a href="#cb9-16"></a><span class="co">#&gt; - Nonparametric bootstrapping 95% confidence intervals computed.</span></span>
+<span id="cb9-17"><a href="#cb9-17"></a><span class="co">#&gt; - The number of bootstrap samples is 5000.</span></span>
+<span id="cb9-18"><a href="#cb9-18"></a><span class="co">#&gt; </span></span>
+<span id="cb9-19"><a href="#cb9-19"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb9-20"><a href="#cb9-20"></a><span class="co">#&gt; lm(formula = sleep ~ age + gender + emot * cons, data = dat_mod)</span></span>
+<span id="cb9-21"><a href="#cb9-21"></a><span class="co">#&gt; </span></span>
+<span id="cb9-22"><a href="#cb9-22"></a><span class="co">#&gt; Residuals:</span></span>
+<span id="cb9-23"><a href="#cb9-23"></a><span class="co">#&gt;     Min      1Q  Median      3Q     Max </span></span>
+<span id="cb9-24"><a href="#cb9-24"></a><span class="co">#&gt; -6.0841 -0.7882  0.0089  0.9440  6.1189 </span></span>
+<span id="cb9-25"><a href="#cb9-25"></a><span class="co">#&gt; </span></span>
+<span id="cb9-26"><a href="#cb9-26"></a><span class="co">#&gt; Coefficients:</span></span>
+<span id="cb9-27"><a href="#cb9-27"></a><span class="co">#&gt;             Estimate CI Lower CI Upper Std. Error t value Pr(&gt;|t|)    </span></span>
+<span id="cb9-28"><a href="#cb9-28"></a><span class="co">#&gt; (Intercept)  6.45575  5.64871  7.27347    0.47828  13.498  &lt; 2e-16 ***</span></span>
+<span id="cb9-29"><a href="#cb9-29"></a><span class="co">#&gt; age          0.01789 -0.01839  0.05436    0.02133   0.838  0.40221    </span></span>
+<span id="cb9-30"><a href="#cb9-30"></a><span class="co">#&gt; gendermale  -0.26127 -0.62328  0.11048    0.16579  -1.576  0.11570    </span></span>
+<span id="cb9-31"><a href="#cb9-31"></a><span class="co">#&gt; emot         0.16295  0.04049  0.28927    0.06365   2.560  0.01076 *  </span></span>
+<span id="cb9-32"><a href="#cb9-32"></a><span class="co">#&gt; cons         0.18490  0.04153  0.32293    0.06399   2.889  0.00403 ** </span></span>
+<span id="cb9-33"><a href="#cb9-33"></a><span class="co">#&gt; emot:cons   -0.15343 -0.29147 -0.01238    0.06145  -2.497  0.01286 *  </span></span>
+<span id="cb9-34"><a href="#cb9-34"></a><span class="co">#&gt; ---</span></span>
+<span id="cb9-35"><a href="#cb9-35"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
+<span id="cb9-36"><a href="#cb9-36"></a><span class="co">#&gt; </span></span>
+<span id="cb9-37"><a href="#cb9-37"></a><span class="co">#&gt; Residual standard error: 1.384 on 494 degrees of freedom</span></span>
+<span id="cb9-38"><a href="#cb9-38"></a><span class="co">#&gt; Multiple R-squared:  0.0548, Adjusted R-squared:  0.04523 </span></span>
+<span id="cb9-39"><a href="#cb9-39"></a><span class="co">#&gt; F-statistic: 5.728 on 5 and 494 DF,  p-value: 3.768e-05</span></span>
+<span id="cb9-40"><a href="#cb9-40"></a><span class="co">#&gt; </span></span>
+<span id="cb9-41"><a href="#cb9-41"></a><span class="co">#&gt; Note:</span></span>
+<span id="cb9-42"><a href="#cb9-42"></a><span class="co">#&gt; - Estimates and their statistics are based on the data after mean-centering, scaling, or standardization.</span></span>
+<span id="cb9-43"><a href="#cb9-43"></a><span class="co">#&gt; - [CI Lower, CI Upper] are bootstrap percentile confidence intervals.</span></span>
+<span id="cb9-44"><a href="#cb9-44"></a><span class="co">#&gt; - Std. Error are not bootstrap SEs.</span></span></code></pre></div>
+<p>The 95% bootstrap percentile confidence interval of the partially standardized moderation effect is -0.2915 to -0.0124.</p>
+</div>
+</div>
+<div id="further-information" class="section level1">
+<h1>Further Information</h1>
+<p>A more detailed illustration can be found at <code>vignette(&quot;moderation&quot;)</code>.</p>
+<p><code>vignette(&quot;std_selected&quot;)</code> illustrates how <code>std_selected()</code> can be used to form nonparametric bootstrap percentile confidence interval for standardized regression coefficients (“betas”) for regression models without a product term.</p>
+<p>Further information on the functions can be found in their help pages (<code>std_selected()</code> and <code>std_selected_boot()</code>). For example, parallel computation can be used when doing bootstrapping, if the number of bootstrapping samples request is large.</p>
+</div>
+<div id="references" class="section level1">
+<h1>Reference(s)</h1>
+<p>Cheung, S. F., Cheung, S.-H., Lau, E. Y. Y., Hui, C. H., &amp; Vong, W. N. (2022) Improving an old way to measure moderation effect in standardized units. Advance online publication. <em>Health Psychology</em>. <a href="https://doi.org/10.1037/hea0001188" class="uri">https://doi.org/10.1037/hea0001188</a>.</p>
+<p>Yuan, K.-H., &amp; Chan, W. (2011). Biases and standard errors of standardized regression coefficients. <em>Psychometrika, 76</em>(4), 670-690. <a href="https://doi.org/10.1007/s11336-011-9224-6" class="uri">https://doi.org/10.1007/s11336-011-9224-6</a></p>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

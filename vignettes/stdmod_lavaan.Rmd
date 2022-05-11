@@ -1,0 +1,181 @@
+---
+title: "Standardized Moderation Effect in a Path Model by stdmod_lavaan()"
+author: "Shu Fai Cheung and David Weng Ngai Vong"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Standardized Moderation Effect in a Path Model by stdmod_lavaan()}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.width  = 6,
+  fig.height = 4,
+  fig.align = 'center'
+)
+```
+
+# Purpose
+
+This document demonstrates how to use `stdmod_lavaan()` to compute the
+standardized moderation effect in a path model fitted by `lavaan::sem()`.
+
+
+# Setup the Environment
+
+```{r setup}
+library(stdmod) # For computing the standardized moderation effect conveniently
+library(lavaan) # For doing path analysis in lavaan.
+```
+
+# Load the Dataset
+
+```{r load_dataset}
+data(test_mod1)
+round(head(test_mod1, 3), 3)
+```
+
+This test data set has 300 cases, six variables, all continuous.
+
+
+# Fit the Model by `lavaan::sem()`
+
+The product term can be formed manually or by the colon operator, `:`.
+`stdmod_lavaan()` will work in both cases.
+
+This is the model to be tested:
+
+```{r mod_sem}
+mod <-
+"
+med ~ iv + mod + iv:mod + cov1
+dv ~ med + cov2
+"
+fit <- sem(mod, test_mod1, fixed.x = FALSE)
+summary(fit)
+```
+
+The results show that `mod` significantly moderates the effect of
+`iv` on `med`.
+
+# Compute the Standardized Moderation Effect
+
+As in the case of regression, the coefficient of `iv:mod` in
+the standardized solution is not the desired standardized coefficient because
+it standardizes the product term.
+
+```{r}
+standardizedSolution(fit)[3, ]
+```
+
+After fitting the path model by `lavaan::lavaan()`, we can use `stdmod_lavaan()`
+to compute the standardized moderation effect using the standard deviations
+of the focal variable, the moderator, and the outcome variable (Cheung,
+Cheung, Lau, Hui, & Vong, 2022).
+
+The minimal arguments are:
+
+- `fit`: The output from `lavaan::lavaan()` and its wrappers, such
+          as `lavaan::sem()`.
+- `x`: The focal variable, the variable with its effect on the
+       outcome variable being moderated.
+- `y`: The outcome variable.
+- `w`: The moderator.
+- `x_w`: The product term.
+
+```{r}
+fit_iv_mod_std <- stdmod_lavaan(fit = fit,
+                                x = "iv",
+                                y = "med",
+                                w = "mod",
+                                x_w = "iv:mod")
+fit_iv_mod_std
+```
+
+The standardized moderation effect of `mod` on the `iv`-`med` path is
+`r formatC(coef(fit_iv_mod_std), 3, format = "f")`.
+
+# Form Bootstrap Confidence Interval
+
+`stdmod_lavaan()` can also be used to form nonparametric bootstrap
+confidence interval for the standardized moderation effect.
+
+Only two additional arguments are required:
+
+- `boot_ci`: Set it to `TRUE` to request nonparametric bootstrap confidence
+             interval.
+- `R`: Set the number of bootstrap samples. Should be at least 2000.
+
+However, the function can be slow if the model takes some time to fit because
+the model will be fitted `R` times. If the model cannot be fitted quickly,
+we highly suggest using parallel processing. This can be requested using
+arguments in `boot::boot()` because `stdmod_lavaan()` internally calls
+`boot::boot()` to do the bootstrapping. These are the two possible arguments
+to use for parallel processing:
+
+-  `parallel`: Can be `"no"`, `"multicore"`, or `"snow"`.  See `boot::boot()`
+               on which one to use. The following example uses `"snow"`.
+- `ncpus`: The number of processors to use. Let `boot::boot()` decides or set
+            it based on the configuration of the computer.
+
+```{r echo = FALSE}
+if (file.exists("egl_out_boot.rds")) {
+    fit_iv_mod_std_ci <- readRDS("egl_out_boot.rds")
+  } else {
+    set.seed(860947)
+    fit_iv_mod_std_ci <- stdmod_lavaan(fit = fit,
+                                        x = "iv",
+                                        y = "med",
+                                        w = "mod",
+                                        x_w = "iv:mod",
+                                        boot_ci = TRUE,
+                                        R = 2000,
+                                        parallel = "snow",
+                                        ncpus = 6)
+    saveRDS(out_boot, "egl_out_boot.rds")
+  }
+```
+
+```{r eval = FALSE}
+set.seed(860947)
+fit_iv_mod_std_ci <- stdmod_lavaan(fit = fit,
+                                    x = "iv",
+                                    y = "med",
+                                    w = "mod",
+                                    x_w = "iv:mod",
+                                    boot_ci = TRUE,
+                                    R = 2000,
+                                    parallel = "snow",
+                                    ncpus = 6)
+fit_iv_mod_std_ci
+```
+
+```{r echo = FALSE}
+fit_iv_mod_std_ci
+```
+
+The 95% confidence interval of the standardized moderation effect is
+`r formatC(confint(fit_iv_mod_std_ci)[1], 3, format = "f")` to
+`r formatC(confint(fit_iv_mod_std_ci)[2], 3, format = "f")`.
+
+# Remarks
+
+The function `stdmod_lavaan()` can be used for more complicated path models.
+The computation of the standardized moderation effect in a path model depends
+only on the standard deviations of the three variables involved
+(`x`, `w`, and `y`).
+
+# Reference(s)
+
+The computation of the standardized moderation effect is based on the simple
+formula presented in the following manuscript, using the standard deviations of
+the outcome variable, focal variable, and the moderator:
+
+Cheung, S. F., Cheung, S.-H., Lau, E. Y. Y., Hui, C. H., & Vong, W. N. (2022)
+Improving an old way to measure moderation effect in standardized units.
+Advance online publication. *Health Psychology*. https://doi.org/10.1037/hea0001188.
+

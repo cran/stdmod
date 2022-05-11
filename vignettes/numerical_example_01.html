@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="Shu Fai Cheung and David Weng Ngai Vong" />
+
+<meta name="date" content="2022-04-21" />
+
+<title>Numerical Example - std_selected</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+<script>// Hide empty <a> tag within highlighted CodeBlock for screen reader accessibility (see https://github.com/jgm/pandoc/issues/6352#issuecomment-626106786) -->
+// v0.0.1
+// Written by JooYoung Seo (jooyoung@psu.edu) and Atsushi Yasumoto on June 1st, 2020.
+
+document.addEventListener('DOMContentLoaded', function() {
+  const codeList = document.getElementsByClassName("sourceCode");
+  for (var i = 0; i < codeList.length; i++) {
+    var linkList = codeList[i].getElementsByTagName('a');
+    for (var j = 0; j < linkList.length; j++) {
+      if (linkList[j].innerHTML === "") {
+        linkList[j].setAttribute('aria-hidden', 'true');
+      }
+    }
+  }
+});
+</script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Numerical Example - std_selected</h1>
+<h4 class="author">Shu Fai Cheung and David Weng Ngai Vong</h4>
+<h4 class="date">2022-04-21</h4>
+
+
+
+<div id="purpose" class="section level1">
+<h1>Purpose</h1>
+<p>This document demonstrates how to use <code>std_selected()</code> to do mean centering and rescaling for selected variables in a regression model. A moderated regression model is used as an example.</p>
+</div>
+<div id="setup-the-environment" class="section level1">
+<h1>Setup the Environment</h1>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(stdmod)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">library</span>(visreg) <span class="co"># For visualizing the moderation effect</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="kw">library</span>(lm.beta) <span class="co"># For generating the typical standardized solution</span></span></code></pre></div>
+</div>
+<div id="load-the-dataset" class="section level1">
+<h1>Load the Dataset</h1>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">data</span>(sleep_emo_con)</span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="kw">head</span>(sleep_emo_con)</span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="co">#&gt;   case_id sleep_duration conscientiousness emotional_stability age gender</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="co">#&gt; 1       1              6               3.6                 3.6  20 female</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="co">#&gt; 2       2              4               3.8                 2.4  20 female</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="co">#&gt; 3       3              7               4.3                 2.7  20 female</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="co">#&gt; 4       4              8               2.9                 1.3  20 female</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a><span class="co">#&gt; 5       5              8               3.3                 2.6  22 female</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a><span class="co">#&gt; 6       6              8               2.4                 2.2  25 female</span></span></code></pre></div>
+<p>This data set has 500 cases of data. The variables are sleep duration, age, gender, and the scores from two personality scales, emotional stability and conscientiousness of the IPIP Big Five markers. Please refer to (citation to be included) for the detail of the data set.</p>
+</div>
+<div id="moderated-regression" class="section level1">
+<h1>Moderated Regression</h1>
+<p>Suppose we are interested in predicting sleep duration by emotional stability, after controlling for gender and age. However, we suspect that the effect of emotional stability, if any, may be moderated by conscientiousness. Therefore, we conduct a moderated regression as follow:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>lm_raw &lt;-<span class="st"> </span><span class="kw">lm</span>(sleep_duration <span class="op">~</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>gender <span class="op">+</span><span class="st"> </span>emotional_stability<span class="op">*</span>conscientiousness, sleep_emo_con)</span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="kw">summary</span>(lm_raw)</span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="co">#&gt; </span></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="co">#&gt; lm(formula = sleep_duration ~ age + gender + emotional_stability * </span></span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="co">#&gt;     conscientiousness, data = sleep_emo_con)</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="co">#&gt; </span></span>
+<span id="cb3-8"><a href="#cb3-8"></a><span class="co">#&gt; Residuals:</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a><span class="co">#&gt;     Min      1Q  Median      3Q     Max </span></span>
+<span id="cb3-10"><a href="#cb3-10"></a><span class="co">#&gt; -6.0841 -0.7882  0.0089  0.9440  6.1189 </span></span>
+<span id="cb3-11"><a href="#cb3-11"></a><span class="co">#&gt; </span></span>
+<span id="cb3-12"><a href="#cb3-12"></a><span class="co">#&gt; Coefficients:</span></span>
+<span id="cb3-13"><a href="#cb3-13"></a><span class="co">#&gt;                                       Estimate Std. Error t value Pr(&gt;|t|)   </span></span>
+<span id="cb3-14"><a href="#cb3-14"></a><span class="co">#&gt; (Intercept)                            1.85154    1.35224   1.369  0.17155   </span></span>
+<span id="cb3-15"><a href="#cb3-15"></a><span class="co">#&gt; age                                    0.01789    0.02133   0.838  0.40221   </span></span>
+<span id="cb3-16"><a href="#cb3-16"></a><span class="co">#&gt; gendermale                            -0.26127    0.16579  -1.576  0.11570   </span></span>
+<span id="cb3-17"><a href="#cb3-17"></a><span class="co">#&gt; emotional_stability                    1.32151    0.45039   2.934  0.00350 **</span></span>
+<span id="cb3-18"><a href="#cb3-18"></a><span class="co">#&gt; conscientiousness                      1.20385    0.37062   3.248  0.00124 **</span></span>
+<span id="cb3-19"><a href="#cb3-19"></a><span class="co">#&gt; emotional_stability:conscientiousness -0.33140    0.13273  -2.497  0.01286 * </span></span>
+<span id="cb3-20"><a href="#cb3-20"></a><span class="co">#&gt; ---</span></span>
+<span id="cb3-21"><a href="#cb3-21"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
+<span id="cb3-22"><a href="#cb3-22"></a><span class="co">#&gt; </span></span>
+<span id="cb3-23"><a href="#cb3-23"></a><span class="co">#&gt; Residual standard error: 1.384 on 494 degrees of freedom</span></span>
+<span id="cb3-24"><a href="#cb3-24"></a><span class="co">#&gt; Multiple R-squared:  0.0548, Adjusted R-squared:  0.04523 </span></span>
+<span id="cb3-25"><a href="#cb3-25"></a><span class="co">#&gt; F-statistic: 5.728 on 5 and 494 DF,  p-value: 3.768e-05</span></span>
+<span id="cb3-26"><a href="#cb3-26"></a><span class="kw">visreg</span>(lm_raw, <span class="st">&quot;emotional_stability&quot;</span>, <span class="st">&quot;conscientiousness&quot;</span>,</span>
+<span id="cb3-27"><a href="#cb3-27"></a>            <span class="dt">breaks =</span> <span class="dv">2</span>, <span class="dt">overlay =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<p>The results show that conscientiousness significantly moderates the effect of emotional stability on sleep duration.</p>
+</div>
+<div id="mean-center-conscientiousness" class="section level1">
+<h1>Mean Center Conscientiousness</h1>
+<p>To know the effect of emotional stability when conscientiousness is equal to its mean, we can center conscientiousness by its mean in the data and redo the moderated regression. Instead of creating the new variable and rerun the regression, we can pass the previous output to <code>std_selected()</code> and specify the variables to be mean centered.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>lm_w_centered &lt;-<span class="st"> </span><span class="kw">std_selected</span>(lm_raw, <span class="dt">to_center =</span> <span class="op">~</span><span class="st"> </span>conscientiousness)</span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="kw">summary</span>(lm_w_centered)</span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="co">#&gt; </span></span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="co">#&gt; Selected variable(s) are centered and/or scaled</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="co">#&gt; - Variable(s) centered: conscientiousness</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="co">#&gt; - Variable(s) scaled:</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="co">#&gt;                     centered_by scaled_by</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="co">#&gt; sleep_duration           0.0000         1</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a><span class="co">#&gt; age                      0.0000         1</span></span>
+<span id="cb4-10"><a href="#cb4-10"></a><span class="co">#&gt; gender                   0.0000         1</span></span>
+<span id="cb4-11"><a href="#cb4-11"></a><span class="co">#&gt; emotional_stability      0.0000         1</span></span>
+<span id="cb4-12"><a href="#cb4-12"></a><span class="co">#&gt; conscientiousness        3.3432         1</span></span>
+<span id="cb4-13"><a href="#cb4-13"></a><span class="co">#&gt; </span></span>
+<span id="cb4-14"><a href="#cb4-14"></a><span class="co">#&gt; Note:</span></span>
+<span id="cb4-15"><a href="#cb4-15"></a><span class="co">#&gt; - Centered by 0 or NA: No centering</span></span>
+<span id="cb4-16"><a href="#cb4-16"></a><span class="co">#&gt; - Scaled by 1 or NA: No scaling</span></span>
+<span id="cb4-17"><a href="#cb4-17"></a><span class="co">#&gt; </span></span>
+<span id="cb4-18"><a href="#cb4-18"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb4-19"><a href="#cb4-19"></a><span class="co">#&gt; lm(formula = sleep_duration ~ age + gender + emotional_stability * </span></span>
+<span id="cb4-20"><a href="#cb4-20"></a><span class="co">#&gt;     conscientiousness, data = dat_mod)</span></span>
+<span id="cb4-21"><a href="#cb4-21"></a><span class="co">#&gt; </span></span>
+<span id="cb4-22"><a href="#cb4-22"></a><span class="co">#&gt; Residuals:</span></span>
+<span id="cb4-23"><a href="#cb4-23"></a><span class="co">#&gt;     Min      1Q  Median      3Q     Max </span></span>
+<span id="cb4-24"><a href="#cb4-24"></a><span class="co">#&gt; -6.0841 -0.7882  0.0089  0.9440  6.1189 </span></span>
+<span id="cb4-25"><a href="#cb4-25"></a><span class="co">#&gt; </span></span>
+<span id="cb4-26"><a href="#cb4-26"></a><span class="co">#&gt; Coefficients:</span></span>
+<span id="cb4-27"><a href="#cb4-27"></a><span class="co">#&gt;                                       Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
+<span id="cb4-28"><a href="#cb4-28"></a><span class="co">#&gt; (Intercept)                            5.87626    0.51695  11.367  &lt; 2e-16 ***</span></span>
+<span id="cb4-29"><a href="#cb4-29"></a><span class="co">#&gt; age                                    0.01789    0.02133   0.838  0.40221    </span></span>
+<span id="cb4-30"><a href="#cb4-30"></a><span class="co">#&gt; gendermale                            -0.26127    0.16579  -1.576  0.11570    </span></span>
+<span id="cb4-31"><a href="#cb4-31"></a><span class="co">#&gt; emotional_stability                    0.21358    0.08343   2.560  0.01076 *  </span></span>
+<span id="cb4-32"><a href="#cb4-32"></a><span class="co">#&gt; conscientiousness                      1.20385    0.37062   3.248  0.00124 ** </span></span>
+<span id="cb4-33"><a href="#cb4-33"></a><span class="co">#&gt; emotional_stability:conscientiousness -0.33140    0.13273  -2.497  0.01286 *  </span></span>
+<span id="cb4-34"><a href="#cb4-34"></a><span class="co">#&gt; ---</span></span>
+<span id="cb4-35"><a href="#cb4-35"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
+<span id="cb4-36"><a href="#cb4-36"></a><span class="co">#&gt; </span></span>
+<span id="cb4-37"><a href="#cb4-37"></a><span class="co">#&gt; Residual standard error: 1.384 on 494 degrees of freedom</span></span>
+<span id="cb4-38"><a href="#cb4-38"></a><span class="co">#&gt; Multiple R-squared:  0.0548, Adjusted R-squared:  0.04523 </span></span>
+<span id="cb4-39"><a href="#cb4-39"></a><span class="co">#&gt; F-statistic: 5.728 on 5 and 494 DF,  p-value: 3.768e-05</span></span>
+<span id="cb4-40"><a href="#cb4-40"></a><span class="kw">visreg</span>(lm_w_centered, <span class="st">&quot;emotional_stability&quot;</span>, <span class="st">&quot;conscientiousness&quot;</span>,</span>
+<span id="cb4-41"><a href="#cb4-41"></a>            <span class="dt">breaks =</span> <span class="dv">2</span>, <span class="dt">overlay =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<p>The argument for meaning centering is <code>to_center</code>. The variable is specified in the formula form.</p>
+</div>
+<div id="mean-center-conscientiousness-and-emotional-stability" class="section level1">
+<h1>Mean Center Conscientiousness and Emotional Stability</h1>
+<p>This example demonstrates centering more than one variable. In the following model, both emotional stability and conscientiousness are centered. They are placed after <code>~</code> and joined by <code>+</code>.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>lm_xw_centered &lt;-<span class="st"> </span><span class="kw">std_selected</span>(lm_raw, <span class="dt">to_center =</span> <span class="op">~</span><span class="st"> </span>emotional_stability <span class="op">+</span><span class="st"> </span>conscientiousness)</span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="kw">summary</span>(lm_xw_centered)</span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="co">#&gt; </span></span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="co">#&gt; Selected variable(s) are centered and/or scaled</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="co">#&gt; - Variable(s) centered: emotional_stability conscientiousness</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a><span class="co">#&gt; - Variable(s) scaled:</span></span>
+<span id="cb5-7"><a href="#cb5-7"></a><span class="co">#&gt;                     centered_by scaled_by</span></span>
+<span id="cb5-8"><a href="#cb5-8"></a><span class="co">#&gt; sleep_duration           0.0000         1</span></span>
+<span id="cb5-9"><a href="#cb5-9"></a><span class="co">#&gt; age                      0.0000         1</span></span>
+<span id="cb5-10"><a href="#cb5-10"></a><span class="co">#&gt; gender                   0.0000         1</span></span>
+<span id="cb5-11"><a href="#cb5-11"></a><span class="co">#&gt; emotional_stability      2.7132         1</span></span>
+<span id="cb5-12"><a href="#cb5-12"></a><span class="co">#&gt; conscientiousness        3.3432         1</span></span>
+<span id="cb5-13"><a href="#cb5-13"></a><span class="co">#&gt; </span></span>
+<span id="cb5-14"><a href="#cb5-14"></a><span class="co">#&gt; Note:</span></span>
+<span id="cb5-15"><a href="#cb5-15"></a><span class="co">#&gt; - Centered by 0 or NA: No centering</span></span>
+<span id="cb5-16"><a href="#cb5-16"></a><span class="co">#&gt; - Scaled by 1 or NA: No scaling</span></span>
+<span id="cb5-17"><a href="#cb5-17"></a><span class="co">#&gt; </span></span>
+<span id="cb5-18"><a href="#cb5-18"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb5-19"><a href="#cb5-19"></a><span class="co">#&gt; lm(formula = sleep_duration ~ age + gender + emotional_stability * </span></span>
+<span id="cb5-20"><a href="#cb5-20"></a><span class="co">#&gt;     conscientiousness, data = dat_mod)</span></span>
+<span id="cb5-21"><a href="#cb5-21"></a><span class="co">#&gt; </span></span>
+<span id="cb5-22"><a href="#cb5-22"></a><span class="co">#&gt; Residuals:</span></span>
+<span id="cb5-23"><a href="#cb5-23"></a><span class="co">#&gt;     Min      1Q  Median      3Q     Max </span></span>
+<span id="cb5-24"><a href="#cb5-24"></a><span class="co">#&gt; -6.0841 -0.7882  0.0089  0.9440  6.1189 </span></span>
+<span id="cb5-25"><a href="#cb5-25"></a><span class="co">#&gt; </span></span>
+<span id="cb5-26"><a href="#cb5-26"></a><span class="co">#&gt; Coefficients:</span></span>
+<span id="cb5-27"><a href="#cb5-27"></a><span class="co">#&gt;                                       Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
+<span id="cb5-28"><a href="#cb5-28"></a><span class="co">#&gt; (Intercept)                            6.45575    0.47828  13.498  &lt; 2e-16 ***</span></span>
+<span id="cb5-29"><a href="#cb5-29"></a><span class="co">#&gt; age                                    0.01789    0.02133   0.838  0.40221    </span></span>
+<span id="cb5-30"><a href="#cb5-30"></a><span class="co">#&gt; gendermale                            -0.26127    0.16579  -1.576  0.11570    </span></span>
+<span id="cb5-31"><a href="#cb5-31"></a><span class="co">#&gt; emotional_stability                    0.21358    0.08343   2.560  0.01076 *  </span></span>
+<span id="cb5-32"><a href="#cb5-32"></a><span class="co">#&gt; conscientiousness                      0.30470    0.10546   2.889  0.00403 ** </span></span>
+<span id="cb5-33"><a href="#cb5-33"></a><span class="co">#&gt; emotional_stability:conscientiousness -0.33140    0.13273  -2.497  0.01286 *  </span></span>
+<span id="cb5-34"><a href="#cb5-34"></a><span class="co">#&gt; ---</span></span>
+<span id="cb5-35"><a href="#cb5-35"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
+<span id="cb5-36"><a href="#cb5-36"></a><span class="co">#&gt; </span></span>
+<span id="cb5-37"><a href="#cb5-37"></a><span class="co">#&gt; Residual standard error: 1.384 on 494 degrees of freedom</span></span>
+<span id="cb5-38"><a href="#cb5-38"></a><span class="co">#&gt; Multiple R-squared:  0.0548, Adjusted R-squared:  0.04523 </span></span>
+<span id="cb5-39"><a href="#cb5-39"></a><span class="co">#&gt; F-statistic: 5.728 on 5 and 494 DF,  p-value: 3.768e-05</span></span>
+<span id="cb5-40"><a href="#cb5-40"></a><span class="kw">visreg</span>(lm_xw_centered, <span class="st">&quot;emotional_stability&quot;</span>, <span class="st">&quot;conscientiousness&quot;</span>,</span>
+<span id="cb5-41"><a href="#cb5-41"></a>            <span class="dt">breaks =</span> <span class="dv">2</span>, <span class="dt">overlay =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAkAAAAJACAMAAABSRCkEAAAAdVBMVEUAAAAAADoAAGYAOpAAZrYAjf86AAA6ADo6AGY6Ojo6OpA6kNtmAABmADpmAGZmkJBmtrZmtv9/mc1/xv+QOgCQOjqQZgCQ27aQ2/+2ZgC225C2/7a2///bkDrb/7bb////Tjf/ppv/tmb/25D//7b//9v///+R1IK+AAAACXBIWXMAAA7DAAAOwwHHb6hkAAAcB0lEQVR4nO2di3qjOLZGqUo51TN2z3Sqc3ric4opN3b8/o94uCNsybr8WyDhf31fpRwCEqDlrQsgiishAMXaO0DyhgIRCApEICgQgaBABIICEQgKRCAoEIGgQASCAhEICkQgKBCBoEAEggIRCApEICgQgaBABIICEQgKRCAoEIGgQASCAhEICkQgKBCBoEAEggIRCApEICgQgaBABIICEQgKRCAoEIGgQAQidYEuhzfN0urN8AeAqii+fIy5FjXful+OL7/qn6Xy57gscsjaox0+VEWHS3apC6RFXJ6aqj6f1XBOz98nV6qiEaj8+nP68woIH7L+aNXDrnP85pISBer4fN/XP4/9OatqXca8GoEuh32zjtMpjYLsIRuOVjns7ivjwGoClX0d0YTLfXOC/ji0MfP82sfOboXuxJWzlZpVXv7b/mHc+q370W89pjZsOSY7Jn/jw/m1Xbs/aeX0l/Llr7YKu90g60M2HG05OyF7p4OSFOj0kPm6ZR0/m6911R57c9bqBfXC9tCahf0K7XlqPjcHNKzULGz/MG3dnc1h62HFccvhD2Pyt3TRe/gKHv/RF0Kz/DgIVN5VYbuH3Kyc0CEbjnY67PqzWwCSFOixP3OD2irhOsTSqjlB+/aLMRzUsEJ34tqVvv4cVhrOprJ1dzZnW7cr9lsOf6hMp6VrEPTNgsuhcea47/avF6gaz+3IY39uDErpkPVHOx32tDNWVopAXQwd/u9PUHM+LofueIcVmuXdgc5Weuujt2Hr8exOWw5/MBg0O6X9onrVsj6lx6kKGz4N+ESglA7ZcLTKB+cOw0ptoKG9352P/gT1X7G2xh5WaM/m0KvUn03N1uPZHPuj/R/G//U7NPu21qm3S0eBsG5YSoesP1r1w/H2u2JiLYFMX8d26bFvGFzVr+N1+pYZv47D1vOv48Cx/+0496BtdM6bld2+ff8o5wMi40nO/ZD1R6t8cK7B1hJI0yBQzkd7wtQGwdt1/EU9m3fNiWnraUU107fZ/yqzjm2X0tjGrL+M8yXZH7L+aJWDdP+qrNWNb/oKTafytlPRfoGqvjNRrzB2SdRvWXPyZl2SpnVSR+px67Fshi2HP4zJ3zEbWmtP7XHoj7RNy/pHd9o3ccj6o50O272yTmcc6G2q/du9vx0Uqb8Y40rHm0GRazMI/8e09fTl7rcckx2TvxvW6a9VdEuPSrOhaw4c9W2nXA9Zf7TjB8dRxGumI9EkHSgQgaBABIICEQgKRCAoEIGgQASCAhEICkQgKBCBoEAEggIRCApEICgQgaBABIICEQgKRCAoEIGgQASCAhEICkQgKBCBoEAEggIRCApEICgQgaBABIICEQgKRCAoEIGgQASCAhEIYYEKshHWEkg2ObIWFIhAUCACQYEIBAUiEBSIQFAgAkGBCAQFIhAUiEBQIAJBgQgEBSIQFGglbl/VnCsUaB3uX/adKRRoJTbiDwUiGBSIQFAgAkGBCAQFIhAUiEBQIAJBgQgEBSIQFIhAUCACQYEIBAUiEBSIQFAgAkGBCAQFIhAUiEBQIAJBgQgEBSIQFIhAUCACQYEIBAUiEBSIQFAgAkGBCEQkgc6//ax/fr4XRbEXSI4kSxyBLoevPxt/vnxcy+IbnBxJlygCVUXRCHR+fat/KZuPUHIkYWIIVBX7arKmqsMQlBxJmUhtIEWgIyPQlokuUDVrRfu/6I6kTWyBKn0bmhFoK0QWqDL04inQVogrUGnyhwJthagClcWbTHIkWWIKdH41xR8KtBliClR2/S2OA20ZXkwlEBSIQFAgAkGBCAQFIhAUiEBQIAJBgQgEBSIQFIhAUCACQYEIBAUiEBSIQFAgAkGBCAQFIhAUiEBQIAJBgQgEBSIQFIhAUCACQYEIBAUiEBSIQFAgAkGBCAQFIhAUiEBQIAJBgQgEBSIQFIhAUCACQYEIBAVaid3aOyAEBVqH3W4jBlGgJTlNHzfiDwVaktPpZF8pMyjQkmzPHwpEMCgQgaBABIICEQgKRCAoEIGgQASCAhGISAKdf2tfulsZ3ldIgTZDHIEuh/alu1VtT6U36OkFkh6UXmuQO4pAdeBpBPp8b166e/yGJrdFpC+LrXaZLYZAVbHv39rcvPW77F4hH57cNmEEekgn0PeP4eOYyohXcmvhVyobvFRqJ6ZAXfNH3wjKQiC/emGLN2vYoUAthqJnBLKycBUWmFxsnjN4iBBVoHwa0fQnlJgCZdSNtwtExfTEFCifgUR7FcZKzkBUga5lLpcyGIFC4cVUAkGBCAQFIhAUiEBQIAJBgQgEBSIQFMiRnGbTWHLMigK5kdN8PouOmlMgR/LxJ/kIVPX3FL4tki9JG1+BLoeiv7r++V5ob9QQzjdFcopGsfEU6PIv1Zn5b3HyTZCc2kPRYRsoAPozQYEwnv4uD3+BplbQIvmmDe8zC4lAZd0F2y+V7zIEV0rP7k9oFQY7lJZAarPYT4mnbw4Ft4EahbbTjVf88aqU2CELE6hqxxE/319+Rc93cRiBvAgQqG5FF505+mcGZfNNnJgCSaQdXfCQXpjhQYs4+cZDov1rqsJEyl6geoxfxQYI9HvnDxB+fPKNhkgP/LTTJhJebjvDZ0P2XulFIVwg/SPL4vnGQ6SxY0jEsLa1OP3MS2EUyleg4zTDTyLdePUc7rQfJRCpqxz08Nvt9f0BItBC+dpQv4VKAYlX/gZ//LKRrlAS6APmfy3M0GpY6NyuWoQpjEJlL1AKJ3E1Ejh03/uBDvtmGKglkUZ0AicRJedDyD4CybCtmmjJo9mWQIZeibWzsnI9uFCPMQqbEsgwLuIwXJJzJXJPwhFobACl0wZSCY1AMmzLQkc2FYHW5Tn7gxRIjmf0hwKtxVZsS30cSOKK9FL4OLGZ+i7xCGQ/zylcke7wc0JdN5UjCCFxgdTzvEIXyy9KhMaUdL4DAYQI1FZi4bdD++U7ssJpXqqeWdcfLPeg2TnaV2BgN7YGBLQVTrPdn/xbMuAX01+g7g0Y1+sRikHRe2HLlOwW2sJLR6DLoZsYKO17opcq2dT9SfCe6M/37tH4khEIYZleWIpPZTTv1L2aXkQon28oiQs0e5g6YvcgtQiU+MXUiahfPekn/k76xVmQ+jhQMDH9iSfnyo3ygEi4WYFUpCNGxHv31/UnoC4NfDbesQorjZO5LimQw9faWokY0thCN15hmQh0fPlVfuvfqPuYZrCx0hsECuR1pKbCV5KbnlCerWwINV4RyO8hVREfY6Z9S8g40P5a1V14eze+6/DHeOmuZ6y1Bo/ZZ/0qhi3teXulIRLRFo2WYQOJ599+tv8eE08gv1kFvCKQaRV1qddjzuFpeHXOHGZlSCQCNZcymseb7QJFrMKsmGoiPZ6TbNidsBahIWk1tCqfTUkbYmjiT2U003Ic904j0dXtW5unUSTHbIOH2CRmPQhe7LChYf9O2s+GpE05RvLn75q7hSHd+LpSqntiDp2wY73O+VU7i4djvjKDtF4VnrqdV81maFurFVHw7BwSrflg/la4+2PMcaCuo6afRyh6BFLTUOsFvy19Vlb0UMybZa4IKdG8Csc1vb9vudswoBHtPENZd7lMf9Fs0YFEfRFKpOfQIrFWSjP8vPLDo5V0J87gz92G4QLZZyjrIpBeNLlemMSQkGfmhtatvYWj7olXliL+OO6fSR6ZCOQ1QxneBjKgFKHEkJCLhaqyJ31NlPqg9OP9e+iNZBvIZ4ayo9Gzu3yDGyfSrSSHNTK+B16PmzxCAslwm5xMdys4BnhFoM3g7o2oQM21jBJ9LAOMQHrCn8x6PgLkkRLo+PLr/PrNcInCPzlJvPxZ4UL6ktcYDASKIyhQcy2suT6R9k31DgS3pz0TVFaIeQXVYR1QHkGBmu6V8ETjqVQopsaYwxCxxDhzKI8yF/BGUqC67rocXn5dDqJVWDp3Zhn8cQgehush9iwl2v6GNCTlkRLocii+fAwP94QiF4EW6h7Zg4d+eMih/x/85TF3XaW9ERVIBLHkPKscAyLhT3+hwjACKZK7NrlZgZ8EpPnRcuq4zQ0S6PN/gp8Nk/PR71stHAP8XrYSd34IXdnXOQb6MnC65SbX/AUy4FeEodeuPJWI4c9jG+z+/NBzJ85mI5AfoUU4i1HJXNXwji46X042Z3rade52IRmB/qwJTWwB1PtA1p8QCvHFNdTMvBm525WkBNLjkapXSyb83rI1/UF9cTZHv9Hd/mQgkI7dZJbfUN7E+nHEC60rOx9h7NLU58+WwN1+5SlQfaSaj71XrjErvOsu0XD2yd0UWxwK3MWbKdjYk7vbtzwF+vNemltO2qVKhqZmsR2H2GVtMBmC5Wxn7WLYCjykkno6gQz+nBSD9B932rVdQoP9ObMHt/HbjyCkYF29QZO2F6SJ2CPRVmdUZvWWFlUg5bO6WC+QPWnP3E2raJf+CC1h10rqmQVST7m1kGdrayPQTAPDYkMau5Nu8Z/a9Ey7N1dM8WAqLJcGzlLiSAkUb4Yy2xl3+VZ7oWqgYvDHIaLp1dvpP3fb3QsxfXzYRF7YmxFUIDHACCSBwR9DBFKX6ttUevXU9NTPaiEboo7GH7szu8gEe7G+QOFoS9YvAjl4FbvoEiHUi9n9QGtUYfPS13xc+8w+B9aCtJe4+wxlTsn1rH1iNkNdz+18GkE7pall385ekNYSd5+hzCm5nrVPuxDzOHlbPo+K8GHrRk3E0kpyy3K2+oO/3YV+a0HaS9x9hjKn5AZESs/ezvYa5Lkz4mF649o/jM3i+Tfc1gXf6ROxm+J9iUzrihZ7QVpL3GOGMpfkBtz2X4PaHDL09L1GjXRK/OnUZ1OqAn1Pul/s2AU3hZ0fHmsgrmixF6S9xD1mKHNJrgc4qAm/nrmyndW8B2toVdHr4ySOxgl7qHlUbTmdOkfsBelQ4s4zlLkl12Hf9/BxIL9xa2Xp6WbIud/X7vLWo/tyhjtJHzvjfi+PPb5MawSfJhfsBelc4hhrjUQ7pTHulO6qqcud6pZg83c7U5MlDQ1RY4sb9oJ0LnGM6BHIfkXCvpM7ddhDKUhj2XsEnAB/7h/KUvc16lCs+aQFCPT5vv5AopVZuyf0dmZDmLhb7FxLBfsS+ti9uFV3GYQMJGKtH0O+wkdpugne6s9cFX3J7h5L4+3N7taXW0x6qKvYVrhhPYGagUQcuUsZhrpINcXh5DoWskPrxotu9+T1CGQhgaBrGKZ8vb4E3jWRbrFakIaSnyKQgzcO7WLTDnocjCdSSQsKhE6rYMjXQ/pr0NSsjwpWjR2KS7udlzRafwLPjxAOwQ0koA1kePsFmO/jCimQRyU7N0h1yRpsVMcknLF/HYKnpI9e94VUYcm+M9XhSXDzGu6tG+W38WOTfehzZifDtMHKUutrOGYsOdVSMuNAAegcsPmzu1vD0ZuZQeMnl8lb7GhNMXnl4E/ib+tZNt8Jixu3payla7M4B5tZI3pwZobhiWfD9AteddVCbyoCCRHo/FpXYNhr4x3ydfDFEydv1Gax+lnvgSHqnPQz6ZvqqpwJakQ3A0El1pS+y1feFx9x9M3ipsLT7PvJPjBpjUCLVjMxCbsfqEH4do5FxdGsebuo3anQmsjhpUDp+IPtSfhAovA80bGd0XkzMYUdw/4a6ioDOcUXcF/zj0AnqzeqOPohIYeT6NeiXeZVgp5EmaU67zaQuziTKfMFfe5+JzHPYBRnT5LphTnY4uKN0ZT5Yse91JviWZ15rOuSezhRTE5mHAgLNhpV9MnsfK40mEzxKtlgDfw8dUlQNrmOZAQytHC9K6mbUDMRspfhhT99CpdQ2p8oc/rFFaip7PTX7m+Tu5Uh0BtNBLrJx7rPhrFgr3mnToaRIsMbEBYihQh0Oew9LqY2D7AaXspiiECYNHcMaU+5WMttdjVqGs5xuelLee23XiA1kVSa1igxI1DX4Xd8b3wEb5Skp8+2nZ69293rIrhej5myhhdvR7ydIzoBA4nO740/fzf31DRVmIA4hpLwOeeGAjeNLesnGTaFGq/L7mouBpOXrwbvCBfI/sK56uv/HW7e2jzNb3a7MuDNGHUMFZTfAIj9+ropkGg/OpiiLDbsqkHIFK6Y+Ark8974smkmGe6AlRqJniciEIFmyVmF9CxCQ2PM0Fa31lv2b0aKt7S6vze+bAcb9VUdNJColScGhh64+siQfm3DR31jzBCBRPRILgL50FVy+pmo/AU6qXePGojYJjB4cNUu1n90ufnDEIEMBOsh51XMSxld7NE3pUMikDVDv8EVh3Xtb670ikDihHogWLPFvJja3fghUoU57qSXP34vM5W4LCZNuAdrRiCP2zmaVYbVbfki3oRhr5TsI8frCpTCmFBAI9rjhrLK2FmzC+S6Yyqhpenggb358pxEjUA++Z4Eok54PIho3saJ2QbyybftYyEJdqlMHxeK7s/uTzo3lAmXhKl9mUCrYVvEvZ1DNDkvxRyuCRAJ8hHIc5DHfvGTSBAgUJx3Zdjxq+SSaZxsXNmQXhjU/fLNN3e2XmmGjwMtlG/2bNsfYBxomXyTqYkMbFwPOwFtoEc3GkrnG3OgTqLswyuo1L8ZroQI9LpgIzreZW2gcSIwXrmZIeyQKizKJJsGIj4IE+6PxJ5sxJ/UG9H2GypM2NcWf+b4KdtDqTeipasInztGPVmhw55AGEu8ER2O/RYx8eJefL7wFBpSIVVYstP8mpB+LG/xi/6m4La+PxldCwtHZPoo/f2LSz3ml27z6hkEsp9+e13g8ByX/QHTLRIiUF2Jvfw6Yk3ptS5lGEpWos9mf8B0i4Tckfjlo3z5Bb71aSWBgkvWZcPl74dMgLBufHM/tP3ZeJF8JTBUOV5pZKpE9GZ22EBiI5DwNL8i2B/eWneKJ2ms3cv4BxkegY6yT2VIYDpdij/BI9vBxOyb2ecvSjAC9W0g6Wl+RfCJQFFZJtClMONZYC9M/qmMmHiN8khgCnTSLiXQMHuKcSArXpPgGUmgRbI8FKhF8Sd4Wl7x9yVkgadAl3+pXa/5b3HytSJdKPZ2lIkEKpTl8Y1Adfunv5/s8x25nComkEy1sHgraTOE9ML6q/GJ9MIk7jPbYuNkIZ6sDRTewlmXdGtH3zbQ4c19kk2RfIVJ3RQ9CV+c9RZon7dAmZKsP95VWDnNE53gtTDiiFwgDriYygiUPYKdhidrRJOONSPQwvmStKFAGEm2bpfcqUwFSqU3nmT/etGdylOgdJ5OT9AfRiAHJPzh5QsJMhVIAvojQaYCsfBTIU+BWP0kQ54CMQIlQ54ChUegJHtNOZOnQMFTJyY5bhNOAgeTqUATnsEogVMuRwpfh+gCGR5gdU1O5Gbl9U9zJBI4sNgCVQUkkEhjJ4Uv6maJLFA7lRCSXLA/O+tjfg45ek3p8pxEFqh8+QsTKBiJ6V3tMxZwQCquQOfvH2AbaHnsEUjmQeiNEFWgZiaYuUDTHdUByQkTXvZPb41CVIEeTCO0vkCmaTOJFzEFamckT1Ygw8S9xI+YApUPnoFOQCAV+hNK6gOJBljgqZCnQKxykiFPgRiBkiH7i6lkXTISiFEnRfIRiO2eJMlHoKjz5ZJQMhJIgVejkiFPgXg9PBkyFUiB/qxK/gKRVaFABIICEYjUBWILJ3ESF4h9rNRJXCBGoNRJXSCSOBSIQFAgAkGBCAQFIhAUiEBQIAJBgQgEBSIQFGgjrDVkT4G2wWoXDSnQRmAEIllCgQgEBYrC80wLm5FAGd0a9EQTC+cjUFY3Jz6NPxkJlFMEeiIyEoikCAVaia1UchRoHTbTzKZAK7ERfygQwaBABIICEQgKRCAoEIGgQASCAhEICkQgKBCBoEAEggIRCAqUMwncIkWBMiaFmzQpUM6s709cgT7fi6LYiyVHEiSmQJ/vXz6uZfFNKDmSIjEFOr82L/wuv/6USY6kSPw2UFWHIcHkSFrEF+ioRqBiJDQ5khbRBar0rWgKtBFiC1Tp29AUaCtEFsgQfyjQZogrUGnyhwJthagClcWbZHIkQeKOA5niDwXaDDEFKrsOO8eBtgwvphIICkQgKBCBoEAEggIRCApEICgQgaBABIICEQgKRCAoEIGgQASCAhEICkQgKBCBoEAEggIRCApEICgQgaBABIICOZLAXE5JQoHcSGE2uSShQI7QHz0UiEBQoAC28rpKCSiQP5t5Ya4EFCgA+jNBgQgEBSIQFIhAUCACQYEIBAUiEBSIQFAgAkGBCAQFIhAUiEBQIAJBgQjEagKRjbCSQJFYYS+XzzLPHClQMlnmmSMFSibLPHOkQMlkmWeOFCiZLPPMkQIlk2WeOVKgZLLMM0cKlEyWeeZIgZLJMs8c8xCIJAsFIhAUiEBQIAJBgQgEBSIQFIhAUCACQYEIBAUiEBSIQFAgAkGBCEQuAp1/+7lgblVRfPlYML+GZY/w+vleFMUeTycTgS6Hrwue3qq2p1rYoGWPsPanPr6y+AYnlIdAdURY8PR+vjffzCN+cj1Y9gjrePf6Vv8s8TyzEKgq9tWCp1fs5Lqz8BGO2eJhNguBahYV6PvHwjleV8iv4fgkEei67OntvpdLN4JWEKgSaEVTIE1eTyJQJdCGpkAanqQKk4g/yQtUDoMVG29EX5cXqBTxJ3WBRpY8vWt04xcXqCzeRNKhQLrMVhhIXFig86tI/KFAesoVLmUsfoQNzzMORBKFAhEICkQgKBCBoEAEggIRCApEICgQgaBABIICEQgKRCAoEIGgQASCAhEICkQgKBCBoEAEggIRCApEICgQgaBABIICEQgKRCAoEIGgQASCAhEICkQgKNAd1dv1cng0dYX2r5WyrJsfpl+z/tduUMnMhpEaFOiWx/KY1pgtGwVS/mJPNk8o0C0UyIunFKif9+z8+seh/nB+LdrJlqp2afPby38P04K66JvVmgXHov3/RpZmYbvVr2GF8+u/X/tNhyqsXeGvZs6qcuGJqyLzjAKVXz7aCZbOr+1s7V9/ttPZVUVT2N+GQr8qC5rV6n/NnGXN/6pAbbCp12yXDSu0CTc5KG2g5l8zBdDn+7Yi0RMKdDk0k3PVhdnO0tX/eOvmtau+fAylrSzo1rj8/tEJowo0TAvVbjWs0E3/VVt5I1Dzr5vBczs8oUDd5HV1QbfRY/jRtVsaT4aSVhcM0lRFMRdoeMXFsKxdodt0knEManWIKuuabks8o0Dd7G6FTiCltGcL2iV10+nr/95EoO6tN/2yYYUuytQ/bwWq49VRaG7CVHhGgYaJAT0j0Lj6XYfq2MWacQVjBLr8/p/ft1WDPaNAY/nPBHrUBuoEaps7VaERqHdkXKFvA738uhXo8/0fG6vBnlGgtqPURI2ZQEqna3/bC5si0OVQ7OeN6CatvqU9rtD2wgbVRoFaqWRm906IZxSoHQeqo8VcoGHY53q8Gwea2kBfPvrqaqTqJ8utt/o1rNCNA73NL2U0K2yuD/akAq3H+Z8bq8Eo0LKUW6vBKFAQ7fUL/5nez69ba0JTIAJCgQgEBSIQFIhAUCACQYEIBAUiEBSIQFAgAkGBCAQFIhAUiEBQIAJBgQgEBSIQFIhAUCACQYEIBAUiEBSIQFAgAvH/LmPNMkCTXckAAAAASUVORK5CYII=" /><!-- --></p>
+</div>
+<div id="standardize-both-conscientiousness-and-emotional-stability" class="section level1">
+<h1>Standardize Both Conscientiousness and Emotional Stability</h1>
+<p>To standardize a variablex we first mean center it and then scale it by its standard deviation. Scaling is done by listing the variable on <code>to_scale</code>. The input format is identical to that of <code>to_center</code>.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>lm_xw_std &lt;-<span class="st"> </span><span class="kw">std_selected</span>(lm_raw,</span>
+<span id="cb6-2"><a href="#cb6-2"></a>                <span class="dt">to_center =</span> <span class="op">~</span><span class="st"> </span>emotional_stability <span class="op">+</span><span class="st"> </span>conscientiousness,</span>
+<span id="cb6-3"><a href="#cb6-3"></a>                <span class="dt">to_scale  =</span> <span class="op">~</span><span class="st"> </span>emotional_stability <span class="op">+</span><span class="st"> </span>conscientiousness)</span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="kw">summary</span>(lm_xw_std)</span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="co">#&gt; </span></span>
+<span id="cb6-6"><a href="#cb6-6"></a><span class="co">#&gt; Selected variable(s) are centered and/or scaled</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a><span class="co">#&gt; - Variable(s) centered: emotional_stability conscientiousness</span></span>
+<span id="cb6-8"><a href="#cb6-8"></a><span class="co">#&gt; - Variable(s) scaled: emotional_stability conscientiousness</span></span>
+<span id="cb6-9"><a href="#cb6-9"></a><span class="co">#&gt;                     centered_by scaled_by</span></span>
+<span id="cb6-10"><a href="#cb6-10"></a><span class="co">#&gt; sleep_duration           0.0000 1.0000000</span></span>
+<span id="cb6-11"><a href="#cb6-11"></a><span class="co">#&gt; age                      0.0000 1.0000000</span></span>
+<span id="cb6-12"><a href="#cb6-12"></a><span class="co">#&gt; gender                   0.0000 1.0000000</span></span>
+<span id="cb6-13"><a href="#cb6-13"></a><span class="co">#&gt; emotional_stability      2.7132 0.7629613</span></span>
+<span id="cb6-14"><a href="#cb6-14"></a><span class="co">#&gt; conscientiousness        3.3432 0.6068198</span></span>
+<span id="cb6-15"><a href="#cb6-15"></a><span class="co">#&gt; </span></span>
+<span id="cb6-16"><a href="#cb6-16"></a><span class="co">#&gt; Note:</span></span>
+<span id="cb6-17"><a href="#cb6-17"></a><span class="co">#&gt; - Centered by 0 or NA: No centering</span></span>
+<span id="cb6-18"><a href="#cb6-18"></a><span class="co">#&gt; - Scaled by 1 or NA: No scaling</span></span>
+<span id="cb6-19"><a href="#cb6-19"></a><span class="co">#&gt; </span></span>
+<span id="cb6-20"><a href="#cb6-20"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb6-21"><a href="#cb6-21"></a><span class="co">#&gt; lm(formula = sleep_duration ~ age + gender + emotional_stability * </span></span>
+<span id="cb6-22"><a href="#cb6-22"></a><span class="co">#&gt;     conscientiousness, data = dat_mod)</span></span>
+<span id="cb6-23"><a href="#cb6-23"></a><span class="co">#&gt; </span></span>
+<span id="cb6-24"><a href="#cb6-24"></a><span class="co">#&gt; Residuals:</span></span>
+<span id="cb6-25"><a href="#cb6-25"></a><span class="co">#&gt;     Min      1Q  Median      3Q     Max </span></span>
+<span id="cb6-26"><a href="#cb6-26"></a><span class="co">#&gt; -6.0841 -0.7882  0.0089  0.9440  6.1189 </span></span>
+<span id="cb6-27"><a href="#cb6-27"></a><span class="co">#&gt; </span></span>
+<span id="cb6-28"><a href="#cb6-28"></a><span class="co">#&gt; Coefficients:</span></span>
+<span id="cb6-29"><a href="#cb6-29"></a><span class="co">#&gt;                                       Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
+<span id="cb6-30"><a href="#cb6-30"></a><span class="co">#&gt; (Intercept)                            6.45575    0.47828  13.498  &lt; 2e-16 ***</span></span>
+<span id="cb6-31"><a href="#cb6-31"></a><span class="co">#&gt; age                                    0.01789    0.02133   0.838  0.40221    </span></span>
+<span id="cb6-32"><a href="#cb6-32"></a><span class="co">#&gt; gendermale                            -0.26127    0.16579  -1.576  0.11570    </span></span>
+<span id="cb6-33"><a href="#cb6-33"></a><span class="co">#&gt; emotional_stability                    0.16295    0.06365   2.560  0.01076 *  </span></span>
+<span id="cb6-34"><a href="#cb6-34"></a><span class="co">#&gt; conscientiousness                      0.18490    0.06399   2.889  0.00403 ** </span></span>
+<span id="cb6-35"><a href="#cb6-35"></a><span class="co">#&gt; emotional_stability:conscientiousness -0.15343    0.06145  -2.497  0.01286 *  </span></span>
+<span id="cb6-36"><a href="#cb6-36"></a><span class="co">#&gt; ---</span></span>
+<span id="cb6-37"><a href="#cb6-37"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
+<span id="cb6-38"><a href="#cb6-38"></a><span class="co">#&gt; </span></span>
+<span id="cb6-39"><a href="#cb6-39"></a><span class="co">#&gt; Residual standard error: 1.384 on 494 degrees of freedom</span></span>
+<span id="cb6-40"><a href="#cb6-40"></a><span class="co">#&gt; Multiple R-squared:  0.0548, Adjusted R-squared:  0.04523 </span></span>
+<span id="cb6-41"><a href="#cb6-41"></a><span class="co">#&gt; F-statistic: 5.728 on 5 and 494 DF,  p-value: 3.768e-05</span></span>
+<span id="cb6-42"><a href="#cb6-42"></a><span class="kw">visreg</span>(lm_xw_std, <span class="st">&quot;emotional_stability&quot;</span>, <span class="st">&quot;conscientiousness&quot;</span>,</span>
+<span id="cb6-43"><a href="#cb6-43"></a>            <span class="dt">breaks =</span> <span class="dv">2</span>, <span class="dt">overlay =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+</div>
+<div id="standardize-conscientiousness-emotional-stability-and-sleep-duration" class="section level1">
+<h1>Standardize Conscientiousness, Emotional Stability, and Sleep Duration</h1>
+<p>Note that we can also mean center or standardize the dependent variable. We just add the variable to the right hand side of <code>~</code> in <code>to_center</code> and <code>to_scale</code> as appropriate.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>lm_xwy_std &lt;-<span class="st"> </span><span class="kw">std_selected</span>(lm_raw,</span>
+<span id="cb7-2"><a href="#cb7-2"></a>                <span class="dt">to_center =</span> <span class="op">~</span><span class="st"> </span>emotional_stability <span class="op">+</span><span class="st"> </span>conscientiousness <span class="op">+</span><span class="st"> </span>sleep_duration,</span>
+<span id="cb7-3"><a href="#cb7-3"></a>                <span class="dt">to_scale  =</span> <span class="op">~</span><span class="st"> </span>emotional_stability <span class="op">+</span><span class="st"> </span>conscientiousness <span class="op">+</span><span class="st"> </span>sleep_duration)</span>
+<span id="cb7-4"><a href="#cb7-4"></a><span class="kw">summary</span>(lm_xwy_std)</span>
+<span id="cb7-5"><a href="#cb7-5"></a><span class="co">#&gt; </span></span>
+<span id="cb7-6"><a href="#cb7-6"></a><span class="co">#&gt; Selected variable(s) are centered and/or scaled</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a><span class="co">#&gt; - Variable(s) centered: emotional_stability conscientiousness sleep_duration</span></span>
+<span id="cb7-8"><a href="#cb7-8"></a><span class="co">#&gt; - Variable(s) scaled: emotional_stability conscientiousness sleep_duration</span></span>
+<span id="cb7-9"><a href="#cb7-9"></a><span class="co">#&gt;                     centered_by scaled_by</span></span>
+<span id="cb7-10"><a href="#cb7-10"></a><span class="co">#&gt; sleep_duration         6.776333 1.4168291</span></span>
+<span id="cb7-11"><a href="#cb7-11"></a><span class="co">#&gt; age                    0.000000 1.0000000</span></span>
+<span id="cb7-12"><a href="#cb7-12"></a><span class="co">#&gt; gender                 0.000000 1.0000000</span></span>
+<span id="cb7-13"><a href="#cb7-13"></a><span class="co">#&gt; emotional_stability    2.713200 0.7629613</span></span>
+<span id="cb7-14"><a href="#cb7-14"></a><span class="co">#&gt; conscientiousness      3.343200 0.6068198</span></span>
+<span id="cb7-15"><a href="#cb7-15"></a><span class="co">#&gt; </span></span>
+<span id="cb7-16"><a href="#cb7-16"></a><span class="co">#&gt; Note:</span></span>
+<span id="cb7-17"><a href="#cb7-17"></a><span class="co">#&gt; - Centered by 0 or NA: No centering</span></span>
+<span id="cb7-18"><a href="#cb7-18"></a><span class="co">#&gt; - Scaled by 1 or NA: No scaling</span></span>
+<span id="cb7-19"><a href="#cb7-19"></a><span class="co">#&gt; </span></span>
+<span id="cb7-20"><a href="#cb7-20"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb7-21"><a href="#cb7-21"></a><span class="co">#&gt; lm(formula = sleep_duration ~ age + gender + emotional_stability * </span></span>
+<span id="cb7-22"><a href="#cb7-22"></a><span class="co">#&gt;     conscientiousness, data = dat_mod)</span></span>
+<span id="cb7-23"><a href="#cb7-23"></a><span class="co">#&gt; </span></span>
+<span id="cb7-24"><a href="#cb7-24"></a><span class="co">#&gt; Residuals:</span></span>
+<span id="cb7-25"><a href="#cb7-25"></a><span class="co">#&gt;     Min      1Q  Median      3Q     Max </span></span>
+<span id="cb7-26"><a href="#cb7-26"></a><span class="co">#&gt; -4.2941 -0.5563  0.0063  0.6663  4.3187 </span></span>
+<span id="cb7-27"><a href="#cb7-27"></a><span class="co">#&gt; </span></span>
+<span id="cb7-28"><a href="#cb7-28"></a><span class="co">#&gt; Coefficients:</span></span>
+<span id="cb7-29"><a href="#cb7-29"></a><span class="co">#&gt;                                       Estimate Std. Error t value Pr(&gt;|t|)   </span></span>
+<span id="cb7-30"><a href="#cb7-30"></a><span class="co">#&gt; (Intercept)                           -0.22627    0.33757  -0.670  0.50298   </span></span>
+<span id="cb7-31"><a href="#cb7-31"></a><span class="co">#&gt; age                                    0.01262    0.01506   0.838  0.40221   </span></span>
+<span id="cb7-32"><a href="#cb7-32"></a><span class="co">#&gt; gendermale                            -0.18440    0.11702  -1.576  0.11570   </span></span>
+<span id="cb7-33"><a href="#cb7-33"></a><span class="co">#&gt; emotional_stability                    0.11501    0.04493   2.560  0.01076 * </span></span>
+<span id="cb7-34"><a href="#cb7-34"></a><span class="co">#&gt; conscientiousness                      0.13050    0.04517   2.889  0.00403 **</span></span>
+<span id="cb7-35"><a href="#cb7-35"></a><span class="co">#&gt; emotional_stability:conscientiousness -0.10829    0.04337  -2.497  0.01286 * </span></span>
+<span id="cb7-36"><a href="#cb7-36"></a><span class="co">#&gt; ---</span></span>
+<span id="cb7-37"><a href="#cb7-37"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
+<span id="cb7-38"><a href="#cb7-38"></a><span class="co">#&gt; </span></span>
+<span id="cb7-39"><a href="#cb7-39"></a><span class="co">#&gt; Residual standard error: 0.9771 on 494 degrees of freedom</span></span>
+<span id="cb7-40"><a href="#cb7-40"></a><span class="co">#&gt; Multiple R-squared:  0.0548, Adjusted R-squared:  0.04523 </span></span>
+<span id="cb7-41"><a href="#cb7-41"></a><span class="co">#&gt; F-statistic: 5.728 on 5 and 494 DF,  p-value: 3.768e-05</span></span>
+<span id="cb7-42"><a href="#cb7-42"></a><span class="kw">visreg</span>(lm_xwy_std, <span class="st">&quot;emotional_stability&quot;</span>, <span class="st">&quot;conscientiousness&quot;</span>,</span>
+<span id="cb7-43"><a href="#cb7-43"></a>            <span class="dt">breaks =</span> <span class="dv">2</span>, <span class="dt">overlay =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+</div>
+<div id="standardize-all-variables" class="section level1">
+<h1>Standardize All Variables</h1>
+<p>If we want to standardize all variables, we can use <code>~ .</code> as a shortcut. Note that <code>std_selected()</code> will skip categorical variables (i.e., factors or string variables in the regression model of <code>lm()</code>).</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>lm_all_std &lt;-<span class="st"> </span><span class="kw">std_selected</span>(lm_raw, <span class="dt">to_center =</span> <span class="op">~</span><span class="st"> </span>.,</span>
+<span id="cb8-2"><a href="#cb8-2"></a>                                   <span class="dt">to_scale  =</span> <span class="op">~</span><span class="st"> </span>.)</span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="kw">summary</span>(lm_all_std)</span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="co">#&gt; </span></span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="co">#&gt; Selected variable(s) are centered and/or scaled</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="co">#&gt; - Variable(s) centered: sleep_duration age gender emotional_stability conscientiousness</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a><span class="co">#&gt; - Variable(s) scaled: sleep_duration age gender emotional_stability conscientiousness</span></span>
+<span id="cb8-8"><a href="#cb8-8"></a><span class="co">#&gt;                     centered_by scaled_by</span></span>
+<span id="cb8-9"><a href="#cb8-9"></a><span class="co">#&gt; sleep_duration         6.776333 1.4168291</span></span>
+<span id="cb8-10"><a href="#cb8-10"></a><span class="co">#&gt; age                   22.274000 2.9407857</span></span>
+<span id="cb8-11"><a href="#cb8-11"></a><span class="co">#&gt; gender                       NA        NA</span></span>
+<span id="cb8-12"><a href="#cb8-12"></a><span class="co">#&gt; emotional_stability    2.713200 0.7629613</span></span>
+<span id="cb8-13"><a href="#cb8-13"></a><span class="co">#&gt; conscientiousness      3.343200 0.6068198</span></span>
+<span id="cb8-14"><a href="#cb8-14"></a><span class="co">#&gt; </span></span>
+<span id="cb8-15"><a href="#cb8-15"></a><span class="co">#&gt; Note:</span></span>
+<span id="cb8-16"><a href="#cb8-16"></a><span class="co">#&gt; - Centered by 0 or NA: No centering</span></span>
+<span id="cb8-17"><a href="#cb8-17"></a><span class="co">#&gt; - Scaled by 1 or NA: No scaling</span></span>
+<span id="cb8-18"><a href="#cb8-18"></a><span class="co">#&gt; </span></span>
+<span id="cb8-19"><a href="#cb8-19"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb8-20"><a href="#cb8-20"></a><span class="co">#&gt; lm(formula = sleep_duration ~ age + gender + emotional_stability * </span></span>
+<span id="cb8-21"><a href="#cb8-21"></a><span class="co">#&gt;     conscientiousness, data = dat_mod)</span></span>
+<span id="cb8-22"><a href="#cb8-22"></a><span class="co">#&gt; </span></span>
+<span id="cb8-23"><a href="#cb8-23"></a><span class="co">#&gt; Residuals:</span></span>
+<span id="cb8-24"><a href="#cb8-24"></a><span class="co">#&gt;     Min      1Q  Median      3Q     Max </span></span>
+<span id="cb8-25"><a href="#cb8-25"></a><span class="co">#&gt; -4.2941 -0.5563  0.0063  0.6663  4.3187 </span></span>
+<span id="cb8-26"><a href="#cb8-26"></a><span class="co">#&gt; </span></span>
+<span id="cb8-27"><a href="#cb8-27"></a><span class="co">#&gt; Coefficients:</span></span>
+<span id="cb8-28"><a href="#cb8-28"></a><span class="co">#&gt;                                       Estimate Std. Error t value Pr(&gt;|t|)   </span></span>
+<span id="cb8-29"><a href="#cb8-29"></a><span class="co">#&gt; (Intercept)                            0.05492    0.04883   1.125  0.26124   </span></span>
+<span id="cb8-30"><a href="#cb8-30"></a><span class="co">#&gt; age                                    0.03712    0.04428   0.838  0.40221   </span></span>
+<span id="cb8-31"><a href="#cb8-31"></a><span class="co">#&gt; gendermale                            -0.18440    0.11702  -1.576  0.11570   </span></span>
+<span id="cb8-32"><a href="#cb8-32"></a><span class="co">#&gt; emotional_stability                    0.11501    0.04493   2.560  0.01076 * </span></span>
+<span id="cb8-33"><a href="#cb8-33"></a><span class="co">#&gt; conscientiousness                      0.13050    0.04517   2.889  0.00403 **</span></span>
+<span id="cb8-34"><a href="#cb8-34"></a><span class="co">#&gt; emotional_stability:conscientiousness -0.10829    0.04337  -2.497  0.01286 * </span></span>
+<span id="cb8-35"><a href="#cb8-35"></a><span class="co">#&gt; ---</span></span>
+<span id="cb8-36"><a href="#cb8-36"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
+<span id="cb8-37"><a href="#cb8-37"></a><span class="co">#&gt; </span></span>
+<span id="cb8-38"><a href="#cb8-38"></a><span class="co">#&gt; Residual standard error: 0.9771 on 494 degrees of freedom</span></span>
+<span id="cb8-39"><a href="#cb8-39"></a><span class="co">#&gt; Multiple R-squared:  0.0548, Adjusted R-squared:  0.04523 </span></span>
+<span id="cb8-40"><a href="#cb8-40"></a><span class="co">#&gt; F-statistic: 5.728 on 5 and 494 DF,  p-value: 3.768e-05</span></span>
+<span id="cb8-41"><a href="#cb8-41"></a><span class="kw">visreg</span>(lm_all_std, <span class="st">&quot;emotional_stability&quot;</span>, <span class="st">&quot;conscientiousness&quot;</span>,</span>
+<span id="cb8-42"><a href="#cb8-42"></a>            <span class="dt">breaks =</span> <span class="dv">2</span>, <span class="dt">overlay =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+</div>
+<div id="the-usual-standardized-solution" class="section level1">
+<h1>The Usual Standardized Solution</h1>
+<p>For comparison, this is the results of standardizing all variables, including the product term and the categorical variable.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>lm_usual_std &lt;-<span class="st"> </span><span class="kw">lm.beta</span>(lm_raw)</span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="kw">summary</span>(lm_usual_std)</span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="co">#&gt; </span></span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a><span class="co">#&gt; lm(formula = sleep_duration ~ age + gender + emotional_stability * </span></span>
+<span id="cb9-6"><a href="#cb9-6"></a><span class="co">#&gt;     conscientiousness, data = sleep_emo_con)</span></span>
+<span id="cb9-7"><a href="#cb9-7"></a><span class="co">#&gt; </span></span>
+<span id="cb9-8"><a href="#cb9-8"></a><span class="co">#&gt; Residuals:</span></span>
+<span id="cb9-9"><a href="#cb9-9"></a><span class="co">#&gt;     Min      1Q  Median      3Q     Max </span></span>
+<span id="cb9-10"><a href="#cb9-10"></a><span class="co">#&gt; -6.0841 -0.7882  0.0089  0.9440  6.1189 </span></span>
+<span id="cb9-11"><a href="#cb9-11"></a><span class="co">#&gt; </span></span>
+<span id="cb9-12"><a href="#cb9-12"></a><span class="co">#&gt; Coefficients:</span></span>
+<span id="cb9-13"><a href="#cb9-13"></a><span class="co">#&gt;                                       Estimate Standardized Std. Error t value Pr(&gt;|t|)   </span></span>
+<span id="cb9-14"><a href="#cb9-14"></a><span class="co">#&gt; (Intercept)                            1.85154      0.00000    1.35224   1.369  0.17155   </span></span>
+<span id="cb9-15"><a href="#cb9-15"></a><span class="co">#&gt; age                                    0.01789      0.03712    0.02133   0.838  0.40221   </span></span>
+<span id="cb9-16"><a href="#cb9-16"></a><span class="co">#&gt; gendermale                            -0.26127     -0.06934    0.16579  -1.576  0.11570   </span></span>
+<span id="cb9-17"><a href="#cb9-17"></a><span class="co">#&gt; emotional_stability                    1.32151      0.71163    0.45039   2.934  0.00350 **</span></span>
+<span id="cb9-18"><a href="#cb9-18"></a><span class="co">#&gt; conscientiousness                      1.20385      0.51560    0.37062   3.248  0.00124 **</span></span>
+<span id="cb9-19"><a href="#cb9-19"></a><span class="co">#&gt; emotional_stability:conscientiousness -0.33140     -0.78201    0.13273  -2.497  0.01286 * </span></span>
+<span id="cb9-20"><a href="#cb9-20"></a><span class="co">#&gt; ---</span></span>
+<span id="cb9-21"><a href="#cb9-21"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
+<span id="cb9-22"><a href="#cb9-22"></a><span class="co">#&gt; </span></span>
+<span id="cb9-23"><a href="#cb9-23"></a><span class="co">#&gt; Residual standard error: 1.384 on 494 degrees of freedom</span></span>
+<span id="cb9-24"><a href="#cb9-24"></a><span class="co">#&gt; Multiple R-squared:  0.0548, Adjusted R-squared:  0.04523 </span></span>
+<span id="cb9-25"><a href="#cb9-25"></a><span class="co">#&gt; F-statistic: 5.728 on 5 and 494 DF,  p-value: 3.768e-05</span></span></code></pre></div>
+</div>
+<div id="standardize-conscientiousness-emotional-stability-and-sleep_duration-with-nonparametric-bootstrapping-confidence-interval" class="section level1">
+<h1>Standardize Conscientiousness, Emotional Stability, and Sleep_Duration: With Nonparametric Bootstrapping Confidence Interval</h1>
+<p>It has been shown (e.g., Yuan &amp; Chan, 2011) that the standard errors of standardized regression coefficients computed just by rescaling the variables are biased, and consequently the confidence intervals are also invalid. The function <code>std_selected_boot()</code> is a version of <code>std_selected()</code> that also report the confidence interval of the regression coefficients when rescaling is conducted.</p>
+<p>We use the same example above that standardizes emotional stability, conscientiousness, and sleep duration, to illustrate this function. The argument <code>nboot</code> specifies the number of nonparametric bootstrap samples. Currently, only the 95% confidence intervals will be reported.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>lm_xwy_std_ci &lt;-<span class="st"> </span><span class="kw">std_selected_boot</span>(lm_raw, </span>
+<span id="cb10-2"><a href="#cb10-2"></a>        <span class="dt">to_center =</span> <span class="op">~</span><span class="st"> </span>emotional_stability <span class="op">+</span><span class="st"> </span>conscientiousness <span class="op">+</span><span class="st"> </span>sleep_duration,</span>
+<span id="cb10-3"><a href="#cb10-3"></a>        <span class="dt">to_scale  =</span> <span class="op">~</span><span class="st"> </span>emotional_stability <span class="op">+</span><span class="st"> </span>conscientiousness <span class="op">+</span><span class="st"> </span>sleep_duration,</span>
+<span id="cb10-4"><a href="#cb10-4"></a>        <span class="dt">nboot =</span> <span class="dv">2000</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="kw">summary</span>(lm_xwy_std_ci)</span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="co">#&gt; </span></span>
+<span id="cb11-3"><a href="#cb11-3"></a><span class="co">#&gt; Selected variable(s) are centered and/or scaled</span></span>
+<span id="cb11-4"><a href="#cb11-4"></a><span class="co">#&gt; - Variable(s) centered: emotional_stability conscientiousness sleep_duration</span></span>
+<span id="cb11-5"><a href="#cb11-5"></a><span class="co">#&gt; - Variable(s) scaled: emotional_stability conscientiousness sleep_duration</span></span>
+<span id="cb11-6"><a href="#cb11-6"></a><span class="co">#&gt;                     centered_by scaled_by</span></span>
+<span id="cb11-7"><a href="#cb11-7"></a><span class="co">#&gt; sleep_duration         6.776333 1.4168291</span></span>
+<span id="cb11-8"><a href="#cb11-8"></a><span class="co">#&gt; age                    0.000000 1.0000000</span></span>
+<span id="cb11-9"><a href="#cb11-9"></a><span class="co">#&gt; gender                 0.000000 1.0000000</span></span>
+<span id="cb11-10"><a href="#cb11-10"></a><span class="co">#&gt; emotional_stability    2.713200 0.7629613</span></span>
+<span id="cb11-11"><a href="#cb11-11"></a><span class="co">#&gt; conscientiousness      3.343200 0.6068198</span></span>
+<span id="cb11-12"><a href="#cb11-12"></a><span class="co">#&gt; </span></span>
+<span id="cb11-13"><a href="#cb11-13"></a><span class="co">#&gt; Note:</span></span>
+<span id="cb11-14"><a href="#cb11-14"></a><span class="co">#&gt; - Centered by 0 or NA: No centering</span></span>
+<span id="cb11-15"><a href="#cb11-15"></a><span class="co">#&gt; - Scaled by 1 or NA: No scaling</span></span>
+<span id="cb11-16"><a href="#cb11-16"></a><span class="co">#&gt; - Nonparametric bootstrapping 95% confidence intervals computed.</span></span>
+<span id="cb11-17"><a href="#cb11-17"></a><span class="co">#&gt; - The number of bootstrap samples is 2000</span></span>
+<span id="cb11-18"><a href="#cb11-18"></a><span class="co">#&gt; </span></span>
+<span id="cb11-19"><a href="#cb11-19"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb11-20"><a href="#cb11-20"></a><span class="co">#&gt; lm(formula = sleep_duration ~ age + gender + emotional_stability * </span></span>
+<span id="cb11-21"><a href="#cb11-21"></a><span class="co">#&gt;     conscientiousness, data = dat_mod)</span></span>
+<span id="cb11-22"><a href="#cb11-22"></a><span class="co">#&gt; </span></span>
+<span id="cb11-23"><a href="#cb11-23"></a><span class="co">#&gt; Residuals:</span></span>
+<span id="cb11-24"><a href="#cb11-24"></a><span class="co">#&gt;     Min      1Q  Median      3Q     Max </span></span>
+<span id="cb11-25"><a href="#cb11-25"></a><span class="co">#&gt; -4.2941 -0.5563  0.0063  0.6663  4.3187 </span></span>
+<span id="cb11-26"><a href="#cb11-26"></a><span class="co">#&gt; </span></span>
+<span id="cb11-27"><a href="#cb11-27"></a><span class="co">#&gt; Coefficients:</span></span>
+<span id="cb11-28"><a href="#cb11-28"></a><span class="co">#&gt;                                        Estimate  CI Lower  CI Upper Std. Error t value Pr(&gt;|t|)   </span></span>
+<span id="cb11-29"><a href="#cb11-29"></a><span class="co">#&gt; (Intercept)                           -0.226270 -0.831491  0.350298   0.337569  -0.670  0.50298   </span></span>
+<span id="cb11-30"><a href="#cb11-30"></a><span class="co">#&gt; age                                    0.012624 -0.012787  0.039725   0.015057   0.838  0.40221   </span></span>
+<span id="cb11-31"><a href="#cb11-31"></a><span class="co">#&gt; gendermale                            -0.184402 -0.448399  0.072333   0.117016  -1.576  0.11570   </span></span>
+<span id="cb11-32"><a href="#cb11-32"></a><span class="co">#&gt; emotional_stability                    0.115014  0.025582  0.200143   0.044927   2.560  0.01076 * </span></span>
+<span id="cb11-33"><a href="#cb11-33"></a><span class="co">#&gt; conscientiousness                      0.130502  0.028861  0.232320   0.045167   2.889  0.00403 **</span></span>
+<span id="cb11-34"><a href="#cb11-34"></a><span class="co">#&gt; emotional_stability:conscientiousness -0.108292 -0.200473 -0.007734   0.043374  -2.497  0.01286 * </span></span>
+<span id="cb11-35"><a href="#cb11-35"></a><span class="co">#&gt; ---</span></span>
+<span id="cb11-36"><a href="#cb11-36"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
+<span id="cb11-37"><a href="#cb11-37"></a><span class="co">#&gt; </span></span>
+<span id="cb11-38"><a href="#cb11-38"></a><span class="co">#&gt; Residual standard error: 0.9771 on 494 degrees of freedom</span></span>
+<span id="cb11-39"><a href="#cb11-39"></a><span class="co">#&gt; Multiple R-squared:  0.0548, Adjusted R-squared:  0.04523 </span></span>
+<span id="cb11-40"><a href="#cb11-40"></a><span class="co">#&gt; F-statistic: 5.728 on 5 and 494 DF,  p-value: 3.768e-05</span></span>
+<span id="cb11-41"><a href="#cb11-41"></a><span class="co">#&gt; </span></span>
+<span id="cb11-42"><a href="#cb11-42"></a><span class="co">#&gt; Note:</span></span>
+<span id="cb11-43"><a href="#cb11-43"></a><span class="co">#&gt; - [CI Lower, CI Upper] are bootstrap percentile confidence intervals.</span></span>
+<span id="cb11-44"><a href="#cb11-44"></a><span class="co">#&gt; - Std. Error are standard errors in the original analysis, not bootstrap SEs.</span></span></code></pre></div>
+<p>The standardized moderation effect is -0.1083 , and the 95% nonparametric bootstrapping confidence interval is -0.2005 to -0.0077.</p>
+<p>Note: As a side product, the nonparametric Bootstrapping confidence of the other coefficients are also reported. They can be used for other variables that are standardized in the same model, whether they are involved in the moderation or not.</p>
+</div>
+<div id="reference" class="section level1">
+<h1>Reference</h1>
+<p>Yuan, K.-H., &amp; Chan, W. (2011). Biases and standard errors of standardized regression coefficients. <em>Psychometrika, 76</em>(4), 670–690. <a href="https://doi.org/10.1007/s11336-011-9224-6" class="uri">https://doi.org/10.1007/s11336-011-9224-6</a></p>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
