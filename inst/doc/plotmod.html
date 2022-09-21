@@ -12,7 +12,7 @@
 
 <meta name="author" content="Shu Fai Cheung" />
 
-<meta name="date" content="2022-08-07" />
+<meta name="date" content="2022-09-22" />
 
 <title>Moderation Effects Plots by plotmod()</title>
 
@@ -137,13 +137,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   for (var i = 0; i < sheets.length; i++) {
     if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
     try { var rules = sheets[i].cssRules; } catch (e) { continue; }
-    for (var j = 0; j < rules.length; j++) {
+    var j = 0;
+    while (j < rules.length) {
       var rule = rules[j];
       // check if there is a div.sourceCode rule
-      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
       var style = rule.style.cssText;
       // check if color or background-color is set
-      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
       // replace div.sourceCode by a pre.sourceCode rule
       sheets[i].deleteRule(j);
       sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
@@ -349,7 +356,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 <h1 class="title toc-ignore">Moderation Effects Plots by plotmod()</h1>
 <h4 class="author">Shu Fai Cheung</h4>
-<h4 class="date">2022-08-07</h4>
+<h4 class="date">2022-09-22</h4>
 
 
 
@@ -541,7 +548,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <div id="reference" class="section level1">
 <h1>Reference</h1>
 <p>Bodner, T. E. (2016). Tumble graphs: Avoiding misleading end point extrapolation when graphing interactions from a moderated multiple regression analysis. <em>Journal of Educational and Behavioral Statistics, 41</em>(6), 593-604. </p>
-<p>Cheung, S. F., Cheung, S.-H., Lau, E. Y. Y., Hui, C. H., &amp; Vong, W. N. (2022) Improving an old way to measure moderation effect in standardized units. Advance online publication. <em>Health Psychology</em>. <a href="https://doi.org/10.1037/hea0001188" class="uri">https://doi.org/10.1037/hea0001188</a>.</p>
+<p>Cheung, S. F., Cheung, S.-H., Lau, E. Y. Y., Hui, C. H., &amp; Vong, W. N. (2022) Improving an old way to measure moderation effect in standardized units. <em>Health Psychology</em>, <em>41</em>(7), 502-505. <a href="https://doi.org/10.1037/hea0001188" class="uri">https://doi.org/10.1037/hea0001188</a>.</p>
 </div>
 
 

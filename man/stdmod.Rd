@@ -110,14 +110,14 @@ function.
 }
 \section{Functions}{
 \itemize{
-\item \code{stdmod}: The base function for computing standardized
+\item \code{stdmod()}: The base function for computing standardized
 moderation effect
 
-\item \code{stdmod_boot}: A wrapper of \code{\link[=stdmod]{stdmod()}} that computes the nonparametric
+\item \code{stdmod_boot()}: A wrapper of \code{\link[=stdmod]{stdmod()}} that computes the nonparametric
 bootstrap confidence interval of the standardized
 moderation effect.
-}}
 
+}}
 \examples{
 
 # Load a test data of 500 cases
@@ -175,7 +175,7 @@ stdmod_xyw_boot$ci
 \references{
 Cheung, S. F., Cheung, S.-H., Lau, E. Y. Y., Hui, C. H., & Vong, W. N.
 (2022) Improving an old way to measure moderation effect in standardized
-units. Advance online publication. \emph{Health Psychology}.
+units. \emph{Health Psychology}, \emph{41}(7), 502-505.
 \doi{10.1037/hea0001188}
 }
 \author{

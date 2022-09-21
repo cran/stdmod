@@ -12,7 +12,7 @@
 
 <meta name="author" content="Shu Fai Cheung" />
 
-<meta name="date" content="2022-08-07" />
+<meta name="date" content="2022-09-22" />
 
 <title>A Quick Start Guide on Using std_selected()</title>
 
@@ -137,13 +137,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   for (var i = 0; i < sheets.length; i++) {
     if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
     try { var rules = sheets[i].cssRules; } catch (e) { continue; }
-    for (var j = 0; j < rules.length; j++) {
+    var j = 0;
+    while (j < rules.length) {
       var rule = rules[j];
       // check if there is a div.sourceCode rule
-      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
       var style = rule.style.cssText;
       // check if color or background-color is set
-      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
       // replace div.sourceCode by a pre.sourceCode rule
       sheets[i].deleteRule(j);
       sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
@@ -349,7 +356,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 <h1 class="title toc-ignore">A Quick Start Guide on Using std_selected()</h1>
 <h4 class="author">Shu Fai Cheung</h4>
-<h4 class="date">2022-08-07</h4>
+<h4 class="date">2022-09-22</h4>
 
 
 
@@ -466,12 +473,10 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb4-41"><a href="#cb4-41"></a><span class="co">#&gt; </span></span>
 <span id="cb4-42"><a href="#cb4-42"></a><span class="co">#&gt; Note:</span></span>
 <span id="cb4-43"><a href="#cb4-43"></a><span class="co">#&gt; - Estimates and their statistics are based on the data after mean-centering, scaling, or standardization.</span></span></code></pre></div>
-<p>In this example, the coefficient of the product term, which naturally can be called the<br />
-<strong>standardized moderation effect</strong>, is significant, B = -0.1083. For each one <em>standard deviation</em> increase of conscientiousness score, the <strong>standardized effect</strong> of emotional stability decreases by 0.1083.</p>
+<p>In this example, the coefficient of the product term, which naturally can be called the <strong>standardized moderation effect</strong>, is significant, B = -0.1083. For each one <em>standard deviation</em> increase of conscientiousness score, the <strong>standardized effect</strong> of emotional stability decreases by 0.1083.</p>
 <div id="the-arguments" class="section level2">
 <h2>The Arguments</h2>
-<p>Standardization is equivalent to centering by mean and then scaling by (dividing by) standard deviation.<br />
-The argument <code>to_center</code> specifies the variables to be centered by their means, and the argument <code>to_scale</code> specifies the variables to be scaled by their standard deviations. The formula interface of <code>lm()</code> is used in these two arguments, with the variables on the right hand side being the variables to be centered and/or scaled.</p>
+<p>Standardization is equivalent to centering by mean and then scaling by (dividing by) standard deviation. The argument <code>to_center</code> specifies the variables to be centered by their means, and the argument <code>to_scale</code> specifies the variables to be scaled by their standard deviations. The formula interface of <code>lm()</code> is used in these two arguments, with the variables on the right hand side being the variables to be centered and/or scaled.</p>
 <p>The “<code>.</code>” on the right hand side represents all variables in the model, including the outcome variable (sleep duration in this example).</p>
 <p><code>std_selected()</code> will also skip categorical variables automatically skipped because standardizing them will make their coefficients not easy to interpret.</p>
 </div>
@@ -649,7 +654,7 @@ The argument <code>to_center</code> specifies the variables to be centered by th
 </div>
 <div id="references" class="section level1">
 <h1>Reference(s)</h1>
-<p>Cheung, S. F., Cheung, S.-H., Lau, E. Y. Y., Hui, C. H., &amp; Vong, W. N. (2022) Improving an old way to measure moderation effect in standardized units. Advance online publication. <em>Health Psychology</em>. <a href="https://doi.org/10.1037/hea0001188" class="uri">https://doi.org/10.1037/hea0001188</a>.</p>
+<p>Cheung, S. F., Cheung, S.-H., Lau, E. Y. Y., Hui, C. H., &amp; Vong, W. N. (2022) Improving an old way to measure moderation effect in standardized units. <em>Health Psychology</em>, <em>41</em>(7), 502-505. <a href="https://doi.org/10.1037/hea0001188" class="uri">https://doi.org/10.1037/hea0001188</a>.</p>
 <p>Yuan, K.-H., &amp; Chan, W. (2011). Biases and standard errors of standardized regression coefficients. <em>Psychometrika, 76</em>(4), 670-690. <a href="https://doi.org/10.1007/s11336-011-9224-6" class="uri">https://doi.org/10.1007/s11336-011-9224-6</a></p>
 </div>
 

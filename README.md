@@ -1,4 +1,23 @@
+<!-- badges: start -->
+[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
+[![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![CRAN status](https://www.r-pkg.org/badges/version/stdmod?color=blue)](https://CRAN.R-project.org/package=stdmod)
+[![CRAN: Release Date](https://www.r-pkg.org/badges/last-release/stdmod?color=blue)](https://cran.r-project.org/package=stdmod)
+[![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/grand-total/stdmod?color=blue)](https://r-pkg.org/pkg/stdmod)
+[![Code size](https://img.shields.io/github/languages/code-size/sfcheung/stdmod.svg)](https://github.com/sfcheung/stdmod)
+[![Last Commit at Master](https://img.shields.io/github/last-commit/sfcheung/stdmod.svg)](https://github.com/sfcheung/stdmod/commits/master)
+[![R-CMD-check](https://github.com/sfcheung/stdmod/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/sfcheung/stdmod/actions/workflows/R-CMD-check.yaml)
+[![DOI](https://img.shields.io/badge/doi-10.1037/hea0001188-blue.svg)](https://doi.org/10.1037/hea0001188)
+<!-- badges: end -->
+
+
 # stdmod: Standardized Moderation
+
+(Version 0.2.0.0, updated on 2022-09-21, [release history](https://sfcheung.github.io/stdmod/news/index.html))
+
+(Important changes since 0.2.0.0: Bootstrap confidence intervals and
+variance-covariance matrix of estimates are the defaults of `confint()`
+and `vcov()` for the output of `std_selected_boot()`.)
 
 This package includes functions for computing a standardized
 moderation effect and forming its confidence interval by
@@ -7,7 +26,7 @@ in the following publication ([OSF project page](https://osf.io/ac8de/)).
 It supports moderated regression conducted by `stats::lm()` and path
 analysis with product term conducted by `lavaan::lavaan()`.
 
-- Cheung, S. F., Cheung, S.-H., Lau, E. Y. Y., Hui, C. H., & Vong, W. N. (2022) Improving an old way to measure moderation effect in standardized units. Advance online publication. *Health Psychology*. https://doi.org/10.1037/hea0001188.
+- Cheung, S. F., Cheung, S.-H., Lau, E. Y. Y., Hui, C. H., & Vong, W. N. (2022) Improving an old way to measure moderation effect in standardized units. *Health Psychology, 41*(7), 502-505. https://doi.org/10.1037/hea0001188.
 
 More information on this package:
 

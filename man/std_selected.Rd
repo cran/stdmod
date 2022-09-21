@@ -127,13 +127,13 @@ before calling it, to ensure reproducibility.
 }
 \section{Functions}{
 \itemize{
-\item \code{std_selected}: The base function to center or
+\item \code{std_selected()}: The base function to center or
 scale selected variables in a regression model
 
-\item \code{std_selected_boot}: A wrapper of \code{\link[=std_selected]{std_selected()}} that forms
+\item \code{std_selected_boot()}: A wrapper of \code{\link[=std_selected]{std_selected()}} that forms
 nonparametric bootstrap confidence intervals.
-}}
 
+}}
 \examples{
 
 # Load a sample data set
@@ -185,7 +185,7 @@ summary(lm_std_boot)
 \references{
 Cheung, S. F., Cheung, S.-H., Lau, E. Y. Y., Hui, C. H., & Vong, W. N.
 (2022) Improving an old way to measure moderation effect in standardized
-units. Advance online publication. \emph{Health Psychology}.
+units. \emph{Health Psychology}, \emph{41}(7), 502-505.
 \doi{10.1037/hea0001188}
 }
 \author{
