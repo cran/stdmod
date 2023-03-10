@@ -12,7 +12,7 @@
 
 <meta name="author" content="Shu Fai Cheung and David Weng Ngai Vong" />
 
-<meta name="date" content="2022-10-09" />
+<meta name="date" content="2023-03-10" />
 
 <title>Standardized Moderation Effect in a Path Model by stdmod_lavaan()</title>
 
@@ -29,46 +29,31 @@ document.addEventListener('DOMContentLoaded', function(e) {
   }
 });
 </script>
-<script>// Hide empty <a> tag within highlighted CodeBlock for screen reader accessibility (see https://github.com/jgm/pandoc/issues/6352#issuecomment-626106786) -->
-// v0.0.1
-// Written by JooYoung Seo (jooyoung@psu.edu) and Atsushi Yasumoto on June 1st, 2020.
-
-document.addEventListener('DOMContentLoaded', function() {
-  const codeList = document.getElementsByClassName("sourceCode");
-  for (var i = 0; i < codeList.length; i++) {
-    var linkList = codeList[i].getElementsByTagName('a');
-    for (var j = 0; j < linkList.length; j++) {
-      if (linkList[j].innerHTML === "") {
-        linkList[j].setAttribute('aria-hidden', 'true');
-      }
-    }
-  }
-});
-</script>
 
 <style type="text/css">
-  code{white-space: pre-wrap;}
-  span.smallcaps{font-variant: small-caps;}
-  span.underline{text-decoration: underline;}
-  div.column{display: inline-block; vertical-align: top; width: 50%;}
-  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-  ul.task-list{list-style: none;}
-    </style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
 
 
 
 <style type="text/css">
-  code {
-    white-space: pre;
-  }
-  .sourceCode {
-    overflow: visible;
-  }
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
 </style>
 <style type="text/css" data-origin="pandoc">
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -80,55 +65,54 @@ pre > code.sourceCode { white-space: pre-wrap; }
 pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
-  { counter-reset: source-line 0; }
+{ counter-reset: source-line 0; }
 pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
+{ position: relative; left: -4em; counter-increment: source-line; }
 pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
 div.sourceCode
-  {   }
+{ }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
 </style>
 <script>
 // apply pandoc div.sourceCode style to pre.sourceCode instead
@@ -354,163 +338,193 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 
 
-<h1 class="title toc-ignore">Standardized Moderation Effect in a Path Model by stdmod_lavaan()</h1>
+<h1 class="title toc-ignore">Standardized Moderation Effect in a Path
+Model by stdmod_lavaan()</h1>
 <h4 class="author">Shu Fai Cheung and David Weng Ngai Vong</h4>
-<h4 class="date">2022-10-09</h4>
+<h4 class="date">2023-03-10</h4>
 
 
 
 <div id="purpose" class="section level1">
 <h1>Purpose</h1>
-<p>This document demonstrates how to use <code>stdmod_lavaan()</code> to compute the standardized moderation effect in a path model fitted by <code>lavaan::sem()</code>.</p>
+<p>This document demonstrates how to use <code>stdmod_lavaan()</code> to
+compute the standardized moderation effect in a path model fitted by
+<code>lavaan::sem()</code>.</p>
 </div>
 <div id="setup-the-environment" class="section level1">
 <h1>Setup the Environment</h1>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(stdmod) <span class="co"># For computing the standardized moderation effect conveniently</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">library</span>(lavaan) <span class="co"># For doing path analysis in lavaan.</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="co">#&gt; This is lavaan 0.6-12</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="co">#&gt; lavaan is FREE software! Please report any bugs.</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stdmod) <span class="co"># For computing the standardized moderation effect conveniently</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lavaan) <span class="co"># For doing path analysis in lavaan.</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; This is lavaan 0.6-14</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lavaan is FREE software! Please report any bugs.</span></span></code></pre></div>
 </div>
 <div id="load-the-dataset" class="section level1">
 <h1>Load the Dataset</h1>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">data</span>(test_mod1)</span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="kw">round</span>(<span class="kw">head</span>(test_mod1, <span class="dv">3</span>), <span class="dv">3</span>)</span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="co">#&gt;       dv     iv    mod    med   cov1   cov2</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="co">#&gt; 1 23.879 -0.133 -0.544 10.310 -0.511 -0.574</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="co">#&gt; 2 23.096  1.456  1.539 11.384  0.094 -0.264</span></span>
-<span id="cb2-6"><a href="#cb2-6"></a><span class="co">#&gt; 3 23.201  0.319  1.774  9.615 -0.172  0.488</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(test_mod1)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">head</span>(test_mod1, <span class="dv">3</span>), <span class="dv">3</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       dv     iv    mod    med   cov1   cov2</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 23.879 -0.133 -0.544 10.310 -0.511 -0.574</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 23.096  1.456  1.539 11.384  0.094 -0.264</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 23.201  0.319  1.774  9.615 -0.172  0.488</span></span></code></pre></div>
 <p>This test data set has 300 cases, six variables, all continuous.</p>
 </div>
 <div id="fit-the-model-by-lavaansem" class="section level1">
 <h1>Fit the Model by <code>lavaan::sem()</code></h1>
-<p>The product term can be formed manually or by the colon operator, <code>:</code>. <code>stdmod_lavaan()</code> will work in both cases.</p>
+<p>The product term can be formed manually or by the colon operator,
+<code>:</code>. <code>stdmod_lavaan()</code> will work in both
+cases.</p>
 <p>This is the model to be tested:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>mod &lt;-</span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="st">&quot;</span></span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="st">med ~ iv + mod + iv:mod + cov1</span></span>
-<span id="cb3-4"><a href="#cb3-4"></a><span class="st">dv ~ med + cov2</span></span>
-<span id="cb3-5"><a href="#cb3-5"></a><span class="st">&quot;</span></span>
-<span id="cb3-6"><a href="#cb3-6"></a>fit &lt;-<span class="st"> </span><span class="kw">sem</span>(mod, test_mod1, <span class="dt">fixed.x =</span> <span class="ot">FALSE</span>)</span>
-<span id="cb3-7"><a href="#cb3-7"></a><span class="kw">summary</span>(fit)</span>
-<span id="cb3-8"><a href="#cb3-8"></a><span class="co">#&gt; lavaan 0.6-12 ended normally after 1 iterations</span></span>
-<span id="cb3-9"><a href="#cb3-9"></a><span class="co">#&gt; </span></span>
-<span id="cb3-10"><a href="#cb3-10"></a><span class="co">#&gt;   Estimator                                         ML</span></span>
-<span id="cb3-11"><a href="#cb3-11"></a><span class="co">#&gt;   Optimization method                           NLMINB</span></span>
-<span id="cb3-12"><a href="#cb3-12"></a><span class="co">#&gt;   Number of model parameters                        23</span></span>
-<span id="cb3-13"><a href="#cb3-13"></a><span class="co">#&gt; </span></span>
-<span id="cb3-14"><a href="#cb3-14"></a><span class="co">#&gt;   Number of observations                           300</span></span>
-<span id="cb3-15"><a href="#cb3-15"></a><span class="co">#&gt; </span></span>
-<span id="cb3-16"><a href="#cb3-16"></a><span class="co">#&gt; Model Test User Model:</span></span>
-<span id="cb3-17"><a href="#cb3-17"></a><span class="co">#&gt;                                                       </span></span>
-<span id="cb3-18"><a href="#cb3-18"></a><span class="co">#&gt;   Test statistic                                 1.058</span></span>
-<span id="cb3-19"><a href="#cb3-19"></a><span class="co">#&gt;   Degrees of freedom                                 5</span></span>
-<span id="cb3-20"><a href="#cb3-20"></a><span class="co">#&gt;   P-value (Chi-square)                           0.958</span></span>
-<span id="cb3-21"><a href="#cb3-21"></a><span class="co">#&gt; </span></span>
-<span id="cb3-22"><a href="#cb3-22"></a><span class="co">#&gt; Parameter Estimates:</span></span>
-<span id="cb3-23"><a href="#cb3-23"></a><span class="co">#&gt; </span></span>
-<span id="cb3-24"><a href="#cb3-24"></a><span class="co">#&gt;   Standard errors                             Standard</span></span>
-<span id="cb3-25"><a href="#cb3-25"></a><span class="co">#&gt;   Information                                 Expected</span></span>
-<span id="cb3-26"><a href="#cb3-26"></a><span class="co">#&gt;   Information saturated (h1) model          Structured</span></span>
-<span id="cb3-27"><a href="#cb3-27"></a><span class="co">#&gt; </span></span>
-<span id="cb3-28"><a href="#cb3-28"></a><span class="co">#&gt; Regressions:</span></span>
-<span id="cb3-29"><a href="#cb3-29"></a><span class="co">#&gt;                    Estimate  Std.Err  z-value  P(&gt;|z|)</span></span>
-<span id="cb3-30"><a href="#cb3-30"></a><span class="co">#&gt;   med ~                                               </span></span>
-<span id="cb3-31"><a href="#cb3-31"></a><span class="co">#&gt;     iv                0.221    0.030    7.264    0.000</span></span>
-<span id="cb3-32"><a href="#cb3-32"></a><span class="co">#&gt;     mod               0.104    0.030    3.489    0.000</span></span>
-<span id="cb3-33"><a href="#cb3-33"></a><span class="co">#&gt;     iv:mod            0.257    0.025   10.169    0.000</span></span>
-<span id="cb3-34"><a href="#cb3-34"></a><span class="co">#&gt;     cov1              0.104    0.025    4.099    0.000</span></span>
-<span id="cb3-35"><a href="#cb3-35"></a><span class="co">#&gt;   dv ~                                                </span></span>
-<span id="cb3-36"><a href="#cb3-36"></a><span class="co">#&gt;     med               0.246    0.041    5.962    0.000</span></span>
-<span id="cb3-37"><a href="#cb3-37"></a><span class="co">#&gt;     cov2              0.191    0.023    8.324    0.000</span></span>
-<span id="cb3-38"><a href="#cb3-38"></a><span class="co">#&gt; </span></span>
-<span id="cb3-39"><a href="#cb3-39"></a><span class="co">#&gt; Covariances:</span></span>
-<span id="cb3-40"><a href="#cb3-40"></a><span class="co">#&gt;                    Estimate  Std.Err  z-value  P(&gt;|z|)</span></span>
-<span id="cb3-41"><a href="#cb3-41"></a><span class="co">#&gt;   iv ~~                                               </span></span>
-<span id="cb3-42"><a href="#cb3-42"></a><span class="co">#&gt;     mod               0.481    0.063    7.606    0.000</span></span>
-<span id="cb3-43"><a href="#cb3-43"></a><span class="co">#&gt;     iv:mod           -0.149    0.059   -2.501    0.012</span></span>
-<span id="cb3-44"><a href="#cb3-44"></a><span class="co">#&gt;     cov1             -0.033    0.058   -0.575    0.565</span></span>
-<span id="cb3-45"><a href="#cb3-45"></a><span class="co">#&gt;     cov2             -0.071    0.059   -1.216    0.224</span></span>
-<span id="cb3-46"><a href="#cb3-46"></a><span class="co">#&gt;   mod ~~                                              </span></span>
-<span id="cb3-47"><a href="#cb3-47"></a><span class="co">#&gt;     iv:mod           -0.180    0.062   -2.923    0.003</span></span>
-<span id="cb3-48"><a href="#cb3-48"></a><span class="co">#&gt;     cov1             -0.060    0.059   -1.010    0.313</span></span>
-<span id="cb3-49"><a href="#cb3-49"></a><span class="co">#&gt;     cov2             -0.107    0.061   -1.763    0.078</span></span>
-<span id="cb3-50"><a href="#cb3-50"></a><span class="co">#&gt;   iv:mod ~~                                           </span></span>
-<span id="cb3-51"><a href="#cb3-51"></a><span class="co">#&gt;     cov1             -0.051    0.061   -0.837    0.403</span></span>
-<span id="cb3-52"><a href="#cb3-52"></a><span class="co">#&gt;     cov2              0.063    0.063    1.001    0.317</span></span>
-<span id="cb3-53"><a href="#cb3-53"></a><span class="co">#&gt;   cov1 ~~                                             </span></span>
-<span id="cb3-54"><a href="#cb3-54"></a><span class="co">#&gt;     cov2              0.071    0.061    1.158    0.247</span></span>
-<span id="cb3-55"><a href="#cb3-55"></a><span class="co">#&gt; </span></span>
-<span id="cb3-56"><a href="#cb3-56"></a><span class="co">#&gt; Variances:</span></span>
-<span id="cb3-57"><a href="#cb3-57"></a><span class="co">#&gt;                    Estimate  Std.Err  z-value  P(&gt;|z|)</span></span>
-<span id="cb3-58"><a href="#cb3-58"></a><span class="co">#&gt;    .med               0.201    0.016   12.247    0.000</span></span>
-<span id="cb3-59"><a href="#cb3-59"></a><span class="co">#&gt;    .dv                0.169    0.014   12.247    0.000</span></span>
-<span id="cb3-60"><a href="#cb3-60"></a><span class="co">#&gt;     iv                0.954    0.078   12.247    0.000</span></span>
-<span id="cb3-61"><a href="#cb3-61"></a><span class="co">#&gt;     mod               1.017    0.083   12.247    0.000</span></span>
-<span id="cb3-62"><a href="#cb3-62"></a><span class="co">#&gt;     iv:mod            1.088    0.089   12.247    0.000</span></span>
-<span id="cb3-63"><a href="#cb3-63"></a><span class="co">#&gt;     cov1              1.039    0.085   12.247    0.000</span></span>
-<span id="cb3-64"><a href="#cb3-64"></a><span class="co">#&gt;     cov2              1.076    0.088   12.247    0.000</span></span></code></pre></div>
-<p>The results show that <code>mod</code> significantly moderates the effect of <code>iv</code> on <code>med</code>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="st">med ~ iv + mod + iv:mod + cov1</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="st">dv ~ med + cov2</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">sem</span>(mod, test_mod1, <span class="at">fixed.x =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lavaan 0.6.14 ended normally after 1 iteration</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Estimator                                         ML</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Optimization method                           NLMINB</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Number of model parameters                        23</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Number of observations                           300</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Model Test User Model:</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                                                       </span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Test statistic                                 1.058</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Degrees of freedom                                 5</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   P-value (Chi-square)                           0.958</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Parameter Estimates:</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Standard errors                             Standard</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Information                                 Expected</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Information saturated (h1) model          Structured</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Regressions:</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                    Estimate  Std.Err  z-value  P(&gt;|z|)</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   med ~                                               </span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     iv                0.221    0.030    7.264    0.000</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     mod               0.104    0.030    3.489    0.000</span></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     iv:mod            0.257    0.025   10.169    0.000</span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     cov1              0.104    0.025    4.099    0.000</span></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   dv ~                                                </span></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     med               0.246    0.041    5.962    0.000</span></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     cov2              0.191    0.023    8.324    0.000</span></span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Covariances:</span></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                    Estimate  Std.Err  z-value  P(&gt;|z|)</span></span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   iv ~~                                               </span></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     mod               0.481    0.063    7.606    0.000</span></span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     iv:mod           -0.149    0.059   -2.501    0.012</span></span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     cov1             -0.033    0.058   -0.575    0.565</span></span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     cov2             -0.071    0.059   -1.216    0.224</span></span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   mod ~~                                              </span></span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     iv:mod           -0.180    0.062   -2.923    0.003</span></span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     cov1             -0.060    0.059   -1.010    0.313</span></span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     cov2             -0.107    0.061   -1.763    0.078</span></span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   iv:mod ~~                                           </span></span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     cov1             -0.051    0.061   -0.837    0.403</span></span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     cov2              0.063    0.063    1.001    0.317</span></span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   cov1 ~~                                             </span></span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     cov2              0.071    0.061    1.158    0.247</span></span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Variances:</span></span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                    Estimate  Std.Err  z-value  P(&gt;|z|)</span></span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    .med               0.201    0.016   12.247    0.000</span></span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    .dv                0.169    0.014   12.247    0.000</span></span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     iv                0.954    0.078   12.247    0.000</span></span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     mod               1.017    0.083   12.247    0.000</span></span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     iv:mod            1.088    0.089   12.247    0.000</span></span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     cov1              1.039    0.085   12.247    0.000</span></span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     cov2              1.076    0.088   12.247    0.000</span></span></code></pre></div>
+<p>The results show that <code>mod</code> significantly moderates the
+effect of <code>iv</code> on <code>med</code>.</p>
 </div>
 <div id="compute-the-standardized-moderation-effect" class="section level1">
 <h1>Compute the Standardized Moderation Effect</h1>
-<p>As in the case of regression, the coefficient of <code>iv:mod</code> in the standardized solution is not the desired standardized coefficient because it standardizes the product term.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">standardizedSolution</span>(fit)[<span class="dv">3</span>, ]</span>
-<span id="cb4-2"><a href="#cb4-2"></a><span class="co">#&gt;   lhs op    rhs est.std    se      z pvalue ci.lower ci.upper</span></span>
-<span id="cb4-3"><a href="#cb4-3"></a><span class="co">#&gt; 3 med  ~ iv:mod   0.466 0.043 10.842      0    0.382     0.55</span></span></code></pre></div>
-<p>After fitting the path model by <code>lavaan::lavaan()</code>, we can use <code>stdmod_lavaan()</code> to compute the standardized moderation effect using the standard deviations of the focal variable, the moderator, and the outcome variable (Cheung, Cheung, Lau, Hui, &amp; Vong, 2022).</p>
+<p>As in the case of regression, the coefficient of <code>iv:mod</code>
+in the standardized solution is not the desired standardized coefficient
+because it standardizes the product term.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">standardizedSolution</span>(fit)[<span class="dv">3</span>, ]</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   lhs op    rhs est.std    se      z pvalue ci.lower ci.upper</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 med  ~ iv:mod   0.466 0.043 10.842      0    0.382     0.55</span></span></code></pre></div>
+<p>After fitting the path model by <code>lavaan::lavaan()</code>, we can
+use <code>stdmod_lavaan()</code> to compute the standardized moderation
+effect using the standard deviations of the focal variable, the
+moderator, and the outcome variable (Cheung, Cheung, Lau, Hui, &amp;
+Vong, 2022).</p>
 <p>The minimal arguments are:</p>
 <ul>
-<li><code>fit</code>: The output from <code>lavaan::lavaan()</code> and its wrappers, such as <code>lavaan::sem()</code>.</li>
-<li><code>x</code>: The focal variable, the variable with its effect on the outcome variable being moderated.</li>
+<li><code>fit</code>: The output from <code>lavaan::lavaan()</code> and
+its wrappers, such as <code>lavaan::sem()</code>.</li>
+<li><code>x</code>: The focal variable, the variable with its effect on
+the outcome variable being moderated.</li>
 <li><code>y</code>: The outcome variable.</li>
 <li><code>w</code>: The moderator.</li>
 <li><code>x_w</code>: The product term.</li>
 </ul>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>fit_iv_mod_std &lt;-<span class="st"> </span><span class="kw">stdmod_lavaan</span>(<span class="dt">fit =</span> fit,</span>
-<span id="cb5-2"><a href="#cb5-2"></a>                                <span class="dt">x =</span> <span class="st">&quot;iv&quot;</span>,</span>
-<span id="cb5-3"><a href="#cb5-3"></a>                                <span class="dt">y =</span> <span class="st">&quot;med&quot;</span>,</span>
-<span id="cb5-4"><a href="#cb5-4"></a>                                <span class="dt">w =</span> <span class="st">&quot;mod&quot;</span>,</span>
-<span id="cb5-5"><a href="#cb5-5"></a>                                <span class="dt">x_w =</span> <span class="st">&quot;iv:mod&quot;</span>)</span>
-<span id="cb5-6"><a href="#cb5-6"></a>fit_iv_mod_std</span>
-<span id="cb5-7"><a href="#cb5-7"></a><span class="co">#&gt; </span></span>
-<span id="cb5-8"><a href="#cb5-8"></a><span class="co">#&gt; Call:</span></span>
-<span id="cb5-9"><a href="#cb5-9"></a><span class="co">#&gt; stdmod_lavaan(fit = fit, x = &quot;iv&quot;, y = &quot;med&quot;, w = &quot;mod&quot;, x_w = &quot;iv:mod&quot;)</span></span>
-<span id="cb5-10"><a href="#cb5-10"></a><span class="co">#&gt; </span></span>
-<span id="cb5-11"><a href="#cb5-11"></a><span class="co">#&gt;                  Variable</span></span>
-<span id="cb5-12"><a href="#cb5-12"></a><span class="co">#&gt; Focal Variable         iv</span></span>
-<span id="cb5-13"><a href="#cb5-13"></a><span class="co">#&gt; Moderator             mod</span></span>
-<span id="cb5-14"><a href="#cb5-14"></a><span class="co">#&gt; Outcome Variable      med</span></span>
-<span id="cb5-15"><a href="#cb5-15"></a><span class="co">#&gt; Product Term       iv:mod</span></span>
-<span id="cb5-16"><a href="#cb5-16"></a><span class="co">#&gt; </span></span>
-<span id="cb5-17"><a href="#cb5-17"></a><span class="co">#&gt;              lhs op    rhs   est    se      z pvalue ci.lower ci.upper</span></span>
-<span id="cb5-18"><a href="#cb5-18"></a><span class="co">#&gt; Original     med  ~ iv:mod 0.257 0.025 10.169      0    0.208    0.307</span></span>
-<span id="cb5-19"><a href="#cb5-19"></a><span class="co">#&gt; Standardized med  ~ iv:mod 0.440    NA     NA     NA       NA       NA</span></span></code></pre></div>
-<p>The standardized moderation effect of <code>mod</code> on the <code>iv</code>-<code>med</code> path is 0.440.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>fit_iv_mod_std <span class="ot">&lt;-</span> <span class="fu">stdmod_lavaan</span>(<span class="at">fit =</span> fit,</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>                                <span class="at">x =</span> <span class="st">&quot;iv&quot;</span>,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>                                <span class="at">y =</span> <span class="st">&quot;med&quot;</span>,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>                                <span class="at">w =</span> <span class="st">&quot;mod&quot;</span>,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>                                <span class="at">x_w =</span> <span class="st">&quot;iv:mod&quot;</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>fit_iv_mod_std</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; stdmod_lavaan(fit = fit, x = &quot;iv&quot;, y = &quot;med&quot;, w = &quot;mod&quot;, x_w = &quot;iv:mod&quot;)</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                  Variable</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Focal Variable         iv</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Moderator             mod</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Outcome Variable      med</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Product Term       iv:mod</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;              lhs op    rhs   est    se      z pvalue ci.lower ci.upper</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Original     med  ~ iv:mod 0.257 0.025 10.169      0    0.208    0.307</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Standardized med  ~ iv:mod 0.440    NA     NA     NA       NA       NA</span></span></code></pre></div>
+<p>The standardized moderation effect of <code>mod</code> on the
+<code>iv</code>-<code>med</code> path is 0.440.</p>
 </div>
 <div id="form-bootstrap-confidence-interval" class="section level1">
 <h1>Form Bootstrap Confidence Interval</h1>
-<p><code>stdmod_lavaan()</code> can also be used to form nonparametric bootstrap confidence interval for the standardized moderation effect.</p>
+<p><code>stdmod_lavaan()</code> can also be used to form nonparametric
+bootstrap confidence interval for the standardized moderation
+effect.</p>
 <p>Only two additional arguments are required:</p>
 <ul>
-<li><code>boot_ci</code>: Set it to <code>TRUE</code> to request nonparametric bootstrap confidence interval.</li>
-<li><code>R</code>: Set the number of bootstrap samples. Should be at least 2000.</li>
+<li><code>boot_ci</code>: Set it to <code>TRUE</code> to request
+nonparametric bootstrap confidence interval.</li>
+<li><code>R</code>: Set the number of bootstrap samples. Should be at
+least 2000.</li>
 </ul>
-<p>However, the function can be slow if the model takes some time to fit because the model will be fitted <code>R</code> times. If the model cannot be fitted quickly, we highly suggest using parallel processing. This can be requested using arguments in <code>boot::boot()</code> because <code>stdmod_lavaan()</code> internally calls <code>boot::boot()</code> to do the bootstrapping. These are the two possible arguments to use for parallel processing:</p>
+<p>However, the function can be slow if the model takes some time to fit
+because the model will be fitted <code>R</code> times. If the model
+cannot be fitted quickly, we highly suggest using parallel processing.
+This can be requested using arguments in <code>boot::boot()</code>
+because <code>stdmod_lavaan()</code> internally calls
+<code>boot::boot()</code> to do the bootstrapping. These are the two
+possible arguments to use for parallel processing:</p>
 <ul>
-<li><code>parallel</code>: Can be <code>&quot;no&quot;</code>, <code>&quot;multicore&quot;</code>, or <code>&quot;snow&quot;</code>. See <code>boot::boot()</code> on which one to use. The following example uses <code>&quot;snow&quot;</code>.</li>
-<li><code>ncpus</code>: The number of processors to use. Let <code>boot::boot()</code> decides or set it based on the configuration of the computer.</li>
+<li><code>parallel</code>: Can be <code>&quot;no&quot;</code>,
+<code>&quot;multicore&quot;</code>, or <code>&quot;snow&quot;</code>. See
+<code>boot::boot()</code> on which one to use. The following example
+uses <code>&quot;snow&quot;</code>.</li>
+<li><code>ncpus</code>: The number of processors to use. Let
+<code>boot::boot()</code> decides or set it based on the configuration
+of the computer.</li>
 </ul>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">set.seed</span>(<span class="dv">860947</span>)</span>
-<span id="cb6-2"><a href="#cb6-2"></a>fit_iv_mod_std_ci &lt;-<span class="st"> </span><span class="kw">stdmod_lavaan</span>(<span class="dt">fit =</span> fit,</span>
-<span id="cb6-3"><a href="#cb6-3"></a>                                    <span class="dt">x =</span> <span class="st">&quot;iv&quot;</span>,</span>
-<span id="cb6-4"><a href="#cb6-4"></a>                                    <span class="dt">y =</span> <span class="st">&quot;med&quot;</span>,</span>
-<span id="cb6-5"><a href="#cb6-5"></a>                                    <span class="dt">w =</span> <span class="st">&quot;mod&quot;</span>,</span>
-<span id="cb6-6"><a href="#cb6-6"></a>                                    <span class="dt">x_w =</span> <span class="st">&quot;iv:mod&quot;</span>,</span>
-<span id="cb6-7"><a href="#cb6-7"></a>                                    <span class="dt">boot_ci =</span> <span class="ot">TRUE</span>,</span>
-<span id="cb6-8"><a href="#cb6-8"></a>                                    <span class="dt">R =</span> <span class="dv">2000</span>,</span>
-<span id="cb6-9"><a href="#cb6-9"></a>                                    <span class="dt">parallel =</span> <span class="st">&quot;snow&quot;</span>,</span>
-<span id="cb6-10"><a href="#cb6-10"></a>                                    <span class="dt">ncpus =</span> <span class="dv">6</span>)</span>
-<span id="cb6-11"><a href="#cb6-11"></a>fit_iv_mod_std_ci</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">860947</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>fit_iv_mod_std_ci <span class="ot">&lt;-</span> <span class="fu">stdmod_lavaan</span>(<span class="at">fit =</span> fit,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">x =</span> <span class="st">&quot;iv&quot;</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">y =</span> <span class="st">&quot;med&quot;</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">w =</span> <span class="st">&quot;mod&quot;</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">x_w =</span> <span class="st">&quot;iv:mod&quot;</span>,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">boot_ci =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">R =</span> <span class="dv">2000</span>,</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">parallel =</span> <span class="st">&quot;snow&quot;</span>,</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">ncpus =</span> <span class="dv">6</span>)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>fit_iv_mod_std_ci</span></code></pre></div>
 <pre><code>#&gt; 
 #&gt; Call:
 #&gt; stdmod_lavaan(fit = fit, x = &quot;iv&quot;, y = &quot;med&quot;, w = &quot;mod&quot;, x_w = &quot;iv:mod&quot;, 
@@ -532,16 +546,27 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 #&gt; - Type: Percentile
 #&gt; - Number of bootstrap samples requests: 100
 #&gt; - Number of bootstrap samples with valid results: 100</code></pre>
-<p>The 95% confidence interval of the standardized moderation effect is 0.296 to 0.515.</p>
+<p>The 95% confidence interval of the standardized moderation effect is
+0.296 to 0.515.</p>
 </div>
 <div id="remarks" class="section level1">
 <h1>Remarks</h1>
-<p>The function <code>stdmod_lavaan()</code> can be used for more complicated path models. The computation of the standardized moderation effect in a path model depends only on the standard deviations of the three variables involved (<code>x</code>, <code>w</code>, and <code>y</code>).</p>
+<p>The function <code>stdmod_lavaan()</code> can be used for more
+complicated path models. The computation of the standardized moderation
+effect in a path model depends only on the standard deviations of the
+three variables involved (<code>x</code>, <code>w</code>, and
+<code>y</code>).</p>
 </div>
 <div id="references" class="section level1">
 <h1>Reference(s)</h1>
-<p>The computation of the standardized moderation effect is based on the simple formula presented in the following manuscript, using the standard deviations of the outcome variable, focal variable, and the moderator:</p>
-<p>Cheung, S. F., Cheung, S.-H., Lau, E. Y. Y., Hui, C. H., &amp; Vong, W. N. (2022) Improving an old way to measure moderation effect in standardized units. <em>Health Psychology</em>, <em>41</em>(7), 502-505. <a href="https://doi.org/10.1037/hea0001188" class="uri">https://doi.org/10.1037/hea0001188</a>.</p>
+<p>The computation of the standardized moderation effect is based on the
+simple formula presented in the following manuscript, using the standard
+deviations of the outcome variable, focal variable, and the
+moderator:</p>
+<p>Cheung, S. F., Cheung, S.-H., Lau, E. Y. Y., Hui, C. H., &amp; Vong,
+W. N. (2022) Improving an old way to measure moderation effect in
+standardized units. <em>Health Psychology</em>, <em>41</em>(7), 502-505.
+<a href="https://doi.org/10.1037/hea0001188" class="uri">https://doi.org/10.1037/hea0001188</a>.</p>
 </div>
 
 

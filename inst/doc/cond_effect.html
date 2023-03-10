@@ -12,7 +12,7 @@
 
 <meta name="author" content="Shu Fai Cheung" />
 
-<meta name="date" content="2022-10-09" />
+<meta name="date" content="2023-03-10" />
 
 <title>Conditional Effects by cond_effect()</title>
 
@@ -29,46 +29,31 @@ document.addEventListener('DOMContentLoaded', function(e) {
   }
 });
 </script>
-<script>// Hide empty <a> tag within highlighted CodeBlock for screen reader accessibility (see https://github.com/jgm/pandoc/issues/6352#issuecomment-626106786) -->
-// v0.0.1
-// Written by JooYoung Seo (jooyoung@psu.edu) and Atsushi Yasumoto on June 1st, 2020.
-
-document.addEventListener('DOMContentLoaded', function() {
-  const codeList = document.getElementsByClassName("sourceCode");
-  for (var i = 0; i < codeList.length; i++) {
-    var linkList = codeList[i].getElementsByTagName('a');
-    for (var j = 0; j < linkList.length; j++) {
-      if (linkList[j].innerHTML === "") {
-        linkList[j].setAttribute('aria-hidden', 'true');
-      }
-    }
-  }
-});
-</script>
 
 <style type="text/css">
-  code{white-space: pre-wrap;}
-  span.smallcaps{font-variant: small-caps;}
-  span.underline{text-decoration: underline;}
-  div.column{display: inline-block; vertical-align: top; width: 50%;}
-  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-  ul.task-list{list-style: none;}
-    </style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
 
 
 
 <style type="text/css">
-  code {
-    white-space: pre;
-  }
-  .sourceCode {
-    overflow: visible;
-  }
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
 </style>
 <style type="text/css" data-origin="pandoc">
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -80,55 +65,54 @@ pre > code.sourceCode { white-space: pre-wrap; }
 pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
-  { counter-reset: source-line 0; }
+{ counter-reset: source-line 0; }
 pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
+{ position: relative; left: -4em; counter-increment: source-line; }
 pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
 div.sourceCode
-  {   }
+{ }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
 </style>
 <script>
 // apply pandoc div.sourceCode style to pre.sourceCode instead
@@ -356,169 +340,219 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 <h1 class="title toc-ignore">Conditional Effects by cond_effect()</h1>
 <h4 class="author">Shu Fai Cheung</h4>
-<h4 class="date">2022-10-09</h4>
+<h4 class="date">2023-03-10</h4>
 
 
 
 <div id="what-cond_effect-can-do" class="section level1">
 <h1>What <code>cond_effect()</code> Can Do</h1>
-<p>It can compute the conditional effect of a predictor (the focal variable) on an outcome variable (dependent variable) for selected levels of the moderator:</p>
+<p>It can compute the conditional effect of a predictor (the focal
+variable) on an outcome variable (dependent variable) for selected
+levels of the moderator:</p>
 <pre><code>#&gt;   Level conscientiousness emotional_stability Effect  S.E.     t     p Sig
 #&gt;    High             3.950                      0.012 0.117 0.107 0.915    
 #&gt;  Medium             3.343                      0.214 0.083 2.560 0.011 *  
 #&gt;     Low             2.736                      0.415 0.115 3.601 0.000 ***</code></pre>
-<p>It can also compute standardized conditional moderation effect of this predictor:</p>
+<p>It can also compute standardized conditional moderation effect of
+this predictor:</p>
 <pre><code>#&gt;   Level conscientiousness emotional_stability Effect  S.E.     t     p Sig
 #&gt;    High             1.000                      0.007 0.063 0.107 0.915    
 #&gt;  Medium             0.000                      0.115 0.045 2.560 0.011 *  
 #&gt;     Low            -1.000                      0.223 0.062 3.601 0.000 ***</code></pre>
-<p>Nonparametric bootstrap percentile confidence interval can also be formed for standardized conditional effect using <code>cond_effect_boot()</code>.</p>
-<p><code>cond_effect()</code> is not designed to be a versatile tool. It is designed to be a function “good-enough” for common scenarios. Nevertheless, it can report some useful information along with the conditional effects, as demonstrated below.</p>
+<p>Nonparametric bootstrap percentile confidence interval can also be
+formed for standardized conditional effect using
+<code>cond_effect_boot()</code>.</p>
+<p><code>cond_effect()</code> is not designed to be a versatile tool. It
+is designed to be a function “good-enough” for common scenarios.
+Nevertheless, it can report some useful information along with the
+conditional effects, as demonstrated below.</p>
 </div>
 <div id="major-arguments" class="section level1">
 <h1>Major Arguments</h1>
 <div id="regression-output-predictor-x-and-moderator-w" class="section level2">
-<h2>Regression Output, Predictor (<code>x</code>), and Moderator (<code>w</code>)</h2>
+<h2>Regression Output, Predictor (<code>x</code>), and Moderator
+(<code>w</code>)</h2>
 <ul>
-<li><p><code>output</code>: The output of <code>lm()</code>, <code>std_selected()</code>, or <code>std_selected_boot()</code>, with at least one interaction term. Bootstrap estimates in <code>std_selected_boot()</code> will be ignored because bootstrapping will be done for each level again.</p></li>
+<li><p><code>output</code>: The output of <code>lm()</code>,
+<code>std_selected()</code>, or <code>std_selected_boot()</code>, with
+at least one interaction term. Bootstrap estimates in
+<code>std_selected_boot()</code> will be ignored because bootstrapping
+will be done for each level again.</p></li>
 <li><p><code>x</code>: The predictor (focal variable).</p></li>
 <li><p><code>w</code>: The moderator.</p></li>
 </ul>
-<p>These are the only required arguments. Just setting them can generate the graph:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">library</span>(stdmod)</span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="kw">data</span>(sleep_emo_con)</span>
-<span id="cb3-3"><a href="#cb3-3"></a>lm_out &lt;-<span class="st"> </span><span class="kw">lm</span>(sleep_duration <span class="op">~</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>gender <span class="op">+</span></span>
-<span id="cb3-4"><a href="#cb3-4"></a><span class="st">                              </span>emotional_stability <span class="op">*</span><span class="st"> </span>conscientiousness,</span>
-<span id="cb3-5"><a href="#cb3-5"></a>                              sleep_emo_con)</span>
-<span id="cb3-6"><a href="#cb3-6"></a>cond_out &lt;-<span class="st"> </span><span class="kw">cond_effect</span>(<span class="dt">output =</span> lm_out,</span>
-<span id="cb3-7"><a href="#cb3-7"></a>                        <span class="dt">x =</span> <span class="st">&quot;emotional_stability&quot;</span>,</span>
-<span id="cb3-8"><a href="#cb3-8"></a>                        <span class="dt">w =</span> <span class="st">&quot;conscientiousness&quot;</span>)</span>
-<span id="cb3-9"><a href="#cb3-9"></a>cond_out</span>
-<span id="cb3-10"><a href="#cb3-10"></a><span class="co">#&gt; The effects of emotional_stability on sleep_duration, conditional on conscientiousness:</span></span>
-<span id="cb3-11"><a href="#cb3-11"></a><span class="co">#&gt; </span></span>
-<span id="cb3-12"><a href="#cb3-12"></a><span class="co">#&gt;   Level conscientiousness emotional_stability Effect  S.E.     t     p Sig</span></span>
-<span id="cb3-13"><a href="#cb3-13"></a><span class="co">#&gt;    High             3.950                      0.012 0.117 0.107 0.915    </span></span>
-<span id="cb3-14"><a href="#cb3-14"></a><span class="co">#&gt;  Medium             3.343                      0.214 0.083 2.560 0.011 *  </span></span>
-<span id="cb3-15"><a href="#cb3-15"></a><span class="co">#&gt;     Low             2.736                      0.415 0.115 3.601 0.000 ***</span></span>
-<span id="cb3-16"><a href="#cb3-16"></a><span class="co">#&gt; </span></span>
-<span id="cb3-17"><a href="#cb3-17"></a><span class="co">#&gt; The regression model:</span></span>
-<span id="cb3-18"><a href="#cb3-18"></a><span class="co">#&gt; </span></span>
-<span id="cb3-19"><a href="#cb3-19"></a><span class="co">#&gt;  sleep_duration ~ age + gender + emotional_stability * conscientiousness</span></span>
-<span id="cb3-20"><a href="#cb3-20"></a><span class="co">#&gt; </span></span>
-<span id="cb3-21"><a href="#cb3-21"></a><span class="co">#&gt; Interpreting the levels of conscientiousness:</span></span>
-<span id="cb3-22"><a href="#cb3-22"></a><span class="co">#&gt; </span></span>
-<span id="cb3-23"><a href="#cb3-23"></a><span class="co">#&gt;   Level conscientiousness % Below From Mean (in SD)</span></span>
-<span id="cb3-24"><a href="#cb3-24"></a><span class="co">#&gt;    High             3.950   83.60              1.00</span></span>
-<span id="cb3-25"><a href="#cb3-25"></a><span class="co">#&gt;  Medium             3.343   49.60              0.00</span></span>
-<span id="cb3-26"><a href="#cb3-26"></a><span class="co">#&gt;     Low             2.736   16.60             -1.00</span></span>
-<span id="cb3-27"><a href="#cb3-27"></a><span class="co">#&gt; </span></span>
-<span id="cb3-28"><a href="#cb3-28"></a><span class="co">#&gt; - % Below: The percent of cases equal to or less than a level.</span></span>
-<span id="cb3-29"><a href="#cb3-29"></a><span class="co">#&gt; - From Mean (in SD): Distance of a level from the mean,</span></span>
-<span id="cb3-30"><a href="#cb3-30"></a><span class="co">#&gt;   in standard deviation (+ve above, -ve below).</span></span></code></pre></div>
-<p>By default, the print method of <code>cond_effect()</code> output prints the conditional effects, OLS standard errors, <em>t</em> statistics, <em>p</em>-values, and significant test results, along with other information such as the value of each level of the moderator, its distance from the mean, the percentage of cases equal to or less than this level. The regression model is also printed. If only the table of effects is needed, call <code>print()</code> and set <code>table_only</code> to <code>TRUE</code>:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">print</span>(cond_out, <span class="dt">table_only =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb4-2"><a href="#cb4-2"></a><span class="co">#&gt;   Level conscientiousness emotional_stability Effect  S.E.     t     p Sig</span></span>
-<span id="cb4-3"><a href="#cb4-3"></a><span class="co">#&gt;    High             3.950                      0.012 0.117 0.107 0.915    </span></span>
-<span id="cb4-4"><a href="#cb4-4"></a><span class="co">#&gt;  Medium             3.343                      0.214 0.083 2.560 0.011 *  </span></span>
-<span id="cb4-5"><a href="#cb4-5"></a><span class="co">#&gt;     Low             2.736                      0.415 0.115 3.601 0.000 ***</span></span></code></pre></div>
-<p>More options in printing the output can be found in the help page of <code>print.cond_effect()</code>.</p>
+<p>These are the only required arguments. Just setting them can generate
+the graph:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stdmod)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(sleep_emo_con)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>lm_out <span class="ot">&lt;-</span> <span class="fu">lm</span>(sleep_duration <span class="sc">~</span> age <span class="sc">+</span> gender <span class="sc">+</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>                              emotional_stability <span class="sc">*</span> conscientiousness,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>                              sleep_emo_con)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>cond_out <span class="ot">&lt;-</span> <span class="fu">cond_effect</span>(<span class="at">output =</span> lm_out,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>                        <span class="at">x =</span> <span class="st">&quot;emotional_stability&quot;</span>,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>                        <span class="at">w =</span> <span class="st">&quot;conscientiousness&quot;</span>)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>cond_out</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; The effects of emotional_stability on sleep_duration, conditional on conscientiousness:</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Level conscientiousness emotional_stability Effect  S.E.     t     p Sig</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    High             3.950                      0.012 0.117 0.107 0.915    </span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Medium             3.343                      0.214 0.083 2.560 0.011 *  </span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     Low             2.736                      0.415 0.115 3.601 0.000 ***</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; The regression model:</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  sleep_duration ~ age + gender + emotional_stability * conscientiousness</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Interpreting the levels of conscientiousness:</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Level conscientiousness % Below From Mean (in SD)</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    High             3.950   83.60              1.00</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Medium             3.343   49.60              0.00</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     Low             2.736   16.60             -1.00</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - % Below: The percent of cases equal to or less than a level.</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - From Mean (in SD): Distance of a level from the mean,</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   in standard deviation (+ve above, -ve below).</span></span></code></pre></div>
+<p>By default, the print method of <code>cond_effect()</code> output
+prints the conditional effects, OLS standard errors, <em>t</em>
+statistics, <em>p</em>-values, and significant test results, along with
+other information such as the value of each level of the moderator, its
+distance from the mean, the percentage of cases equal to or less than
+this level. The regression model is also printed. If only the table of
+effects is needed, call <code>print()</code> and set
+<code>table_only</code> to <code>TRUE</code>:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(cond_out, <span class="at">table_only =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Level conscientiousness emotional_stability Effect  S.E.     t     p Sig</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    High             3.950                      0.012 0.117 0.107 0.915    </span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Medium             3.343                      0.214 0.083 2.560 0.011 *  </span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     Low             2.736                      0.415 0.115 3.601 0.000 ***</span></span></code></pre></div>
+<p>More options in printing the output can be found in the help page of
+<code>print.cond_effect()</code>.</p>
 </div>
 </div>
 <div id="levels-of-the-moderator" class="section level1">
 <h1>Levels of the Moderator</h1>
 <div id="numeric-moderators" class="section level2">
 <h2>Numeric Moderators</h2>
-<p>If the moderator is a numeric variable, then, by default, the conditional effects for three levels of the moderators will be used: one standard deviation (SD) to the mean (“Low”), mean (“Medium”), and one SD above mean (“High”).</p>
-<p>Users can also use percentiles to define “Low”, “Medium”, and “High” by setting <code>w_method</code> to <code>&quot;percentile&quot;</code>. The default are 16th percentile, 50th percentile, and 84th percentile, which corresponds approximately to one SD below mean, mean, and one SD above mean, respectively, for a normal distribution.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">data</span>(sleep_emo_con)</span>
-<span id="cb5-2"><a href="#cb5-2"></a>lm_out &lt;-<span class="st"> </span><span class="kw">lm</span>(sleep_duration <span class="op">~</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>gender <span class="op">+</span></span>
-<span id="cb5-3"><a href="#cb5-3"></a><span class="st">                              </span>emotional_stability <span class="op">*</span><span class="st"> </span>conscientiousness,</span>
-<span id="cb5-4"><a href="#cb5-4"></a>                              sleep_emo_con)</span>
-<span id="cb5-5"><a href="#cb5-5"></a>cond_out &lt;-<span class="st"> </span><span class="kw">cond_effect</span>(<span class="dt">output =</span> lm_out,</span>
-<span id="cb5-6"><a href="#cb5-6"></a>                        <span class="dt">x =</span> <span class="st">&quot;emotional_stability&quot;</span>,</span>
-<span id="cb5-7"><a href="#cb5-7"></a>                        <span class="dt">w =</span> <span class="st">&quot;conscientiousness&quot;</span>,</span>
-<span id="cb5-8"><a href="#cb5-8"></a>                        <span class="dt">w_method =</span> <span class="st">&quot;percentile&quot;</span>)</span>
-<span id="cb5-9"><a href="#cb5-9"></a><span class="kw">print</span>(cond_out, <span class="dt">title =</span> <span class="ot">FALSE</span>, <span class="dt">model =</span> <span class="ot">FALSE</span>)</span>
-<span id="cb5-10"><a href="#cb5-10"></a><span class="co">#&gt;   Level conscientiousness emotional_stability Effect  S.E.      t     p Sig</span></span>
-<span id="cb5-11"><a href="#cb5-11"></a><span class="co">#&gt;    High             4.000                     -0.004 0.122 -0.034 0.973    </span></span>
-<span id="cb5-12"><a href="#cb5-12"></a><span class="co">#&gt;  Medium             3.400                      0.195 0.084  2.322 0.021 *  </span></span>
-<span id="cb5-13"><a href="#cb5-13"></a><span class="co">#&gt;     Low             2.700                      0.427 0.119  3.600 0.000 ***</span></span>
-<span id="cb5-14"><a href="#cb5-14"></a><span class="co">#&gt; </span></span>
-<span id="cb5-15"><a href="#cb5-15"></a><span class="co">#&gt; Interpreting the levels of conscientiousness:</span></span>
-<span id="cb5-16"><a href="#cb5-16"></a><span class="co">#&gt; </span></span>
-<span id="cb5-17"><a href="#cb5-17"></a><span class="co">#&gt;   Level conscientiousness % Below From Mean (in SD)</span></span>
-<span id="cb5-18"><a href="#cb5-18"></a><span class="co">#&gt;    High             4.000   87.20              1.08</span></span>
-<span id="cb5-19"><a href="#cb5-19"></a><span class="co">#&gt;  Medium             3.400   57.00              0.09</span></span>
-<span id="cb5-20"><a href="#cb5-20"></a><span class="co">#&gt;     Low             2.700   16.60             -1.06</span></span>
-<span id="cb5-21"><a href="#cb5-21"></a><span class="co">#&gt; </span></span>
-<span id="cb5-22"><a href="#cb5-22"></a><span class="co">#&gt; - % Below: The percent of cases equal to or less than a level.</span></span>
-<span id="cb5-23"><a href="#cb5-23"></a><span class="co">#&gt; - From Mean (in SD): Distance of a level from the mean,</span></span>
-<span id="cb5-24"><a href="#cb5-24"></a><span class="co">#&gt;   in standard deviation (+ve above, -ve below).</span></span></code></pre></div>
-<p>Note that the empirical percentage of cases equal to or less than a level may not be exactly equal to that for the requested percentile if the number of cases is small and/or the number of unique values of the moderator is small.</p>
+<p>If the moderator is a numeric variable, then, by default, the
+conditional effects for three levels of the moderators will be used: one
+standard deviation (SD) to the mean (“Low”), mean (“Medium”), and one SD
+above mean (“High”).</p>
+<p>Users can also use percentiles to define “Low”, “Medium”, and “High”
+by setting <code>w_method</code> to <code>&quot;percentile&quot;</code>. The
+default are 16th percentile, 50th percentile, and 84th percentile, which
+corresponds approximately to one SD below mean, mean, and one SD above
+mean, respectively, for a normal distribution.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(sleep_emo_con)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>lm_out <span class="ot">&lt;-</span> <span class="fu">lm</span>(sleep_duration <span class="sc">~</span> age <span class="sc">+</span> gender <span class="sc">+</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>                              emotional_stability <span class="sc">*</span> conscientiousness,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>                              sleep_emo_con)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>cond_out <span class="ot">&lt;-</span> <span class="fu">cond_effect</span>(<span class="at">output =</span> lm_out,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>                        <span class="at">x =</span> <span class="st">&quot;emotional_stability&quot;</span>,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>                        <span class="at">w =</span> <span class="st">&quot;conscientiousness&quot;</span>,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>                        <span class="at">w_method =</span> <span class="st">&quot;percentile&quot;</span>)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(cond_out, <span class="at">title =</span> <span class="cn">FALSE</span>, <span class="at">model =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Level conscientiousness emotional_stability Effect  S.E.      t     p Sig</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    High             4.000                     -0.004 0.122 -0.034 0.973    </span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Medium             3.400                      0.195 0.084  2.322 0.021 *  </span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     Low             2.700                      0.427 0.119  3.600 0.000 ***</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Interpreting the levels of conscientiousness:</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Level conscientiousness % Below From Mean (in SD)</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    High             4.000   87.20              1.08</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Medium             3.400   57.00              0.09</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     Low             2.700   16.60             -1.06</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - % Below: The percent of cases equal to or less than a level.</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - From Mean (in SD): Distance of a level from the mean,</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   in standard deviation (+ve above, -ve below).</span></span></code></pre></div>
+<p>Note that the empirical percentage of cases equal to or less than a
+level may not be exactly equal to that for the requested percentile if
+the number of cases is small and/or the number of unique values of the
+moderator is small.</p>
 </div>
 <div id="categorical-moderators" class="section level2">
 <h2>Categorical Moderators</h2>
-<p>If the moderator is a categorical variable (a string variable or a factor), then the conditional effect of the moderator for each value of this categorical moderator will be printed:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">set.seed</span>(<span class="dv">61452</span>)</span>
-<span id="cb6-2"><a href="#cb6-2"></a>sleep_emo_con<span class="op">$</span>city &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="st">&quot;Alpha&quot;</span>, <span class="st">&quot;Beta&quot;</span>, <span class="st">&quot;Gamma&quot;</span>),</span>
-<span id="cb6-3"><a href="#cb6-3"></a>                               <span class="kw">nrow</span>(sleep_emo_con), <span class="dt">replace =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb6-4"><a href="#cb6-4"></a>lm_cat &lt;-<span class="st"> </span><span class="kw">lm</span>(sleep_duration <span class="op">~</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>gender <span class="op">+</span><span class="st"> </span>emotional_stability<span class="op">*</span>city,</span>
-<span id="cb6-5"><a href="#cb6-5"></a>                              sleep_emo_con)</span>
-<span id="cb6-6"><a href="#cb6-6"></a>cond_out &lt;-<span class="st"> </span><span class="kw">cond_effect</span>(lm_cat,</span>
-<span id="cb6-7"><a href="#cb6-7"></a>                        <span class="dt">x =</span> <span class="st">&quot;emotional_stability&quot;</span>,</span>
-<span id="cb6-8"><a href="#cb6-8"></a>                        <span class="dt">w =</span> <span class="st">&quot;city&quot;</span>)</span>
-<span id="cb6-9"><a href="#cb6-9"></a><span class="kw">print</span>(cond_out, <span class="dt">title =</span> <span class="ot">FALSE</span>, <span class="dt">model =</span> <span class="ot">FALSE</span>)</span>
-<span id="cb6-10"><a href="#cb6-10"></a><span class="co">#&gt;  Level  city emotional_stability Effect  S.E.     t     p Sig</span></span>
-<span id="cb6-11"><a href="#cb6-11"></a><span class="co">#&gt;  Alpha Alpha                      0.408 0.135 3.027 0.003  **</span></span>
-<span id="cb6-12"><a href="#cb6-12"></a><span class="co">#&gt;   Beta  Beta                      0.351 0.147 2.388 0.017  * </span></span>
-<span id="cb6-13"><a href="#cb6-13"></a><span class="co">#&gt;  Gamma Gamma                      0.020 0.149 0.131 0.896</span></span></code></pre></div>
+<p>If the moderator is a categorical variable (a string variable or a
+factor), then the conditional effect of the moderator for each value of
+this categorical moderator will be printed:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">61452</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>sleep_emo_con<span class="sc">$</span>city <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">&quot;Alpha&quot;</span>, <span class="st">&quot;Beta&quot;</span>, <span class="st">&quot;Gamma&quot;</span>),</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>                               <span class="fu">nrow</span>(sleep_emo_con), <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>lm_cat <span class="ot">&lt;-</span> <span class="fu">lm</span>(sleep_duration <span class="sc">~</span> age <span class="sc">+</span> gender <span class="sc">+</span> emotional_stability<span class="sc">*</span>city,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>                              sleep_emo_con)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>cond_out <span class="ot">&lt;-</span> <span class="fu">cond_effect</span>(lm_cat,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>                        <span class="at">x =</span> <span class="st">&quot;emotional_stability&quot;</span>,</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>                        <span class="at">w =</span> <span class="st">&quot;city&quot;</span>)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(cond_out, <span class="at">title =</span> <span class="cn">FALSE</span>, <span class="at">model =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Level  city emotional_stability Effect  S.E.     t     p Sig</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Alpha Alpha                      0.408 0.135 3.027 0.003  **</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Beta  Beta                      0.351 0.147 2.388 0.017  * </span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Gamma Gamma                      0.020 0.149 0.131 0.896</span></span></code></pre></div>
 </div>
 </div>
 <div id="nonparametric-bootstrap-confidence-intervals" class="section level1">
 <h1>Nonparametric Bootstrap Confidence Intervals</h1>
-<p>If one or more variables are standardized, the OLS confidence intervals are not appropriate (Cheung, Cheung, Lau, Hui, &amp; Vong, 2022; Yuan &amp; Chan, 2011). Users can call <code>cond_effect_boot()</code> to use nonparametric bootstrapping to form the percentile confidence interval for each conditional effect.</p>
+<p>If one or more variables are standardized, the OLS confidence
+intervals are not appropriate (Cheung, Cheung, Lau, Hui, &amp; Vong,
+2022; Yuan &amp; Chan, 2011). Users can call
+<code>cond_effect_boot()</code> to use nonparametric bootstrapping to
+form the percentile confidence interval for each conditional effect.</p>
 <ul>
-<li><code>conf</code>: The level of confidence, expressed as a proportion. Default is .95, requesting a 95% confidence interval.</li>
-<li><code>nboot</code> The number of bootstrap samples to drawn. Should be at least 2000 but 5000 is preferable.</li>
+<li><code>conf</code>: The level of confidence, expressed as a
+proportion. Default is .95, requesting a 95% confidence interval.</li>
+<li><code>nboot</code> The number of bootstrap samples to drawn. Should
+be at least 2000 but 5000 is preferable.</li>
 </ul>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>lm_out &lt;-<span class="st"> </span><span class="kw">lm</span>(sleep_duration <span class="op">~</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>gender <span class="op">+</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a><span class="st">                              </span>emotional_stability <span class="op">*</span><span class="st"> </span>conscientiousness,</span>
-<span id="cb7-3"><a href="#cb7-3"></a>                              sleep_emo_con)</span>
-<span id="cb7-4"><a href="#cb7-4"></a><span class="co"># Standardize all variables and do the moderated regression again</span></span>
-<span id="cb7-5"><a href="#cb7-5"></a>lm_std &lt;-<span class="st"> </span><span class="kw">std_selected</span>(lm_out,</span>
-<span id="cb7-6"><a href="#cb7-6"></a>                       <span class="dt">to_center =</span> <span class="op">~</span><span class="st"> </span>.,</span>
-<span id="cb7-7"><a href="#cb7-7"></a>                       <span class="dt">to_scale =</span> <span class="op">~</span><span class="st"> </span>.)</span>
-<span id="cb7-8"><a href="#cb7-8"></a><span class="co"># `nboot` is the sufficient. Set it to at least 2000 in real analysis</span></span>
-<span id="cb7-9"><a href="#cb7-9"></a>cond_std &lt;-<span class="st"> </span><span class="kw">cond_effect_boot</span>(<span class="dt">output =</span> lm_std,</span>
-<span id="cb7-10"><a href="#cb7-10"></a>                             <span class="dt">x =</span> <span class="st">&quot;emotional_stability&quot;</span>,</span>
-<span id="cb7-11"><a href="#cb7-11"></a>                             <span class="dt">w =</span> <span class="st">&quot;conscientiousness&quot;</span>,</span>
-<span id="cb7-12"><a href="#cb7-12"></a>                             <span class="dt">nboot =</span> <span class="dv">500</span>)</span>
-<span id="cb7-13"><a href="#cb7-13"></a><span class="kw">print</span>(cond_std, <span class="dt">model =</span> <span class="ot">FALSE</span>, <span class="dt">title =</span> <span class="ot">FALSE</span>, <span class="dt">level_info =</span> <span class="ot">FALSE</span>)</span>
-<span id="cb7-14"><a href="#cb7-14"></a><span class="co">#&gt;   Level conscientiousness emotional_stability Effect CI Lower CI Upper  S.E.</span></span>
-<span id="cb7-15"><a href="#cb7-15"></a><span class="co">#&gt;    High             1.000                      0.007   -0.113    0.130 0.063</span></span>
-<span id="cb7-16"><a href="#cb7-16"></a><span class="co">#&gt;  Medium             0.000                      0.115    0.028    0.215 0.045</span></span>
-<span id="cb7-17"><a href="#cb7-17"></a><span class="co">#&gt;     Low            -1.000                      0.223    0.079    0.367 0.062</span></span>
-<span id="cb7-18"><a href="#cb7-18"></a><span class="co">#&gt;      t     p Sig</span></span>
-<span id="cb7-19"><a href="#cb7-19"></a><span class="co">#&gt;  0.107 0.915    </span></span>
-<span id="cb7-20"><a href="#cb7-20"></a><span class="co">#&gt;  2.560 0.011 *  </span></span>
-<span id="cb7-21"><a href="#cb7-21"></a><span class="co">#&gt;  3.601 0.000 ***</span></span>
-<span id="cb7-22"><a href="#cb7-22"></a><span class="co">#&gt; </span></span>
-<span id="cb7-23"><a href="#cb7-23"></a><span class="co">#&gt; [CI Lower, CI Upper] shows the 95% nonparametric bootstrap confidence interval(s)</span></span>
-<span id="cb7-24"><a href="#cb7-24"></a><span class="co">#&gt;  (based on 500 bootstrap samples)</span></span>
-<span id="cb7-25"><a href="#cb7-25"></a><span class="co">#&gt; </span></span>
-<span id="cb7-26"><a href="#cb7-26"></a><span class="co">#&gt; Note:</span></span>
-<span id="cb7-27"><a href="#cb7-27"></a><span class="co">#&gt; </span></span>
-<span id="cb7-28"><a href="#cb7-28"></a><span class="co">#&gt; - The variable(s) sleep_duration, emotional_stability, conscientiousness is/are standardized.</span></span>
-<span id="cb7-29"><a href="#cb7-29"></a><span class="co">#&gt; - The conditional effects are the standardized effects of emotional_stability on sleep_duration.</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>lm_out <span class="ot">&lt;-</span> <span class="fu">lm</span>(sleep_duration <span class="sc">~</span> age <span class="sc">+</span> gender <span class="sc">+</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>                              emotional_stability <span class="sc">*</span> conscientiousness,</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>                              sleep_emo_con)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Standardize all variables and do the moderated regression again</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>lm_std <span class="ot">&lt;-</span> <span class="fu">std_selected</span>(lm_out,</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>                       <span class="at">to_center =</span> <span class="sc">~</span> .,</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>                       <span class="at">to_scale =</span> <span class="sc">~</span> .)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co"># `nboot` is the sufficient. Set it to at least 2000 in real analysis</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>cond_std <span class="ot">&lt;-</span> <span class="fu">cond_effect_boot</span>(<span class="at">output =</span> lm_std,</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>                             <span class="at">x =</span> <span class="st">&quot;emotional_stability&quot;</span>,</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>                             <span class="at">w =</span> <span class="st">&quot;conscientiousness&quot;</span>,</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>                             <span class="at">nboot =</span> <span class="dv">500</span>)</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(cond_std, <span class="at">model =</span> <span class="cn">FALSE</span>, <span class="at">title =</span> <span class="cn">FALSE</span>, <span class="at">level_info =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Level conscientiousness emotional_stability Effect CI Lower CI Upper  S.E.</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    High             1.000                      0.007   -0.113    0.130 0.063</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Medium             0.000                      0.115    0.028    0.215 0.045</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     Low            -1.000                      0.223    0.079    0.367 0.062</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      t     p Sig</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  0.107 0.915    </span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2.560 0.011 *  </span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3.601 0.000 ***</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [CI Lower, CI Upper] shows the 95% nonparametric bootstrap confidence interval(s)</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  (based on 500 bootstrap samples)</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Note:</span></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - The variable(s) sleep_duration, emotional_stability, conscientiousness is/are standardized.</span></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - The conditional effects are the standardized effects of emotional_stability on sleep_duration.</span></span></code></pre></div>
 </div>
 <div id="further-information" class="section level1">
 <h1>Further Information</h1>
-<p>Please refer to the help page of <code>cond_effect()</code> and <code>cond_effect_boot()</code> for other options available, such as defining the number of SDs from mean to define “Low” and “High”, the percentiles to be used, or using parallel processing to speed up bootstrapping.</p>
+<p>Please refer to the help page of <code>cond_effect()</code> and
+<code>cond_effect_boot()</code> for other options available, such as
+defining the number of SDs from mean to define “Low” and “High”, the
+percentiles to be used, or using parallel processing to speed up
+bootstrapping.</p>
 </div>
 <div id="reference" class="section level1">
 <h1>Reference</h1>
-<p>Cheung, S. F., Cheung, S.-H., Lau, E. Y. Y., Hui, C. H., &amp; Vong, W. N. (2022) Improving an old way to measure moderation effect in standardized units. <em>Health Psychology</em>, <em>41</em>(7), 502-505. <a href="https://doi.org/10.1037/hea0001188" class="uri">https://doi.org/10.1037/hea0001188</a>.</p>
-<p>Yuan, K.-H., &amp; Chan, W. (2011). Biases and standard errors of standardized regression coefficients. <em>Psychometrika, 76</em>(4), 670-690. <a href="https://doi.org/10.1007/s11336-011-9224-6" class="uri">https://doi.org/10.1007/s11336-011-9224-6</a></p>
+<p>Cheung, S. F., Cheung, S.-H., Lau, E. Y. Y., Hui, C. H., &amp; Vong,
+W. N. (2022) Improving an old way to measure moderation effect in
+standardized units. <em>Health Psychology</em>, <em>41</em>(7), 502-505.
+<a href="https://doi.org/10.1037/hea0001188" class="uri">https://doi.org/10.1037/hea0001188</a>.</p>
+<p>Yuan, K.-H., &amp; Chan, W. (2011). Biases and standard errors of
+standardized regression coefficients. <em>Psychometrika, 76</em>(4),
+670-690. <a href="https://doi.org/10.1007/s11336-011-9224-6" class="uri">https://doi.org/10.1007/s11336-011-9224-6</a></p>
 </div>
 
 

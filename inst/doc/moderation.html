@@ -12,7 +12,7 @@
 
 <meta name="author" content="Shu Fai Cheung and David Weng Ngai Vong" />
 
-<meta name="date" content="2022-10-09" />
+<meta name="date" content="2023-03-10" />
 
 <title>Standardized Moderation Effect by std_selected()</title>
 
@@ -29,46 +29,31 @@ document.addEventListener('DOMContentLoaded', function(e) {
   }
 });
 </script>
-<script>// Hide empty <a> tag within highlighted CodeBlock for screen reader accessibility (see https://github.com/jgm/pandoc/issues/6352#issuecomment-626106786) -->
-// v0.0.1
-// Written by JooYoung Seo (jooyoung@psu.edu) and Atsushi Yasumoto on June 1st, 2020.
-
-document.addEventListener('DOMContentLoaded', function() {
-  const codeList = document.getElementsByClassName("sourceCode");
-  for (var i = 0; i < codeList.length; i++) {
-    var linkList = codeList[i].getElementsByTagName('a');
-    for (var j = 0; j < linkList.length; j++) {
-      if (linkList[j].innerHTML === "") {
-        linkList[j].setAttribute('aria-hidden', 'true');
-      }
-    }
-  }
-});
-</script>
 
 <style type="text/css">
-  code{white-space: pre-wrap;}
-  span.smallcaps{font-variant: small-caps;}
-  span.underline{text-decoration: underline;}
-  div.column{display: inline-block; vertical-align: top; width: 50%;}
-  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-  ul.task-list{list-style: none;}
-    </style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
 
 
 
 <style type="text/css">
-  code {
-    white-space: pre;
-  }
-  .sourceCode {
-    overflow: visible;
-  }
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
 </style>
 <style type="text/css" data-origin="pandoc">
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -80,55 +65,54 @@ pre > code.sourceCode { white-space: pre-wrap; }
 pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
-  { counter-reset: source-line 0; }
+{ counter-reset: source-line 0; }
 pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
+{ position: relative; left: -4em; counter-increment: source-line; }
 pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
 div.sourceCode
-  {   }
+{ }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
 </style>
 <script>
 // apply pandoc div.sourceCode style to pre.sourceCode instead
@@ -354,233 +338,308 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 
 
-<h1 class="title toc-ignore">Standardized Moderation Effect by std_selected()</h1>
+<h1 class="title toc-ignore">Standardized Moderation Effect by
+std_selected()</h1>
 <h4 class="author">Shu Fai Cheung and David Weng Ngai Vong</h4>
-<h4 class="date">2022-10-09</h4>
+<h4 class="date">2023-03-10</h4>
 
 
 
 <div id="purpose" class="section level1">
 <h1>Purpose</h1>
-<p>This document demonstrates how to use <code>std_selected()</code> to compute the correct standardized solution of moderated regression.</p>
+<p>This document demonstrates how to use <code>std_selected()</code> to
+compute the correct standardized solution of moderated regression.</p>
 </div>
 <div id="setup-the-environment" class="section level1">
 <h1>Setup the Environment</h1>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(stdmod) <span class="co"># For computing the standardized moderation effect conveniently</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stdmod) <span class="co"># For computing the standardized moderation effect conveniently</span></span></code></pre></div>
 </div>
 <div id="load-the-dataset" class="section level1">
 <h1>Load the Dataset</h1>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">data</span>(sleep_emo_con)</span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="kw">head</span>(sleep_emo_con, <span class="dv">3</span>)</span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="co">#&gt;   case_id sleep_duration conscientiousness emotional_stability age gender</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="co">#&gt; 1       1              6               3.6                 3.6  20 female</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="co">#&gt; 2       2              4               3.8                 2.4  20 female</span></span>
-<span id="cb2-6"><a href="#cb2-6"></a><span class="co">#&gt; 3       3              7               4.3                 2.7  20 female</span></span></code></pre></div>
-<p>This data set has 500 cases of data. The variables are sleep duration, age, gender, and the scores from two personality scales, emotional stability and conscientiousness of the IPIP Big Five markers. Please refer to (citation to be added) for the detail of the data set.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(sleep_emo_con)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(sleep_emo_con, <span class="dv">3</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   case_id sleep_duration conscientiousness emotional_stability age gender</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1       1              6               3.6                 3.6  20 female</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2       2              4               3.8                 2.4  20 female</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3       3              7               4.3                 2.7  20 female</span></span></code></pre></div>
+<p>This data set has 500 cases of data. The variables are sleep
+duration, age, gender, and the scores from two personality scales,
+emotional stability and conscientiousness of the IPIP Big Five markers.
+Please refer to (citation to be added) for the detail of the data
+set.</p>
 <p>The names of some variables are shortened for readability:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">colnames</span>(sleep_emo_con)[<span class="dv">3</span><span class="op">:</span><span class="dv">4</span>] &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;cons&quot;</span>, <span class="st">&quot;emot&quot;</span>)</span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="kw">head</span>(sleep_emo_con, <span class="dv">3</span>)</span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="co">#&gt;   case_id sleep_duration cons emot age gender</span></span>
-<span id="cb3-4"><a href="#cb3-4"></a><span class="co">#&gt; 1       1              6  3.6  3.6  20 female</span></span>
-<span id="cb3-5"><a href="#cb3-5"></a><span class="co">#&gt; 2       2              4  3.8  2.4  20 female</span></span>
-<span id="cb3-6"><a href="#cb3-6"></a><span class="co">#&gt; 3       3              7  4.3  2.7  20 female</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(sleep_emo_con)[<span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;cons&quot;</span>, <span class="st">&quot;emot&quot;</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(sleep_emo_con, <span class="dv">3</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   case_id sleep_duration cons emot age gender</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1       1              6  3.6  3.6  20 female</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2       2              4  3.8  2.4  20 female</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3       3              7  4.3  2.7  20 female</span></span></code></pre></div>
 </div>
 <div id="moderated-regression" class="section level1">
 <h1>Moderated Regression</h1>
-<p>Suppose we are interested in predicting sleep duration by emotional stability, after controlling for gender and age. However, we suspect that the effect of emotional stability, if any, may be moderated by conscientiousness. Therefore, we conduct a moderated regression as follow:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>lm_out &lt;-<span class="st"> </span><span class="kw">lm</span>(sleep_duration <span class="op">~</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>gender <span class="op">+</span><span class="st"> </span>emot <span class="op">*</span><span class="st"> </span>cons,</span>
-<span id="cb4-2"><a href="#cb4-2"></a>             <span class="dt">data =</span> sleep_emo_con)</span>
-<span id="cb4-3"><a href="#cb4-3"></a><span class="kw">summary</span>(lm_out)</span>
-<span id="cb4-4"><a href="#cb4-4"></a><span class="co">#&gt; </span></span>
-<span id="cb4-5"><a href="#cb4-5"></a><span class="co">#&gt; Call:</span></span>
-<span id="cb4-6"><a href="#cb4-6"></a><span class="co">#&gt; lm(formula = sleep_duration ~ age + gender + emot * cons, data = sleep_emo_con)</span></span>
-<span id="cb4-7"><a href="#cb4-7"></a><span class="co">#&gt; </span></span>
-<span id="cb4-8"><a href="#cb4-8"></a><span class="co">#&gt; Residuals:</span></span>
-<span id="cb4-9"><a href="#cb4-9"></a><span class="co">#&gt;     Min      1Q  Median      3Q     Max </span></span>
-<span id="cb4-10"><a href="#cb4-10"></a><span class="co">#&gt; -6.0841 -0.7882  0.0089  0.9440  6.1189 </span></span>
-<span id="cb4-11"><a href="#cb4-11"></a><span class="co">#&gt; </span></span>
-<span id="cb4-12"><a href="#cb4-12"></a><span class="co">#&gt; Coefficients:</span></span>
-<span id="cb4-13"><a href="#cb4-13"></a><span class="co">#&gt;             Estimate Std. Error t value Pr(&gt;|t|)   </span></span>
-<span id="cb4-14"><a href="#cb4-14"></a><span class="co">#&gt; (Intercept)  1.85154    1.35224   1.369  0.17155   </span></span>
-<span id="cb4-15"><a href="#cb4-15"></a><span class="co">#&gt; age          0.01789    0.02133   0.838  0.40221   </span></span>
-<span id="cb4-16"><a href="#cb4-16"></a><span class="co">#&gt; gendermale  -0.26127    0.16579  -1.576  0.11570   </span></span>
-<span id="cb4-17"><a href="#cb4-17"></a><span class="co">#&gt; emot         1.32151    0.45039   2.934  0.00350 **</span></span>
-<span id="cb4-18"><a href="#cb4-18"></a><span class="co">#&gt; cons         1.20385    0.37062   3.248  0.00124 **</span></span>
-<span id="cb4-19"><a href="#cb4-19"></a><span class="co">#&gt; emot:cons   -0.33140    0.13273  -2.497  0.01286 * </span></span>
-<span id="cb4-20"><a href="#cb4-20"></a><span class="co">#&gt; ---</span></span>
-<span id="cb4-21"><a href="#cb4-21"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
-<span id="cb4-22"><a href="#cb4-22"></a><span class="co">#&gt; </span></span>
-<span id="cb4-23"><a href="#cb4-23"></a><span class="co">#&gt; Residual standard error: 1.384 on 494 degrees of freedom</span></span>
-<span id="cb4-24"><a href="#cb4-24"></a><span class="co">#&gt; Multiple R-squared:  0.0548, Adjusted R-squared:  0.04523 </span></span>
-<span id="cb4-25"><a href="#cb4-25"></a><span class="co">#&gt; F-statistic: 5.728 on 5 and 494 DF,  p-value: 3.768e-05</span></span>
-<span id="cb4-26"><a href="#cb4-26"></a><span class="kw">plotmod</span>(lm_out,</span>
-<span id="cb4-27"><a href="#cb4-27"></a>        <span class="dt">x =</span> <span class="st">&quot;emot&quot;</span>,</span>
-<span id="cb4-28"><a href="#cb4-28"></a>        <span class="dt">w =</span> <span class="st">&quot;cons&quot;</span>,</span>
-<span id="cb4-29"><a href="#cb4-29"></a>        <span class="dt">x_label =</span> <span class="st">&quot;Emotional Stability&quot;</span>,</span>
-<span id="cb4-30"><a href="#cb4-30"></a>        <span class="dt">w_label =</span> <span class="st">&quot;Conscientiousness&quot;</span>,</span>
-<span id="cb4-31"><a href="#cb4-31"></a>        <span class="dt">y_label =</span> <span class="st">&quot;Sleep Duration&quot;</span>)</span></code></pre></div>
-<p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
-<p>The results show that conscientiousness significantly moderates the effect of emotional stability on sleep duration.</p>
+<p>Suppose we are interested in predicting sleep duration by emotional
+stability, after controlling for gender and age. However, we suspect
+that the effect of emotional stability, if any, may be moderated by
+conscientiousness. Therefore, we conduct a moderated regression as
+follow:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>lm_out <span class="ot">&lt;-</span> <span class="fu">lm</span>(sleep_duration <span class="sc">~</span> age <span class="sc">+</span> gender <span class="sc">+</span> emot <span class="sc">*</span> cons,</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> sleep_emo_con)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_out)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lm(formula = sleep_duration ~ age + gender + emot * cons, data = sleep_emo_con)</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residuals:</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     Min      1Q  Median      3Q     Max </span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -6.0841 -0.7882  0.0089  0.9440  6.1189 </span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Coefficients:</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Estimate Std. Error t value Pr(&gt;|t|)   </span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)  1.85154    1.35224   1.369  0.17155   </span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; age          0.01789    0.02133   0.838  0.40221   </span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; gendermale  -0.26127    0.16579  -1.576  0.11570   </span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; emot         1.32151    0.45039   2.934  0.00350 **</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; cons         1.20385    0.37062   3.248  0.00124 **</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; emot:cons   -0.33140    0.13273  -2.497  0.01286 * </span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residual standard error: 1.384 on 494 degrees of freedom</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Multiple R-squared:  0.0548, Adjusted R-squared:  0.04523 </span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; F-statistic: 5.728 on 5 and 494 DF,  p-value: 3.768e-05</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="fu">plotmod</span>(lm_out,</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>        <span class="at">x =</span> <span class="st">&quot;emot&quot;</span>,</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>        <span class="at">w =</span> <span class="st">&quot;cons&quot;</span>,</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>        <span class="at">x_label =</span> <span class="st">&quot;Emotional Stability&quot;</span>,</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>        <span class="at">w_label =</span> <span class="st">&quot;Conscientiousness&quot;</span>,</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>        <span class="at">y_label =</span> <span class="st">&quot;Sleep Duration&quot;</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
+<p>The results show that conscientiousness significantly moderates the
+effect of emotional stability on sleep duration.</p>
 </div>
 <div id="standardized-moderation-effect" class="section level1">
 <h1>Standardized Moderation Effect</h1>
-<p>To get the correct standardized solution of the moderated regression, with the product term formed <em>after</em> standardization, we can use <code>std_selected()</code>.</p>
+<p>To get the correct standardized solution of the moderated regression,
+with the product term formed <em>after</em> standardization, we can use
+<code>std_selected()</code>.</p>
 <ul>
-<li><p>The first argument is the regression output from <code>lm()</code>.</p></li>
-<li><p>The argument <code>to_center</code> specifies variables to be mean centered.</p></li>
-<li><p>The argument <code>to_scale</code> specifies variables to be rescaled by their standard deviations after centering.</p></li>
+<li><p>The first argument is the regression output from
+<code>lm()</code>.</p></li>
+<li><p>The argument <code>to_center</code> specifies variables to be
+mean centered.</p></li>
+<li><p>The argument <code>to_scale</code> specifies variables to be
+rescaled by their standard deviations after centering.</p></li>
 </ul>
-<p>If we want to standardize or mean center all variables, we can use <code>~ .</code> as a shortcut. Note that <code>std_selected()</code> will automatically skip categorical variables (i.e., factors or string variables in the regression model of <code>lm()</code>).</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>lm_stdall &lt;-<span class="st"> </span><span class="kw">std_selected</span>(lm_out,</span>
-<span id="cb5-2"><a href="#cb5-2"></a>                          <span class="dt">to_center =</span> <span class="op">~</span><span class="st"> </span>.,</span>
-<span id="cb5-3"><a href="#cb5-3"></a>                          <span class="dt">to_scale  =</span> <span class="op">~</span><span class="st"> </span>.)</span>
-<span id="cb5-4"><a href="#cb5-4"></a><span class="kw">summary</span>(lm_stdall)</span>
-<span id="cb5-5"><a href="#cb5-5"></a><span class="co">#&gt; </span></span>
-<span id="cb5-6"><a href="#cb5-6"></a><span class="co">#&gt; Selected variable(s) are centered by mean and/or scaled by SD</span></span>
-<span id="cb5-7"><a href="#cb5-7"></a><span class="co">#&gt; - Variable(s) centered: sleep_duration age gender emot cons</span></span>
-<span id="cb5-8"><a href="#cb5-8"></a><span class="co">#&gt; - Variable(s) scaled: sleep_duration age gender emot cons</span></span>
-<span id="cb5-9"><a href="#cb5-9"></a><span class="co">#&gt; </span></span>
-<span id="cb5-10"><a href="#cb5-10"></a><span class="co">#&gt;                centered_by scaled_by                            Note</span></span>
-<span id="cb5-11"><a href="#cb5-11"></a><span class="co">#&gt; sleep_duration    6.776333 1.4168291 Standardized (mean = 0, SD = 1)</span></span>
-<span id="cb5-12"><a href="#cb5-12"></a><span class="co">#&gt; age              22.274000 2.9407857 Standardized (mean = 0, SD = 1)</span></span>
-<span id="cb5-13"><a href="#cb5-13"></a><span class="co">#&gt; gender                  NA        NA Nonnumeric                     </span></span>
-<span id="cb5-14"><a href="#cb5-14"></a><span class="co">#&gt; emot              2.713200 0.7629613 Standardized (mean = 0, SD = 1)</span></span>
-<span id="cb5-15"><a href="#cb5-15"></a><span class="co">#&gt; cons              3.343200 0.6068198 Standardized (mean = 0, SD = 1)</span></span>
-<span id="cb5-16"><a href="#cb5-16"></a><span class="co">#&gt; </span></span>
-<span id="cb5-17"><a href="#cb5-17"></a><span class="co">#&gt; Note:</span></span>
-<span id="cb5-18"><a href="#cb5-18"></a><span class="co">#&gt; - Categorical variables will not be centered or scaled even if requested.</span></span>
-<span id="cb5-19"><a href="#cb5-19"></a><span class="co">#&gt; </span></span>
-<span id="cb5-20"><a href="#cb5-20"></a><span class="co">#&gt; Call:</span></span>
-<span id="cb5-21"><a href="#cb5-21"></a><span class="co">#&gt; lm(formula = sleep_duration ~ age + gender + emot * cons, data = dat_mod)</span></span>
-<span id="cb5-22"><a href="#cb5-22"></a><span class="co">#&gt; </span></span>
-<span id="cb5-23"><a href="#cb5-23"></a><span class="co">#&gt; Residuals:</span></span>
-<span id="cb5-24"><a href="#cb5-24"></a><span class="co">#&gt;     Min      1Q  Median      3Q     Max </span></span>
-<span id="cb5-25"><a href="#cb5-25"></a><span class="co">#&gt; -4.2941 -0.5563  0.0063  0.6663  4.3187 </span></span>
-<span id="cb5-26"><a href="#cb5-26"></a><span class="co">#&gt; </span></span>
-<span id="cb5-27"><a href="#cb5-27"></a><span class="co">#&gt; Coefficients:</span></span>
-<span id="cb5-28"><a href="#cb5-28"></a><span class="co">#&gt;             Estimate Std. Error t value Pr(&gt;|t|)   </span></span>
-<span id="cb5-29"><a href="#cb5-29"></a><span class="co">#&gt; (Intercept)  0.05492    0.04883   1.125  0.26124   </span></span>
-<span id="cb5-30"><a href="#cb5-30"></a><span class="co">#&gt; age          0.03712    0.04428   0.838  0.40221   </span></span>
-<span id="cb5-31"><a href="#cb5-31"></a><span class="co">#&gt; gendermale  -0.18440    0.11702  -1.576  0.11570   </span></span>
-<span id="cb5-32"><a href="#cb5-32"></a><span class="co">#&gt; emot         0.11501    0.04493   2.560  0.01076 * </span></span>
-<span id="cb5-33"><a href="#cb5-33"></a><span class="co">#&gt; cons         0.13050    0.04517   2.889  0.00403 **</span></span>
-<span id="cb5-34"><a href="#cb5-34"></a><span class="co">#&gt; emot:cons   -0.10829    0.04337  -2.497  0.01286 * </span></span>
-<span id="cb5-35"><a href="#cb5-35"></a><span class="co">#&gt; ---</span></span>
-<span id="cb5-36"><a href="#cb5-36"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
-<span id="cb5-37"><a href="#cb5-37"></a><span class="co">#&gt; </span></span>
-<span id="cb5-38"><a href="#cb5-38"></a><span class="co">#&gt; Residual standard error: 0.9771 on 494 degrees of freedom</span></span>
-<span id="cb5-39"><a href="#cb5-39"></a><span class="co">#&gt; Multiple R-squared:  0.0548, Adjusted R-squared:  0.04523 </span></span>
-<span id="cb5-40"><a href="#cb5-40"></a><span class="co">#&gt; F-statistic: 5.728 on 5 and 494 DF,  p-value: 3.768e-05</span></span>
-<span id="cb5-41"><a href="#cb5-41"></a><span class="co">#&gt; </span></span>
-<span id="cb5-42"><a href="#cb5-42"></a><span class="co">#&gt; Note:</span></span>
-<span id="cb5-43"><a href="#cb5-43"></a><span class="co">#&gt; - Estimates and their statistics are based on the data after mean-centering, scaling, or standardization.</span></span></code></pre></div>
-<p>The coefficient in this solution, -0.10829, can be interpreted as the change in the standardized effect of emotional stability for each one standard deviation increase of conscientiousness. Naturally, this can be called the <em>standardized moderation effect</em> of conscientiousness (Cheung, Cheung, Lau, Hui, &amp; Vong, 2022).</p>
-<p>The output of <code>std_selected()</code> can be passed to other functions that accept the output of <code>lm()</code>. This package also has a simple function, <code>plotmod()</code>, for generating a typical plot of the moderation effect:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">plotmod</span>(lm_stdall,</span>
-<span id="cb6-2"><a href="#cb6-2"></a>        <span class="dt">x =</span> <span class="st">&quot;emot&quot;</span>,</span>
-<span id="cb6-3"><a href="#cb6-3"></a>        <span class="dt">w =</span> <span class="st">&quot;cons&quot;</span>,</span>
-<span id="cb6-4"><a href="#cb6-4"></a>        <span class="dt">x_label =</span> <span class="st">&quot;Emotional Stability&quot;</span>,</span>
-<span id="cb6-5"><a href="#cb6-5"></a>        <span class="dt">w_label =</span> <span class="st">&quot;Conscientiousness&quot;</span>,</span>
-<span id="cb6-6"><a href="#cb6-6"></a>        <span class="dt">y_label =</span> <span class="st">&quot;Sleep Duration&quot;</span>)</span></code></pre></div>
-<p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
-<p>The function <code>plotmod()</code> also prints the conditional effects of the predictor (focal variable), emotional stability in this example.</p>
+<p>If we want to standardize or mean center all variables, we can use
+<code>~ .</code> as a shortcut. Note that <code>std_selected()</code>
+will automatically skip categorical variables (i.e., factors or string
+variables in the regression model of <code>lm()</code>).</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>lm_stdall <span class="ot">&lt;-</span> <span class="fu">std_selected</span>(lm_out,</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>                          <span class="at">to_center =</span> <span class="sc">~</span> .,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>                          <span class="at">to_scale  =</span> <span class="sc">~</span> .)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_stdall)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call to std_selected():</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; std_selected(lm_out = lm_out, to_scale = ~., to_center = ~.)</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Selected variable(s) are centered by mean and/or scaled by SD</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Variable(s) centered: sleep_duration age gender emot cons</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Variable(s) scaled: sleep_duration age gender emot cons</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                centered_by scaled_by                            Note</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; sleep_duration    6.776333 1.4168291 Standardized (mean = 0, SD = 1)</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; age              22.274000 2.9407857 Standardized (mean = 0, SD = 1)</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; gender                  NA        NA Nonnumeric                     </span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; emot              2.713200 0.7629613 Standardized (mean = 0, SD = 1)</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; cons              3.343200 0.6068198 Standardized (mean = 0, SD = 1)</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Note:</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Categorical variables will not be centered or scaled even if</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   requested.</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lm(formula = sleep_duration ~ age + gender + emot * cons, data = dat_mod)</span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residuals:</span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     Min      1Q  Median      3Q     Max </span></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -4.2941 -0.5563  0.0063  0.6663  4.3187 </span></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Coefficients:</span></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Estimate Std. Error t value Pr(&gt;|t|)   </span></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)  0.05492    0.04883   1.125  0.26124   </span></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; age          0.03712    0.04428   0.838  0.40221   </span></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; gendermale  -0.18440    0.11702  -1.576  0.11570   </span></span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; emot         0.11501    0.04493   2.560  0.01076 * </span></span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; cons         0.13050    0.04517   2.889  0.00403 **</span></span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; emot:cons   -0.10829    0.04337  -2.497  0.01286 * </span></span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residual standard error: 0.9771 on 494 degrees of freedom</span></span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Multiple R-squared:  0.0548, Adjusted R-squared:  0.04523 </span></span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; F-statistic: 5.728 on 5 and 494 DF,  p-value: 3.768e-05</span></span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Note:</span></span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Estimates and their statistics are based on the data</span></span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   aftermean-centering, scaling, or standardization.</span></span></code></pre></div>
+<p>The coefficient in this solution, -0.10829, can be interpreted as the
+change in the standardized effect of emotional stability for each one
+standard deviation increase of conscientiousness. Naturally, this can be
+called the <em>standardized moderation effect</em> of conscientiousness
+(Cheung, Cheung, Lau, Hui, &amp; Vong, 2022).</p>
+<p>The output of <code>std_selected()</code> can be passed to other
+functions that accept the output of <code>lm()</code>. This package also
+has a simple function, <code>plotmod()</code>, for generating a typical
+plot of the moderation effect:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotmod</span>(lm_stdall,</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">x =</span> <span class="st">&quot;emot&quot;</span>,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">w =</span> <span class="st">&quot;cons&quot;</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">x_label =</span> <span class="st">&quot;Emotional Stability&quot;</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">w_label =</span> <span class="st">&quot;Conscientiousness&quot;</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">y_label =</span> <span class="st">&quot;Sleep Duration&quot;</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
+<p>The function <code>plotmod()</code> also prints the conditional
+effects of the predictor (focal variable), emotional stability in this
+example.</p>
 </div>
 <div id="the-common-incorrect-standardized-solution" class="section level1">
 <h1>The Common (Incorrect) Standardized Solution</h1>
-<p>For comparison, this is the results of standardizing all variables, including the product term and the categorical variable.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">library</span>(lm.beta) <span class="co"># For generating the typical standardized solution</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a>lm_beta &lt;-<span class="st"> </span><span class="kw">lm.beta</span>(lm_out)</span>
-<span id="cb7-3"><a href="#cb7-3"></a><span class="kw">summary</span>(lm_beta)</span>
-<span id="cb7-4"><a href="#cb7-4"></a><span class="co">#&gt; </span></span>
-<span id="cb7-5"><a href="#cb7-5"></a><span class="co">#&gt; Call:</span></span>
-<span id="cb7-6"><a href="#cb7-6"></a><span class="co">#&gt; lm(formula = sleep_duration ~ age + gender + emot * cons, data = sleep_emo_con)</span></span>
-<span id="cb7-7"><a href="#cb7-7"></a><span class="co">#&gt; </span></span>
-<span id="cb7-8"><a href="#cb7-8"></a><span class="co">#&gt; Residuals:</span></span>
-<span id="cb7-9"><a href="#cb7-9"></a><span class="co">#&gt;     Min      1Q  Median      3Q     Max </span></span>
-<span id="cb7-10"><a href="#cb7-10"></a><span class="co">#&gt; -6.0841 -0.7882  0.0089  0.9440  6.1189 </span></span>
-<span id="cb7-11"><a href="#cb7-11"></a><span class="co">#&gt; </span></span>
-<span id="cb7-12"><a href="#cb7-12"></a><span class="co">#&gt; Coefficients:</span></span>
-<span id="cb7-13"><a href="#cb7-13"></a><span class="co">#&gt;             Estimate Standardized Std. Error t value Pr(&gt;|t|)   </span></span>
-<span id="cb7-14"><a href="#cb7-14"></a><span class="co">#&gt; (Intercept)  1.85154           NA    1.35224   1.369  0.17155   </span></span>
-<span id="cb7-15"><a href="#cb7-15"></a><span class="co">#&gt; age          0.01789      0.03712    0.02133   0.838  0.40221   </span></span>
-<span id="cb7-16"><a href="#cb7-16"></a><span class="co">#&gt; gendermale  -0.26127     -0.06934    0.16579  -1.576  0.11570   </span></span>
-<span id="cb7-17"><a href="#cb7-17"></a><span class="co">#&gt; emot         1.32151      0.71163    0.45039   2.934  0.00350 **</span></span>
-<span id="cb7-18"><a href="#cb7-18"></a><span class="co">#&gt; cons         1.20385      0.51560    0.37062   3.248  0.00124 **</span></span>
-<span id="cb7-19"><a href="#cb7-19"></a><span class="co">#&gt; emot:cons   -0.33140     -0.78201    0.13273  -2.497  0.01286 * </span></span>
-<span id="cb7-20"><a href="#cb7-20"></a><span class="co">#&gt; ---</span></span>
-<span id="cb7-21"><a href="#cb7-21"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
-<span id="cb7-22"><a href="#cb7-22"></a><span class="co">#&gt; </span></span>
-<span id="cb7-23"><a href="#cb7-23"></a><span class="co">#&gt; Residual standard error: 1.384 on 494 degrees of freedom</span></span>
-<span id="cb7-24"><a href="#cb7-24"></a><span class="co">#&gt; Multiple R-squared:  0.0548, Adjusted R-squared:  0.04523 </span></span>
-<span id="cb7-25"><a href="#cb7-25"></a><span class="co">#&gt; F-statistic: 5.728 on 5 and 494 DF,  p-value: 3.768e-05</span></span></code></pre></div>
-<p>The coefficient of the <em>standardized</em> product term is -0.78201, which <em>cannot</em> be interpreted as the change in the standardized effect of emotional stability for each one standard deviation increase of conscientiousness because the product term is standardized and can no longer be interpreted as the product of two variables in the model.</p>
+<p>For comparison, this is the results of standardizing all variables,
+including the product term and the categorical variable.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lm.beta) <span class="co"># For generating the typical standardized solution</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>lm_beta <span class="ot">&lt;-</span> <span class="fu">lm.beta</span>(lm_out)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_beta)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lm(formula = sleep_duration ~ age + gender + emot * cons, data = sleep_emo_con)</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residuals:</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     Min      1Q  Median      3Q     Max </span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -6.0841 -0.7882  0.0089  0.9440  6.1189 </span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Coefficients:</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Estimate Standardized Std. Error t value Pr(&gt;|t|)   </span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)  1.85154           NA    1.35224   1.369  0.17155   </span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; age          0.01789      0.03712    0.02133   0.838  0.40221   </span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; gendermale  -0.26127     -0.06934    0.16579  -1.576  0.11570   </span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; emot         1.32151      0.71163    0.45039   2.934  0.00350 **</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; cons         1.20385      0.51560    0.37062   3.248  0.00124 **</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; emot:cons   -0.33140     -0.78201    0.13273  -2.497  0.01286 * </span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residual standard error: 1.384 on 494 degrees of freedom</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Multiple R-squared:  0.0548, Adjusted R-squared:  0.04523 </span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; F-statistic: 5.728 on 5 and 494 DF,  p-value: 3.768e-05</span></span></code></pre></div>
+<p>The coefficient of the <em>standardized</em> product term is
+-0.78201, which <em>cannot</em> be interpreted as the change in the
+standardized effect of emotional stability for each one standard
+deviation increase of conscientiousness because the product term is
+standardized and can no longer be interpreted as the product of two
+variables in the model.</p>
 </div>
 <div id="improved-confidence-intervals" class="section level1">
 <h1>Improved Confidence Intervals</h1>
-<p>It has been shown (e.g., Yuan &amp; Chan, 2011) that the standard errors of standardized regression coefficients computed just by standardizing the variables are biased, and consequently the confidence intervals are also invalid. The function <code>std_selected_boot()</code> is a wrapper of <code>std_selected()</code> that also forms the confidence interval of the regression coefficients when standardizing is conducted, using nonparametric bootstrapping as suggested by Cheung, Cheung, Lau, Hui, and Vong (2022).</p>
-<p>We use the same example above that standardizes all variables except for categorical variables to illustrate this function. The argument <code>nboot</code> specifies the number of nonparametric bootstrap samples. The level of confidence is set by <code>conf</code>. The default is .95, denoting 95% confidence intervals. If this is the desired level, this argument can be omitted.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">set.seed</span>(<span class="dv">649017</span>)</span>
-<span id="cb8-2"><a href="#cb8-2"></a>lm_xwy_std_ci &lt;-<span class="st"> </span><span class="kw">std_selected_boot</span>(lm_out,</span>
-<span id="cb8-3"><a href="#cb8-3"></a>                                   <span class="dt">to_center =</span> <span class="op">~</span><span class="st"> </span>.,</span>
-<span id="cb8-4"><a href="#cb8-4"></a>                                   <span class="dt">to_scale  =</span> <span class="op">~</span><span class="st"> </span>.,</span>
-<span id="cb8-5"><a href="#cb8-5"></a>                                   <span class="dt">nboot =</span> <span class="dv">2000</span>)</span></code></pre></div>
-<p>If the default options are acceptable, the only additional argument is <code>nboot</code>.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">summary</span>(lm_xwy_std_ci)</span>
-<span id="cb9-2"><a href="#cb9-2"></a><span class="co">#&gt; </span></span>
-<span id="cb9-3"><a href="#cb9-3"></a><span class="co">#&gt; Selected variable(s) are centered by mean and/or scaled by SD</span></span>
-<span id="cb9-4"><a href="#cb9-4"></a><span class="co">#&gt; - Variable(s) centered: sleep_duration age gender emot cons</span></span>
-<span id="cb9-5"><a href="#cb9-5"></a><span class="co">#&gt; - Variable(s) scaled: sleep_duration age gender emot cons</span></span>
-<span id="cb9-6"><a href="#cb9-6"></a><span class="co">#&gt; </span></span>
-<span id="cb9-7"><a href="#cb9-7"></a><span class="co">#&gt;                centered_by scaled_by                            Note</span></span>
-<span id="cb9-8"><a href="#cb9-8"></a><span class="co">#&gt; sleep_duration    6.776333 1.4168291 Standardized (mean = 0, SD = 1)</span></span>
-<span id="cb9-9"><a href="#cb9-9"></a><span class="co">#&gt; age              22.274000 2.9407857 Standardized (mean = 0, SD = 1)</span></span>
-<span id="cb9-10"><a href="#cb9-10"></a><span class="co">#&gt; gender                  NA        NA Nonnumeric                     </span></span>
-<span id="cb9-11"><a href="#cb9-11"></a><span class="co">#&gt; emot              2.713200 0.7629613 Standardized (mean = 0, SD = 1)</span></span>
-<span id="cb9-12"><a href="#cb9-12"></a><span class="co">#&gt; cons              3.343200 0.6068198 Standardized (mean = 0, SD = 1)</span></span>
-<span id="cb9-13"><a href="#cb9-13"></a><span class="co">#&gt; </span></span>
-<span id="cb9-14"><a href="#cb9-14"></a><span class="co">#&gt; Note:</span></span>
-<span id="cb9-15"><a href="#cb9-15"></a><span class="co">#&gt; - Categorical variables will not be centered or scaled even if requested.</span></span>
-<span id="cb9-16"><a href="#cb9-16"></a><span class="co">#&gt; - Nonparametric bootstrapping 95% confidence intervals computed.</span></span>
-<span id="cb9-17"><a href="#cb9-17"></a><span class="co">#&gt; - The number of bootstrap samples is 2000.</span></span>
-<span id="cb9-18"><a href="#cb9-18"></a><span class="co">#&gt; </span></span>
-<span id="cb9-19"><a href="#cb9-19"></a><span class="co">#&gt; Call:</span></span>
-<span id="cb9-20"><a href="#cb9-20"></a><span class="co">#&gt; lm(formula = sleep_duration ~ age + gender + emot * cons, data = dat_mod)</span></span>
-<span id="cb9-21"><a href="#cb9-21"></a><span class="co">#&gt; </span></span>
-<span id="cb9-22"><a href="#cb9-22"></a><span class="co">#&gt; Residuals:</span></span>
-<span id="cb9-23"><a href="#cb9-23"></a><span class="co">#&gt;     Min      1Q  Median      3Q     Max </span></span>
-<span id="cb9-24"><a href="#cb9-24"></a><span class="co">#&gt; -4.2941 -0.5563  0.0063  0.6663  4.3187 </span></span>
-<span id="cb9-25"><a href="#cb9-25"></a><span class="co">#&gt; </span></span>
-<span id="cb9-26"><a href="#cb9-26"></a><span class="co">#&gt; Coefficients:</span></span>
-<span id="cb9-27"><a href="#cb9-27"></a><span class="co">#&gt;              Estimate  CI Lower  CI Upper Std. Error t value Pr(&gt;|t|)   </span></span>
-<span id="cb9-28"><a href="#cb9-28"></a><span class="co">#&gt; (Intercept)  0.054919  0.002968  0.104340   0.048827   1.125  0.26124   </span></span>
-<span id="cb9-29"><a href="#cb9-29"></a><span class="co">#&gt; age          0.037125 -0.036253  0.103590   0.044280   0.838  0.40221   </span></span>
-<span id="cb9-30"><a href="#cb9-30"></a><span class="co">#&gt; gendermale  -0.184402 -0.438855  0.087551   0.117016  -1.576  0.11570   </span></span>
-<span id="cb9-31"><a href="#cb9-31"></a><span class="co">#&gt; emot         0.115014  0.023642  0.202438   0.044927   2.560  0.01076 * </span></span>
-<span id="cb9-32"><a href="#cb9-32"></a><span class="co">#&gt; cons         0.130502  0.032359  0.224223   0.045167   2.889  0.00403 **</span></span>
-<span id="cb9-33"><a href="#cb9-33"></a><span class="co">#&gt; emot:cons   -0.108292 -0.203990 -0.009746   0.043374  -2.497  0.01286 * </span></span>
-<span id="cb9-34"><a href="#cb9-34"></a><span class="co">#&gt; ---</span></span>
-<span id="cb9-35"><a href="#cb9-35"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
-<span id="cb9-36"><a href="#cb9-36"></a><span class="co">#&gt; </span></span>
-<span id="cb9-37"><a href="#cb9-37"></a><span class="co">#&gt; Residual standard error: 0.9771 on 494 degrees of freedom</span></span>
-<span id="cb9-38"><a href="#cb9-38"></a><span class="co">#&gt; Multiple R-squared:  0.0548, Adjusted R-squared:  0.04523 </span></span>
-<span id="cb9-39"><a href="#cb9-39"></a><span class="co">#&gt; F-statistic: 5.728 on 5 and 494 DF,  p-value: 3.768e-05</span></span>
-<span id="cb9-40"><a href="#cb9-40"></a><span class="co">#&gt; </span></span>
-<span id="cb9-41"><a href="#cb9-41"></a><span class="co">#&gt; Note:</span></span>
-<span id="cb9-42"><a href="#cb9-42"></a><span class="co">#&gt; - Estimates and their statistics are based on the data after mean-centering, scaling, or standardization.</span></span>
-<span id="cb9-43"><a href="#cb9-43"></a><span class="co">#&gt; - [CI Lower, CI Upper] are bootstrap percentile confidence intervals.</span></span>
-<span id="cb9-44"><a href="#cb9-44"></a><span class="co">#&gt; - Std. Error are not bootstrap SEs.</span></span></code></pre></div>
-<p>The standardized moderation effect is -0.1083, and the 95% nonparametric bootstrap confidence interval is -0.2040 to -0.0097.</p>
-<p>Note: As a side product, the nonparametric bootstrap percentile confidence of the other coefficients are also reported. They can be used for other variables that are standardized in the same model, whether they are involved in the moderation or not.</p>
+<p>It has been shown (e.g., Yuan &amp; Chan, 2011) that the standard
+errors of standardized regression coefficients computed just by
+standardizing the variables are biased, and consequently the confidence
+intervals are also invalid. The function
+<code>std_selected_boot()</code> is a wrapper of
+<code>std_selected()</code> that also forms the confidence interval of
+the regression coefficients when standardizing is conducted, using
+nonparametric bootstrapping as suggested by Cheung, Cheung, Lau, Hui,
+and Vong (2022).</p>
+<p>We use the same example above that standardizes all variables except
+for categorical variables to illustrate this function. The argument
+<code>nboot</code> specifies the number of nonparametric bootstrap
+samples. The level of confidence is set by <code>conf</code>. The
+default is .95, denoting 95% confidence intervals. If this is the
+desired level, this argument can be omitted.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">649017</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>lm_xwy_std_ci <span class="ot">&lt;-</span> <span class="fu">std_selected_boot</span>(lm_out,</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">to_center =</span> <span class="sc">~</span> .,</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">to_scale  =</span> <span class="sc">~</span> .,</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">nboot =</span> <span class="dv">2000</span>)</span></code></pre></div>
+<p>If the default options are acceptable, the only additional argument
+is <code>nboot</code>.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_xwy_std_ci)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call to std_selected_boot():</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; std_selected_boot(lm_out = lm_out, to_center = ~., to_scale = ~., </span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     nboot = 2000)</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Selected variable(s) are centered by mean and/or scaled by SD</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Variable(s) centered: sleep_duration age gender emot cons</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Variable(s) scaled: sleep_duration age gender emot cons</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                centered_by scaled_by                            Note</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; sleep_duration    6.776333 1.4168291 Standardized (mean = 0, SD = 1)</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; age              22.274000 2.9407857 Standardized (mean = 0, SD = 1)</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; gender                  NA        NA Nonnumeric                     </span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; emot              2.713200 0.7629613 Standardized (mean = 0, SD = 1)</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; cons              3.343200 0.6068198 Standardized (mean = 0, SD = 1)</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Note:</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Categorical variables will not be centered or scaled even if</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   requested.</span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Nonparametric bootstrapping 95% confidence intervals computed.</span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - The number of bootstrap samples is 2000.</span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lm(formula = sleep_duration ~ age + gender + emot * cons, data = dat_mod)</span></span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residuals:</span></span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     Min      1Q  Median      3Q     Max </span></span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -4.2941 -0.5563  0.0063  0.6663  4.3187 </span></span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Coefficients:</span></span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;              Estimate  CI Lower  CI Upper Std. Error t value Pr(&gt;|t|)   </span></span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)  0.054919  0.002968  0.104340   0.048827   1.125  0.26124   </span></span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; age          0.037125 -0.036253  0.103590   0.044280   0.838  0.40221   </span></span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; gendermale  -0.184402 -0.438855  0.087551   0.117016  -1.576  0.11570   </span></span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; emot         0.115014  0.023642  0.202438   0.044927   2.560  0.01076 * </span></span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; cons         0.130502  0.032359  0.224223   0.045167   2.889  0.00403 **</span></span>
+<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; emot:cons   -0.108292 -0.203990 -0.009746   0.043374  -2.497  0.01286 * </span></span>
+<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
+<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
+<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residual standard error: 0.9771 on 494 degrees of freedom</span></span>
+<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Multiple R-squared:  0.0548, Adjusted R-squared:  0.04523 </span></span>
+<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; F-statistic: 5.728 on 5 and 494 DF,  p-value: 3.768e-05</span></span>
+<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Note:</span></span>
+<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Estimates and their statistics are based on the data</span></span>
+<span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   aftermean-centering, scaling, or standardization.</span></span>
+<span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - [CI Lower, CI Upper] are bootstrap percentile confidence intervals.</span></span>
+<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Std. Error are not bootstrap SEs.</span></span></code></pre></div>
+<p>The standardized moderation effect is -0.1083, and the 95%
+nonparametric bootstrap confidence interval is -0.2040 to -0.0097.</p>
+<p>Note: As a side product, the nonparametric bootstrap percentile
+confidence of the other coefficients are also reported. They can be used
+for other variables that are standardized in the same model, whether
+they are involved in the moderation or not.</p>
 </div>
 <div id="further-information" class="section level1">
 <h1>Further Information</h1>
-<p><code>vignette(&quot;plotmod&quot;)</code> illustrates how to use <code>plotmod()</code> to plot a moderation effect. If variables are standardized by <code>std_selected()</code>, <code>plotmod()</code> can indicate this in the plot.</p>
-<p><code>vignette(&quot;cond_effect&quot;)</code> illustrates how to use <code>cond_effect()</code> to compute conditional effects, the effect of a predictor (focal variable) for selected levels of the moderator. <code>cond_effect()</code> support outputs from <code>std_selected()</code>.</p>
+<p><code>vignette(&quot;plotmod&quot;)</code> illustrates how to use
+<code>plotmod()</code> to plot a moderation effect. If variables are
+standardized by <code>std_selected()</code>, <code>plotmod()</code> can
+indicate this in the plot.</p>
+<p><code>vignette(&quot;cond_effect&quot;)</code> illustrates how to use
+<code>cond_effect()</code> to compute conditional effects, the effect of
+a predictor (focal variable) for selected levels of the moderator.
+<code>cond_effect()</code> support outputs from
+<code>std_selected()</code>.</p>
 </div>
 <div id="references" class="section level1">
 <h1>Reference(s)</h1>
-<p>Cheung, S. F., Cheung, S.-H., Lau, E. Y. Y., Hui, C. H., &amp; Vong, W. N. (2022) Improving an old way to measure moderation effect in standardized units. <em>Health Psychology</em>, <em>41</em>(7), 502-505. <a href="https://doi.org/10.1037/hea0001188" class="uri">https://doi.org/10.1037/hea0001188</a>.</p>
-<p>Yuan, K.-H., &amp; Chan, W. (2011). Biases and standard errors of standardized regression coefficients. <em>Psychometrika, 76</em>(4), 670-690. <a href="https://doi.org/10.1007/s11336-011-9224-6" class="uri">https://doi.org/10.1007/s11336-011-9224-6</a></p>
+<p>Cheung, S. F., Cheung, S.-H., Lau, E. Y. Y., Hui, C. H., &amp; Vong,
+W. N. (2022) Improving an old way to measure moderation effect in
+standardized units. <em>Health Psychology</em>, <em>41</em>(7), 502-505.
+<a href="https://doi.org/10.1037/hea0001188" class="uri">https://doi.org/10.1037/hea0001188</a>.</p>
+<p>Yuan, K.-H., &amp; Chan, W. (2011). Biases and standard errors of
+standardized regression coefficients. <em>Psychometrika, 76</em>(4),
+670-690. <a href="https://doi.org/10.1007/s11336-011-9224-6" class="uri">https://doi.org/10.1007/s11336-011-9224-6</a></p>
 </div>
 
 
