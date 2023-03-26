@@ -12,7 +12,7 @@
 
 <meta name="author" content="Shu Fai Cheung" />
 
-<meta name="date" content="2023-03-10" />
+<meta name="date" content="2023-03-26" />
 
 <title>Conditional Effects by cond_effect()</title>
 
@@ -340,10 +340,16 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 <h1 class="title toc-ignore">Conditional Effects by cond_effect()</h1>
 <h4 class="author">Shu Fai Cheung</h4>
-<h4 class="date">2023-03-10</h4>
+<h4 class="date">2023-03-26</h4>
 
 
 
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>This vignette illustrates how to use <code>cond_effect()</code> from
+the <code>stdmod</code> package. More about this package can be found in
+<code>vignette(&quot;stdmod&quot;, package = &quot;stdmod&quot;)</code> or at <a href="https://sfcheung.github.io/stdmod/">https://sfcheung.github.io/stdmod/</a>.</p>
+</div>
 <div id="what-cond_effect-can-do" class="section level1">
 <h1>What <code>cond_effect()</code> Can Do</h1>
 <p>It can compute the conditional effect of a predictor (the focal
@@ -496,40 +502,43 @@ this categorical moderator will be printed:</p>
 <div id="nonparametric-bootstrap-confidence-intervals" class="section level1">
 <h1>Nonparametric Bootstrap Confidence Intervals</h1>
 <p>If one or more variables are standardized, the OLS confidence
-intervals are not appropriate (Cheung, Cheung, Lau, Hui, &amp; Vong,
-2022; Yuan &amp; Chan, 2011). Users can call
-<code>cond_effect_boot()</code> to use nonparametric bootstrapping to
-form the percentile confidence interval for each conditional effect.</p>
+intervals are not appropriate (<a href="https://doi.org/10.1037/hea0001188">Cheung, Cheung, Lau, Hui,
+&amp; Vong, 2022</a>; <a href="https://doi.org/10.1007/s11336-011-9224-6">Yuan &amp; Chan,
+2011</a>). Users can call <code>cond_effect_boot()</code> to use
+nonparametric bootstrapping to form the percentile confidence interval
+for each conditional effect.</p>
 <ul>
 <li><code>conf</code>: The level of confidence, expressed as a
 proportion. Default is .95, requesting a 95% confidence interval.</li>
 <li><code>nboot</code> The number of bootstrap samples to drawn. Should
 be at least 2000 but 5000 is preferable.</li>
 </ul>
+<p>To make the results reproducible, call <code>set.seed()</code> before
+calling <code>cond_effect_boot()</code>, as illustrated below.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>lm_out <span class="ot">&lt;-</span> <span class="fu">lm</span>(sleep_duration <span class="sc">~</span> age <span class="sc">+</span> gender <span class="sc">+</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>                              emotional_stability <span class="sc">*</span> conscientiousness,</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>                              sleep_emo_con)</span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Standardize all variables and do the moderated regression again</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>lm_std <span class="ot">&lt;-</span> <span class="fu">std_selected</span>(lm_out,</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>                       <span class="at">to_center =</span> <span class="sc">~</span> .,</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>                       <span class="at">to_scale =</span> <span class="sc">~</span> .)</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co"># `nboot` is the sufficient. Set it to at least 2000 in real analysis</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Use to_standardize as a shortcut to to_center and to_scale</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>lm_std <span class="ot">&lt;-</span> <span class="fu">std_selected</span>(lm_out,</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>                       <span class="at">to_standardize =</span> <span class="sc">~</span> .)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">897043</span>)</span>
 <span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>cond_std <span class="ot">&lt;-</span> <span class="fu">cond_effect_boot</span>(<span class="at">output =</span> lm_std,</span>
 <span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>                             <span class="at">x =</span> <span class="st">&quot;emotional_stability&quot;</span>,</span>
 <span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>                             <span class="at">w =</span> <span class="st">&quot;conscientiousness&quot;</span>,</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>                             <span class="at">nboot =</span> <span class="dv">500</span>)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>                             <span class="at">nboot =</span> <span class="dv">2000</span>)</span>
 <span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(cond_std, <span class="at">model =</span> <span class="cn">FALSE</span>, <span class="at">title =</span> <span class="cn">FALSE</span>, <span class="at">level_info =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Level conscientiousness emotional_stability Effect CI Lower CI Upper  S.E.</span></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    High             1.000                      0.007   -0.113    0.130 0.063</span></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Medium             0.000                      0.115    0.028    0.215 0.045</span></span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     Low            -1.000                      0.223    0.079    0.367 0.062</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    High             1.000                      0.007   -0.107    0.117 0.063</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Medium             0.000                      0.115    0.029    0.202 0.045</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     Low            -1.000                      0.223    0.071    0.364 0.062</span></span>
 <span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      t     p Sig</span></span>
 <span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  0.107 0.915    </span></span>
 <span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2.560 0.011 *  </span></span>
 <span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3.601 0.000 ***</span></span>
 <span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [CI Lower, CI Upper] shows the 95% nonparametric bootstrap confidence interval(s)</span></span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  (based on 500 bootstrap samples)</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  (based on 2000 bootstrap samples)</span></span>
 <span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Note:</span></span>
 <span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>

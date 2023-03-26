@@ -23,8 +23,9 @@ summary(lm_out)
 
 ## -----------------------------------------------------------------------------
 lm_stdall <- std_selected(lm_out,
-                          to_scale = ~ .,
-                          to_center = ~ .)
+                          to_standardize = ~ .)
+
+## -----------------------------------------------------------------------------
 summary(lm_stdall)
 
 ## ----echo = FALSE-------------------------------------------------------------
@@ -36,7 +37,7 @@ if (file.exists("stdmod_lm_stdall_boot.rds")) {
                             to_scale = ~ .,
                             to_center = ~ .,
                             nboot = 5000)
-    saveRDS(lm_stdall_boot, "stdmod_lm_stdall_boot.rds")
+    saveRDS(lm_stdall_boot, "stdmod_lm_stdall_boot.rds", compress = "xz")
   }
 
 ## ----eval = FALSE-------------------------------------------------------------
@@ -54,8 +55,9 @@ tmp <- summary(lm_stdall_boot)$coefficients
 
 ## -----------------------------------------------------------------------------
 lm_std1 <- std_selected(lm_out,
-                        to_scale = ~ emot + cons,
-                        to_center = ~ emot + cons)
+                        to_standardize = ~ emot + cons)
+
+## -----------------------------------------------------------------------------
 summary(lm_std1)
 
 ## ----echo = FALSE-------------------------------------------------------------
@@ -67,7 +69,7 @@ if (file.exists("stdmod_lm_std1_boot.rds")) {
                             to_scale = ~ emot + cons,
                             to_center = ~ emot + cons,
                             nboot = 5000)
-    saveRDS(lm_std1_boot, "stdmod_lm_std1_boot.rds")
+    saveRDS(lm_std1_boot, "stdmod_lm_std1_boot.rds", compress = "xz")
   }
 
 ## ----eval = FALSE-------------------------------------------------------------

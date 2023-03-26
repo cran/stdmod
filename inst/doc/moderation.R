@@ -4,7 +4,7 @@ knitr::opts_chunk$set(
   comment = "#>",
   fig.width  = 6,
   fig.height = 4,
-  fig.align = 'center'
+  fig.align = "center"
 )
 
 ## ----setup--------------------------------------------------------------------
@@ -31,11 +31,12 @@ plotmod(lm_out,
 
 ## -----------------------------------------------------------------------------
 lm_stdall <- std_selected(lm_out,
-                          to_center = ~ .,
-                          to_scale  = ~ .)
-summary(lm_stdall)
+                          to_standardize = ~ .)
 
 ## -----------------------------------------------------------------------------
+summary(lm_stdall)
+
+## ----mod_reg_stdall-----------------------------------------------------------
 plotmod(lm_stdall,
         x = "emot",
         w = "cons",
@@ -45,10 +46,11 @@ plotmod(lm_stdall,
 
 ## -----------------------------------------------------------------------------
 library(lm.beta) # For generating the typical standardized solution
+packageVersion("lm.beta")
 lm_beta <- lm.beta(lm_out)
 summary(lm_beta)
 
-## ----echo = FALSE-------------------------------------------------------------
+## ----echo = FALSE, eval = TRUE------------------------------------------------
 if (file.exists("eg2_lm_xwy_std_ci.rds")) {
     lm_xwy_std_ci <- readRDS("eg2_lm_xwy_std_ci.rds")
   } else {
@@ -56,15 +58,8 @@ if (file.exists("eg2_lm_xwy_std_ci.rds")) {
     lm_xwy_std_ci <- std_selected_boot(lm_out, to_center = ~ .,
                                               to_scale  = ~ .,
                                               nboot = 2000)
-    saveRDS(lm_xwy_std_ci, "eg2_lm_xwy_std_ci.rds")
+    saveRDS(lm_xwy_std_ci, "eg2_lm_xwy_std_ci.rds", compress = "xz")
   }
-
-## ----eval = FALSE-------------------------------------------------------------
-#  set.seed(649017)
-#  lm_xwy_std_ci <- std_selected_boot(lm_out,
-#                                     to_center = ~ .,
-#                                     to_scale  = ~ .,
-#                                     nboot = 2000)
 
 ## -----------------------------------------------------------------------------
 summary(lm_xwy_std_ci)

@@ -12,7 +12,7 @@
 
 <meta name="author" content="Shu Fai Cheung and David Weng Ngai Vong" />
 
-<meta name="date" content="2023-03-10" />
+<meta name="date" content="2023-03-26" />
 
 <title>Standardized Moderation Effect by std_selected()</title>
 
@@ -341,14 +341,16 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <h1 class="title toc-ignore">Standardized Moderation Effect by
 std_selected()</h1>
 <h4 class="author">Shu Fai Cheung and David Weng Ngai Vong</h4>
-<h4 class="date">2023-03-10</h4>
+<h4 class="date">2023-03-26</h4>
 
 
 
 <div id="purpose" class="section level1">
 <h1>Purpose</h1>
-<p>This document demonstrates how to use <code>std_selected()</code> to
-compute the correct standardized solution of moderated regression.</p>
+<p>This document demonstrates how to use <code>std_selected()</code>
+from the <code>stdmod</code> package to compute the correct standardized
+solution of moderated regression. More about this package can be found
+in <code>vignette(&quot;stdmod&quot;, package = &quot;stdmod&quot;)</code> or at <a href="https://sfcheung.github.io/stdmod/">https://sfcheung.github.io/stdmod/</a>.</p>
 </div>
 <div id="setup-the-environment" class="section level1">
 <h1>Setup the Environment</h1>
@@ -429,74 +431,89 @@ with the product term formed <em>after</em> standardization, we can use
 mean centered.</p></li>
 <li><p>The argument <code>to_scale</code> specifies variables to be
 rescaled by their standard deviations after centering.</p></li>
+<li><p>In <code>stdmod</code> 0.2.6.3, the argument
+<code>to_standardize</code> was introduced as a shortcut. Listing a
+variable in <code>to_standardize</code> is equivalent to listing it in
+<code>to_center</code> and <code>to_scale</code>.</p></li>
 </ul>
 <p>If we want to standardize or mean center all variables, we can use
 <code>~ .</code> as a shortcut. Note that <code>std_selected()</code>
 will automatically skip categorical variables (i.e., factors or string
 variables in the regression model of <code>lm()</code>).</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>lm_stdall <span class="ot">&lt;-</span> <span class="fu">std_selected</span>(lm_out,</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>                          <span class="at">to_center =</span> <span class="sc">~</span> .,</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>                          <span class="at">to_scale  =</span> <span class="sc">~</span> .)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_stdall)</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call to std_selected():</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; std_selected(lm_out = lm_out, to_scale = ~., to_center = ~.)</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Selected variable(s) are centered by mean and/or scaled by SD</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Variable(s) centered: sleep_duration age gender emot cons</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Variable(s) scaled: sleep_duration age gender emot cons</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                centered_by scaled_by                            Note</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; sleep_duration    6.776333 1.4168291 Standardized (mean = 0, SD = 1)</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; age              22.274000 2.9407857 Standardized (mean = 0, SD = 1)</span></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; gender                  NA        NA Nonnumeric                     </span></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; emot              2.713200 0.7629613 Standardized (mean = 0, SD = 1)</span></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; cons              3.343200 0.6068198 Standardized (mean = 0, SD = 1)</span></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Note:</span></span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Categorical variables will not be centered or scaled even if</span></span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   requested.</span></span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lm(formula = sleep_duration ~ age + gender + emot * cons, data = dat_mod)</span></span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residuals:</span></span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     Min      1Q  Median      3Q     Max </span></span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -4.2941 -0.5563  0.0063  0.6663  4.3187 </span></span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Coefficients:</span></span>
-<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Estimate Std. Error t value Pr(&gt;|t|)   </span></span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)  0.05492    0.04883   1.125  0.26124   </span></span>
-<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; age          0.03712    0.04428   0.838  0.40221   </span></span>
-<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; gendermale  -0.18440    0.11702  -1.576  0.11570   </span></span>
-<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; emot         0.11501    0.04493   2.560  0.01076 * </span></span>
-<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; cons         0.13050    0.04517   2.889  0.00403 **</span></span>
-<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; emot:cons   -0.10829    0.04337  -2.497  0.01286 * </span></span>
-<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
-<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
-<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residual standard error: 0.9771 on 494 degrees of freedom</span></span>
-<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Multiple R-squared:  0.0548, Adjusted R-squared:  0.04523 </span></span>
-<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; F-statistic: 5.728 on 5 and 494 DF,  p-value: 3.768e-05</span></span>
-<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Note:</span></span>
-<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Estimates and their statistics are based on the data</span></span>
-<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   aftermean-centering, scaling, or standardization.</span></span></code></pre></div>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>                          <span class="at">to_standardize =</span> <span class="sc">~</span> .)</span></code></pre></div>
+<p>Before 0.2.6.3, to standardize all variables except for categorical
+variables, we need to use both <code>to_center = ~ .</code> and
+<code>to_scale = ~ .</code>. Since 0.2.6.3, we can just use
+<code>to_standardize = ~ .</code>, as shown above. If
+<code>to_standardize = ~ .</code> does not work, just use
+<code>to_center</code> and <code>to_scale</code> as shown below:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>lm_stdall <span class="ot">&lt;-</span> <span class="fu">std_selected</span>(lm_out,</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>                          <span class="at">to_center =</span> <span class="sc">~</span> .,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>                          <span class="at">to_scale =</span> <span class="sc">~</span> .)</span></code></pre></div>
+<p>A summary of the results of <code>std_selected()</code> can be
+generated by <code>summary()</code>:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_stdall)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call to std_selected():</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; std_selected(lm_out = lm_out, to_standardize = ~.)</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Selected variable(s) are centered by mean and/or scaled by SD</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Variable(s) centered: sleep_duration age gender emot cons</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Variable(s) scaled: sleep_duration age gender emot cons</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                centered_by scaled_by                            Note</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; sleep_duration    6.776333 1.4168291 Standardized (mean = 0, SD = 1)</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; age              22.274000 2.9407857 Standardized (mean = 0, SD = 1)</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; gender                  NA        NA Nonnumeric                     </span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; emot              2.713200 0.7629613 Standardized (mean = 0, SD = 1)</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; cons              3.343200 0.6068198 Standardized (mean = 0, SD = 1)</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Note:</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Categorical variables will not be centered or scaled even if</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   requested.</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lm(formula = sleep_duration ~ age + gender + emot * cons, data = dat_mod)</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residuals:</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     Min      1Q  Median      3Q     Max </span></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -4.2941 -0.5563  0.0063  0.6663  4.3187 </span></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Coefficients:</span></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Estimate Std. Error t value Pr(&gt;|t|)   </span></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)  0.05492    0.04883   1.125  0.26124   </span></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; age          0.03712    0.04428   0.838  0.40221   </span></span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; gendermale  -0.18440    0.11702  -1.576  0.11570   </span></span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; emot         0.11501    0.04493   2.560  0.01076 * </span></span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; cons         0.13050    0.04517   2.889  0.00403 **</span></span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; emot:cons   -0.10829    0.04337  -2.497  0.01286 * </span></span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residual standard error: 0.9771 on 494 degrees of freedom</span></span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Multiple R-squared:  0.0548, Adjusted R-squared:  0.04523 </span></span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; F-statistic: 5.728 on 5 and 494 DF,  p-value: 3.768e-05</span></span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Note:</span></span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Estimates and their statistics are based on the data after</span></span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   mean-centering, scaling, or standardization.</span></span></code></pre></div>
 <p>The coefficient in this solution, -0.10829, can be interpreted as the
 change in the standardized effect of emotional stability for each one
 standard deviation increase of conscientiousness. Naturally, this can be
 called the <em>standardized moderation effect</em> of conscientiousness
-(Cheung, Cheung, Lau, Hui, &amp; Vong, 2022).</p>
+(<a href="https://doi.org/10.1037/hea0001188">Cheung, Cheung, Lau, Hui,
+&amp; Vong, 2022</a>).</p>
 <p>The output of <code>std_selected()</code> can be passed to other
 functions that accept the output of <code>lm()</code>. This package also
 has a simple function, <code>plotmod()</code>, for generating a typical
 plot of the moderation effect:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotmod</span>(lm_stdall,</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">x =</span> <span class="st">&quot;emot&quot;</span>,</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">w =</span> <span class="st">&quot;cons&quot;</span>,</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">x_label =</span> <span class="st">&quot;Emotional Stability&quot;</span>,</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">w_label =</span> <span class="st">&quot;Conscientiousness&quot;</span>,</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">y_label =</span> <span class="st">&quot;Sleep Duration&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotmod</span>(lm_stdall,</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">x =</span> <span class="st">&quot;emot&quot;</span>,</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">w =</span> <span class="st">&quot;cons&quot;</span>,</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">x_label =</span> <span class="st">&quot;Emotional Stability&quot;</span>,</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">w_label =</span> <span class="st">&quot;Conscientiousness&quot;</span>,</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">y_label =</span> <span class="st">&quot;Sleep Duration&quot;</span>)</span></code></pre></div>
 <p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
 <p>The function <code>plotmod()</code> also prints the conditional
 effects of the predictor (focal variable), emotional stability in this
@@ -506,31 +523,33 @@ example.</p>
 <h1>The Common (Incorrect) Standardized Solution</h1>
 <p>For comparison, this is the results of standardizing all variables,
 including the product term and the categorical variable.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lm.beta) <span class="co"># For generating the typical standardized solution</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>lm_beta <span class="ot">&lt;-</span> <span class="fu">lm.beta</span>(lm_out)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_beta)</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lm(formula = sleep_duration ~ age + gender + emot * cons, data = sleep_emo_con)</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residuals:</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     Min      1Q  Median      3Q     Max </span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -6.0841 -0.7882  0.0089  0.9440  6.1189 </span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Coefficients:</span></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Estimate Standardized Std. Error t value Pr(&gt;|t|)   </span></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)  1.85154           NA    1.35224   1.369  0.17155   </span></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; age          0.01789      0.03712    0.02133   0.838  0.40221   </span></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; gendermale  -0.26127     -0.06934    0.16579  -1.576  0.11570   </span></span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; emot         1.32151      0.71163    0.45039   2.934  0.00350 **</span></span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; cons         1.20385      0.51560    0.37062   3.248  0.00124 **</span></span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; emot:cons   -0.33140     -0.78201    0.13273  -2.497  0.01286 * </span></span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residual standard error: 1.384 on 494 degrees of freedom</span></span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Multiple R-squared:  0.0548, Adjusted R-squared:  0.04523 </span></span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; F-statistic: 5.728 on 5 and 494 DF,  p-value: 3.768e-05</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lm.beta) <span class="co"># For generating the typical standardized solution</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">packageVersion</span>(<span class="st">&quot;lm.beta&quot;</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &#39;1.7.2&#39;</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>lm_beta <span class="ot">&lt;-</span> <span class="fu">lm.beta</span>(lm_out)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_beta)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lm(formula = sleep_duration ~ age + gender + emot * cons, data = sleep_emo_con)</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residuals:</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     Min      1Q  Median      3Q     Max </span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -6.0841 -0.7882  0.0089  0.9440  6.1189 </span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Coefficients:</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Estimate Standardized Std. Error t value Pr(&gt;|t|)   </span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)  1.85154           NA    1.35224   1.369  0.17155   </span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; age          0.01789      0.03712    0.02133   0.838  0.40221   </span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; gendermale  -0.26127     -0.06934    0.16579  -1.576  0.11570   </span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; emot         1.32151      0.71163    0.45039   2.934  0.00350 **</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; cons         1.20385      0.51560    0.37062   3.248  0.00124 **</span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; emot:cons   -0.33140     -0.78201    0.13273  -2.497  0.01286 * </span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residual standard error: 1.384 on 494 degrees of freedom</span></span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Multiple R-squared:  0.0548, Adjusted R-squared:  0.04523 </span></span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; F-statistic: 5.728 on 5 and 494 DF,  p-value: 3.768e-05</span></span></code></pre></div>
 <p>The coefficient of the <em>standardized</em> product term is
 -0.78201, which <em>cannot</em> be interpreted as the change in the
 standardized effect of emotional stability for each one standard
@@ -540,10 +559,10 @@ variables in the model.</p>
 </div>
 <div id="improved-confidence-intervals" class="section level1">
 <h1>Improved Confidence Intervals</h1>
-<p>It has been shown (e.g., Yuan &amp; Chan, 2011) that the standard
-errors of standardized regression coefficients computed just by
-standardizing the variables are biased, and consequently the confidence
-intervals are also invalid. The function
+<p>It has been shown (e.g., <a href="https://doi.org/10.1007/s11336-011-9224-6">Yuan &amp; Chan,
+2011</a>) that the standard errors of standardized regression
+coefficients computed just by standardizing the variables are biased,
+and consequently the confidence intervals are also invalid. The function
 <code>std_selected_boot()</code> is a wrapper of
 <code>std_selected()</code> that also forms the confidence interval of
 the regression coefficients when standardizing is conducted, using
@@ -555,63 +574,62 @@ for categorical variables to illustrate this function. The argument
 samples. The level of confidence is set by <code>conf</code>. The
 default is .95, denoting 95% confidence intervals. If this is the
 desired level, this argument can be omitted.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">649017</span>)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>lm_xwy_std_ci <span class="ot">&lt;-</span> <span class="fu">std_selected_boot</span>(lm_out,</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">to_center =</span> <span class="sc">~</span> .,</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">to_scale  =</span> <span class="sc">~</span> .,</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">nboot =</span> <span class="dv">2000</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">649017</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>lm_xwy_std_ci <span class="ot">&lt;-</span> <span class="fu">std_selected_boot</span>(lm_out,</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">to_standardize =</span> <span class="sc">~</span> .,</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">nboot =</span> <span class="dv">2000</span>)</span></code></pre></div>
 <p>If the default options are acceptable, the only additional argument
 is <code>nboot</code>.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_xwy_std_ci)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call to std_selected_boot():</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; std_selected_boot(lm_out = lm_out, to_center = ~., to_scale = ~., </span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     nboot = 2000)</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Selected variable(s) are centered by mean and/or scaled by SD</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Variable(s) centered: sleep_duration age gender emot cons</span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Variable(s) scaled: sleep_duration age gender emot cons</span></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                centered_by scaled_by                            Note</span></span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; sleep_duration    6.776333 1.4168291 Standardized (mean = 0, SD = 1)</span></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; age              22.274000 2.9407857 Standardized (mean = 0, SD = 1)</span></span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; gender                  NA        NA Nonnumeric                     </span></span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; emot              2.713200 0.7629613 Standardized (mean = 0, SD = 1)</span></span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; cons              3.343200 0.6068198 Standardized (mean = 0, SD = 1)</span></span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Note:</span></span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Categorical variables will not be centered or scaled even if</span></span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   requested.</span></span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Nonparametric bootstrapping 95% confidence intervals computed.</span></span>
-<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - The number of bootstrap samples is 2000.</span></span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
-<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lm(formula = sleep_duration ~ age + gender + emot * cons, data = dat_mod)</span></span>
-<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residuals:</span></span>
-<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     Min      1Q  Median      3Q     Max </span></span>
-<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -4.2941 -0.5563  0.0063  0.6663  4.3187 </span></span>
-<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Coefficients:</span></span>
-<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;              Estimate  CI Lower  CI Upper Std. Error t value Pr(&gt;|t|)   </span></span>
-<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)  0.054919  0.002968  0.104340   0.048827   1.125  0.26124   </span></span>
-<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; age          0.037125 -0.036253  0.103590   0.044280   0.838  0.40221   </span></span>
-<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; gendermale  -0.184402 -0.438855  0.087551   0.117016  -1.576  0.11570   </span></span>
-<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; emot         0.115014  0.023642  0.202438   0.044927   2.560  0.01076 * </span></span>
-<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; cons         0.130502  0.032359  0.224223   0.045167   2.889  0.00403 **</span></span>
-<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; emot:cons   -0.108292 -0.203990 -0.009746   0.043374  -2.497  0.01286 * </span></span>
-<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
-<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
-<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residual standard error: 0.9771 on 494 degrees of freedom</span></span>
-<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Multiple R-squared:  0.0548, Adjusted R-squared:  0.04523 </span></span>
-<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; F-statistic: 5.728 on 5 and 494 DF,  p-value: 3.768e-05</span></span>
-<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Note:</span></span>
-<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Estimates and their statistics are based on the data</span></span>
-<span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   aftermean-centering, scaling, or standardization.</span></span>
-<span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - [CI Lower, CI Upper] are bootstrap percentile confidence intervals.</span></span>
-<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Std. Error are not bootstrap SEs.</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_xwy_std_ci)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call to std_selected_boot():</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; std_selected_boot(lm_out = lm_out, to_scale = ~., to_center = ~., </span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     nboot = 2000)</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Selected variable(s) are centered by mean and/or scaled by SD</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Variable(s) centered: sleep_duration age gender emot cons</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Variable(s) scaled: sleep_duration age gender emot cons</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                centered_by scaled_by                            Note</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; sleep_duration    6.776333 1.4168291 Standardized (mean = 0, SD = 1)</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; age              22.274000 2.9407857 Standardized (mean = 0, SD = 1)</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; gender                  NA        NA Nonnumeric                     </span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; emot              2.713200 0.7629613 Standardized (mean = 0, SD = 1)</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; cons              3.343200 0.6068198 Standardized (mean = 0, SD = 1)</span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Note:</span></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Categorical variables will not be centered or scaled even if</span></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   requested.</span></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Nonparametric bootstrapping 95% confidence intervals computed.</span></span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - The number of bootstrap samples is 2000.</span></span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lm(formula = sleep_duration ~ age + gender + emot * cons, data = dat_mod)</span></span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residuals:</span></span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     Min      1Q  Median      3Q     Max </span></span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -4.2941 -0.5563  0.0063  0.6663  4.3187 </span></span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Coefficients:</span></span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;              Estimate  CI Lower  CI Upper Std. Error t value Pr(&gt;|t|)   </span></span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)  0.054919  0.002968  0.104340   0.048827   1.125  0.26124   </span></span>
+<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; age          0.037125 -0.036253  0.103590   0.044280   0.838  0.40221   </span></span>
+<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; gendermale  -0.184402 -0.438855  0.087551   0.117016  -1.576  0.11570   </span></span>
+<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; emot         0.115014  0.023642  0.202438   0.044927   2.560  0.01076 * </span></span>
+<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; cons         0.130502  0.032359  0.224223   0.045167   2.889  0.00403 **</span></span>
+<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; emot:cons   -0.108292 -0.203990 -0.009746   0.043374  -2.497  0.01286 * </span></span>
+<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
+<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
+<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residual standard error: 0.9771 on 494 degrees of freedom</span></span>
+<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Multiple R-squared:  0.0548, Adjusted R-squared:  0.04523 </span></span>
+<span id="cb11-44"><a href="#cb11-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; F-statistic: 5.728 on 5 and 494 DF,  p-value: 3.768e-05</span></span>
+<span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-46"><a href="#cb11-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Note:</span></span>
+<span id="cb11-47"><a href="#cb11-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Estimates and their statistics are based on the data after</span></span>
+<span id="cb11-48"><a href="#cb11-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   mean-centering, scaling, or standardization.</span></span>
+<span id="cb11-49"><a href="#cb11-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - [CI Lower, CI Upper] are bootstrap percentile confidence intervals.</span></span>
+<span id="cb11-50"><a href="#cb11-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Std. Error are not bootstrap SEs.</span></span></code></pre></div>
 <p>The standardized moderation effect is -0.1083, and the 95%
 nonparametric bootstrap confidence interval is -0.2040 to -0.0097.</p>
 <p>Note: As a side product, the nonparametric bootstrap percentile
@@ -621,14 +639,14 @@ they are involved in the moderation or not.</p>
 </div>
 <div id="further-information" class="section level1">
 <h1>Further Information</h1>
-<p><code>vignette(&quot;plotmod&quot;)</code> illustrates how to use
-<code>plotmod()</code> to plot a moderation effect. If variables are
-standardized by <code>std_selected()</code>, <code>plotmod()</code> can
-indicate this in the plot.</p>
-<p><code>vignette(&quot;cond_effect&quot;)</code> illustrates how to use
-<code>cond_effect()</code> to compute conditional effects, the effect of
-a predictor (focal variable) for selected levels of the moderator.
-<code>cond_effect()</code> support outputs from
+<p><code>vignette(&quot;plotmod&quot;, package = &quot;stdmod&quot;)</code> illustrates how
+to use <code>plotmod()</code> to plot a moderation effect. If variables
+are standardized by <code>std_selected()</code>, <code>plotmod()</code>
+can indicate this in the plot.</p>
+<p><code>vignette(&quot;cond_effect&quot;, package = &quot;stdmod&quot;)</code> illustrates
+how to use <code>cond_effect()</code> to compute conditional effects,
+the effect of a predictor (focal variable) for selected levels of the
+moderator. <code>cond_effect()</code> supports outputs from
 <code>std_selected()</code>.</p>
 </div>
 <div id="references" class="section level1">
