@@ -36,35 +36,28 @@ fit_iv_mod_std <- stdmod_lavaan(fit = fit,
 fit_iv_mod_std
 
 ## ----echo = FALSE-------------------------------------------------------------
-if (file.exists("egl_out_boot.rds")) {
-    fit_iv_mod_std_ci <- readRDS("egl_out_boot.rds")
+if (file.exists("egl_lavaan_boot.rds")) {
+    fit <- readRDS("egl_lavaan_boot.rds")
   } else {
-    set.seed(860947)
-    fit_iv_mod_std_ci <- stdmod_lavaan(fit = fit,
-                                        x = "iv",
-                                        y = "med",
-                                        w = "mod",
-                                        x_w = "iv:mod",
-                                        boot_ci = TRUE,
-                                        R = 2000,
-                                        parallel = "snow",
-                                        ncpus = 6)
-    saveRDS(out_boot, "egl_out_boot.rds")
+    fit <- sem(mod, test_mod1, fixed.x = FALSE,
+              se = "boot",
+              bootstrap = 2000,
+              iseed = 987543)
+    saveRDS(fit, "egl_lavaan_boot.rds")
   }
 
 ## ----eval = FALSE-------------------------------------------------------------
-#  set.seed(860947)
-#  fit_iv_mod_std_ci <- stdmod_lavaan(fit = fit,
-#                                      x = "iv",
-#                                      y = "med",
-#                                      w = "mod",
-#                                      x_w = "iv:mod",
-#                                      boot_ci = TRUE,
-#                                      R = 2000,
-#                                      parallel = "snow",
-#                                      ncpus = 6)
-#  fit_iv_mod_std_ci
+#  fit <- sem(mod, test_mod1, fixed.x = FALSE,
+#             se = "boot",
+#             bootstrap = 2000,
+#             iseed = 987543)
 
-## ----echo = FALSE-------------------------------------------------------------
+## -----------------------------------------------------------------------------
+fit_iv_mod_std_ci <- stdmod_lavaan(fit = fit,
+                                   x = "iv",
+                                   y = "med",
+                                   w = "mod",
+                                   x_w = "iv:mod",
+                                   boot_ci = TRUE)
 fit_iv_mod_std_ci
 

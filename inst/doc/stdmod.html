@@ -12,7 +12,7 @@
 
 <meta name="author" content="Shu Fai Cheung" />
 
-<meta name="date" content="2023-03-26" />
+<meta name="date" content="2023-06-24" />
 
 <title>A Quick Start Guide on Using std_selected()</title>
 
@@ -341,7 +341,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <h1 class="title toc-ignore">A Quick Start Guide on Using
 std_selected()</h1>
 <h4 class="author">Shu Fai Cheung</h4>
-<h4 class="date">2023-03-26</h4>
+<h4 class="date">2023-06-24</h4>
 
 
 
@@ -489,7 +489,10 @@ shortcut:</p>
 <span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Note:</span></span>
 <span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Estimates and their statistics are based on the data after</span></span>
-<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   mean-centering, scaling, or standardization.</span></span></code></pre></div>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   mean-centering, scaling, or standardization.</span></span>
+<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - One or more variables are scaled by SD or standardized. OLS standard</span></span>
+<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   errors and confidence intervals may be biased for their coefficients.</span></span>
+<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Please use `std_selected_boot()`.</span></span></code></pre></div>
 <p>In this example, the coefficient of the product term, which naturally
 can be called the <strong>standardized moderation effect</strong>, is
 significant, B = -0.1083. For each one <em>standard deviation</em>
@@ -661,7 +664,10 @@ shortuct:</p>
 <span id="cb12-42"><a href="#cb12-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb12-43"><a href="#cb12-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Note:</span></span>
 <span id="cb12-44"><a href="#cb12-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Estimates and their statistics are based on the data after</span></span>
-<span id="cb12-45"><a href="#cb12-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   mean-centering, scaling, or standardization.</span></span></code></pre></div>
+<span id="cb12-45"><a href="#cb12-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   mean-centering, scaling, or standardization.</span></span>
+<span id="cb12-46"><a href="#cb12-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - One or more variables are scaled by SD or standardized. OLS standard</span></span>
+<span id="cb12-47"><a href="#cb12-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   errors and confidence intervals may be biased for their coefficients.</span></span>
+<span id="cb12-48"><a href="#cb12-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Please use `std_selected_boot()`.</span></span></code></pre></div>
 <p>The <em>partially</em> standardized moderation effect is -0.1534. For
 each one <em>standard deviation</em> increase of conscientiousness
 score, the <em>partially</em> standardized effect of emotional stability
