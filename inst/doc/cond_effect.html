@@ -12,7 +12,7 @@
 
 <meta name="author" content="Shu Fai Cheung" />
 
-<meta name="date" content="2023-03-26" />
+<meta name="date" content="2023-09-09" />
 
 <title>Conditional Effects by cond_effect()</title>
 
@@ -340,7 +340,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 <h1 class="title toc-ignore">Conditional Effects by cond_effect()</h1>
 <h4 class="author">Shu Fai Cheung</h4>
-<h4 class="date">2023-03-26</h4>
+<h4 class="date">2023-09-09</h4>
 
 
 
@@ -418,8 +418,8 @@ the graph:</p>
 <span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     Low             2.736   16.60             -1.00</span></span>
 <span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - % Below: The percent of cases equal to or less than a level.</span></span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - From Mean (in SD): Distance of a level from the mean,</span></span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   in standard deviation (+ve above, -ve below).</span></span></code></pre></div>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - From Mean (in SD): Distance of a level from the mean, in standard</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   deviation (+ve above, -ve below).</span></span></code></pre></div>
 <p>By default, the print method of <code>cond_effect()</code> output
 prints the conditional effects, OLS standard errors, <em>t</em>
 statistics, <em>p</em>-values, and significant test results, along with
@@ -472,8 +472,8 @@ mean, respectively, for a normal distribution.</p>
 <span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     Low             2.700   16.60             -1.06</span></span>
 <span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - % Below: The percent of cases equal to or less than a level.</span></span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - From Mean (in SD): Distance of a level from the mean,</span></span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   in standard deviation (+ve above, -ve below).</span></span></code></pre></div>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - From Mean (in SD): Distance of a level from the mean, in standard</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   deviation (+ve above, -ve below).</span></span></code></pre></div>
 <p>Note that the empirical percentage of cases equal to or less than a
 level may not be exactly equal to that for the requested percentile if
 the number of cases is small and/or the number of unique values of the
@@ -537,13 +537,15 @@ calling <code>cond_effect_boot()</code>, as illustrated below.</p>
 <span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2.560 0.011 *  </span></span>
 <span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3.601 0.000 ***</span></span>
 <span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [CI Lower, CI Upper] shows the 95% nonparametric bootstrap confidence interval(s)</span></span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  (based on 2000 bootstrap samples)</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [CI Lower, CI Upper] shows the 95% nonparametric bootstrap confidence</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; interval(s) (based on 2000 bootstrap samples).</span></span>
 <span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Note:</span></span>
 <span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - The variable(s) sleep_duration, emotional_stability, conscientiousness is/are standardized.</span></span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - The conditional effects are the standardized effects of emotional_stability on sleep_duration.</span></span></code></pre></div>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - The variable(s) sleep_duration, emotional_stability,</span></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   conscientiousness is/are standardized.</span></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - The conditional effects are the standardized effects of</span></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   emotional_stability on sleep_duration.</span></span></code></pre></div>
 </div>
 <div id="further-information" class="section level1">
 <h1>Further Information</h1>
