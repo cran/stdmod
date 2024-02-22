@@ -12,7 +12,7 @@
 
 <meta name="author" content="Shu Fai Cheung and David Weng Ngai Vong" />
 
-<meta name="date" content="2023-09-11" />
+<meta name="date" content="2024-02-22" />
 
 <title>Mean Center and Standardize Selected Variable by std_selected()</title>
 
@@ -341,7 +341,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <h1 class="title toc-ignore">Mean Center and Standardize Selected
 Variable by std_selected()</h1>
 <h4 class="author">Shu Fai Cheung and David Weng Ngai Vong</h4>
-<h4 class="date">2023-09-11</h4>
+<h4 class="date">2024-02-22</h4>
 
 
 
@@ -676,11 +676,16 @@ desired level, this argument can be omitted.</p>
 <span id="cb19-46"><a href="#cb19-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Adjusted R-squared       : 0.0452</span></span>
 <span id="cb19-47"><a href="#cb19-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ANOVA test of R-squared  : F(5, 494) = 5.7277, p &lt; 0.001</span></span>
 <span id="cb19-48"><a href="#cb19-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb19-49"><a href="#cb19-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Note:</span></span>
-<span id="cb19-50"><a href="#cb19-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Estimates and their statistics are based on the data after</span></span>
-<span id="cb19-51"><a href="#cb19-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   mean-centering, scaling, or standardization.</span></span>
-<span id="cb19-52"><a href="#cb19-52" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - [CI Lower, CI Upper] are bootstrap percentile confidence intervals.</span></span>
-<span id="cb19-53"><a href="#cb19-53" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Std. Error are not bootstrap SEs.</span></span></code></pre></div>
+<span id="cb19-49"><a href="#cb19-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; = Test the highest order term =</span></span>
+<span id="cb19-50"><a href="#cb19-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; The highest order term             : emot:cons</span></span>
+<span id="cb19-51"><a href="#cb19-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; R-squared increase adding this term: 0.0119</span></span>
+<span id="cb19-52"><a href="#cb19-52" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; F test of R-squared increase       : F(1, 494) = 6.2335, p = 0.013</span></span>
+<span id="cb19-53"><a href="#cb19-53" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb19-54"><a href="#cb19-54" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Note:</span></span>
+<span id="cb19-55"><a href="#cb19-55" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Estimates and their statistics are based on the data after</span></span>
+<span id="cb19-56"><a href="#cb19-56" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   mean-centering, scaling, or standardization.</span></span>
+<span id="cb19-57"><a href="#cb19-57" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - [CI Lower, CI Upper] are bootstrap percentile confidence intervals.</span></span>
+<span id="cb19-58"><a href="#cb19-58" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Std. Error are not bootstrap SEs.</span></span></code></pre></div>
 <p>The standardized moderation effect is -0.1083 , and the 95%
 nonparametric bootstrap percentile confidence interval is -0.2005 to
 -0.0077.</p>

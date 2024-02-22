@@ -12,7 +12,7 @@
 
 <meta name="author" content="Shu Fai Cheung" />
 
-<meta name="date" content="2023-09-11" />
+<meta name="date" content="2024-02-22" />
 
 <title>A Quick Start Guide on Using std_selected()</title>
 
@@ -341,7 +341,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <h1 class="title toc-ignore">A Quick Start Guide on Using
 std_selected()</h1>
 <h4 class="author">Shu Fai Cheung</h4>
-<h4 class="date">2023-09-11</h4>
+<h4 class="date">2024-02-22</h4>
 
 
 
@@ -489,12 +489,17 @@ shortcut:</p>
 <span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Adjusted R-squared       : 0.0452</span></span>
 <span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ANOVA test of R-squared  : F(5, 494) = 5.7277, p &lt; 0.001</span></span>
 <span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Note:</span></span>
-<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Estimates and their statistics are based on the data after</span></span>
-<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   mean-centering, scaling, or standardization.</span></span>
-<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - One or more variables are scaled by SD or standardized. OLS standard</span></span>
-<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   errors and confidence intervals may be biased for their coefficients.</span></span>
-<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Please use `std_selected_boot()`.</span></span></code></pre></div>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; = Test the highest order term =</span></span>
+<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; The highest order term             : emot:cons</span></span>
+<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; R-squared increase adding this term: 0.0119</span></span>
+<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; F test of R-squared increase       : F(1, 494) = 6.2335, p = 0.013</span></span>
+<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Note:</span></span>
+<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Estimates and their statistics are based on the data after</span></span>
+<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   mean-centering, scaling, or standardization.</span></span>
+<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - One or more variables are scaled by SD or standardized. OLS standard</span></span>
+<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   errors and confidence intervals may be biased for their coefficients.</span></span>
+<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Please use `std_selected_boot()`.</span></span></code></pre></div>
 <p>In this example, the coefficient of the product term, which naturally
 can be called the <strong>standardized moderation effect</strong>, is
 significant, B = -0.1083. For each one <em>standard deviation</em>
@@ -596,11 +601,16 @@ bootstrap samples.</p>
 <span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Adjusted R-squared       : 0.0452</span></span>
 <span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ANOVA test of R-squared  : F(5, 494) = 5.7277, p &lt; 0.001</span></span>
 <span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Note:</span></span>
-<span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Estimates and their statistics are based on the data after</span></span>
-<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   mean-centering, scaling, or standardization.</span></span>
-<span id="cb9-51"><a href="#cb9-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - [CI Lower, CI Upper] are bootstrap percentile confidence intervals.</span></span>
-<span id="cb9-52"><a href="#cb9-52" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Std. Error are not bootstrap SEs.</span></span></code></pre></div>
+<span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; = Test the highest order term =</span></span>
+<span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; The highest order term             : emot:cons</span></span>
+<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; R-squared increase adding this term: 0.0119</span></span>
+<span id="cb9-51"><a href="#cb9-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; F test of R-squared increase       : F(1, 494) = 6.2335, p = 0.013</span></span>
+<span id="cb9-52"><a href="#cb9-52" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-53"><a href="#cb9-53" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Note:</span></span>
+<span id="cb9-54"><a href="#cb9-54" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Estimates and their statistics are based on the data after</span></span>
+<span id="cb9-55"><a href="#cb9-55" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   mean-centering, scaling, or standardization.</span></span>
+<span id="cb9-56"><a href="#cb9-56" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - [CI Lower, CI Upper] are bootstrap percentile confidence intervals.</span></span>
+<span id="cb9-57"><a href="#cb9-57" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Std. Error are not bootstrap SEs.</span></span></code></pre></div>
 <p>The output is similar to that of <code>std_selected()</code>, with
 additional information on the bootstrapping process.</p>
 <p>The 95% bootstrap percentile confidence interval of the standardized
@@ -668,12 +678,17 @@ shortuct:</p>
 <span id="cb12-42"><a href="#cb12-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Adjusted R-squared       : 0.0452</span></span>
 <span id="cb12-43"><a href="#cb12-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ANOVA test of R-squared  : F(5, 494) = 5.7277, p &lt; 0.001</span></span>
 <span id="cb12-44"><a href="#cb12-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb12-45"><a href="#cb12-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Note:</span></span>
-<span id="cb12-46"><a href="#cb12-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Estimates and their statistics are based on the data after</span></span>
-<span id="cb12-47"><a href="#cb12-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   mean-centering, scaling, or standardization.</span></span>
-<span id="cb12-48"><a href="#cb12-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - One or more variables are scaled by SD or standardized. OLS standard</span></span>
-<span id="cb12-49"><a href="#cb12-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   errors and confidence intervals may be biased for their coefficients.</span></span>
-<span id="cb12-50"><a href="#cb12-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Please use `std_selected_boot()`.</span></span></code></pre></div>
+<span id="cb12-45"><a href="#cb12-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; = Test the highest order term =</span></span>
+<span id="cb12-46"><a href="#cb12-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; The highest order term             : emot:cons</span></span>
+<span id="cb12-47"><a href="#cb12-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; R-squared increase adding this term: 0.0119</span></span>
+<span id="cb12-48"><a href="#cb12-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; F test of R-squared increase       : F(1, 494) = 6.2335, p = 0.013</span></span>
+<span id="cb12-49"><a href="#cb12-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb12-50"><a href="#cb12-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Note:</span></span>
+<span id="cb12-51"><a href="#cb12-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Estimates and their statistics are based on the data after</span></span>
+<span id="cb12-52"><a href="#cb12-52" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   mean-centering, scaling, or standardization.</span></span>
+<span id="cb12-53"><a href="#cb12-53" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - One or more variables are scaled by SD or standardized. OLS standard</span></span>
+<span id="cb12-54"><a href="#cb12-54" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   errors and confidence intervals may be biased for their coefficients.</span></span>
+<span id="cb12-55"><a href="#cb12-55" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Please use `std_selected_boot()`.</span></span></code></pre></div>
 <p>The <em>partially</em> standardized moderation effect is -0.1534. For
 each one <em>standard deviation</em> increase of conscientiousness
 score, the <em>partially</em> standardized effect of emotional stability
@@ -741,11 +756,16 @@ shortcut:</p>
 <span id="cb15-45"><a href="#cb15-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Adjusted R-squared       : 0.0452</span></span>
 <span id="cb15-46"><a href="#cb15-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ANOVA test of R-squared  : F(5, 494) = 5.7277, p &lt; 0.001</span></span>
 <span id="cb15-47"><a href="#cb15-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb15-48"><a href="#cb15-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Note:</span></span>
-<span id="cb15-49"><a href="#cb15-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Estimates and their statistics are based on the data after</span></span>
-<span id="cb15-50"><a href="#cb15-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   mean-centering, scaling, or standardization.</span></span>
-<span id="cb15-51"><a href="#cb15-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - [CI Lower, CI Upper] are bootstrap percentile confidence intervals.</span></span>
-<span id="cb15-52"><a href="#cb15-52" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Std. Error are not bootstrap SEs.</span></span></code></pre></div>
+<span id="cb15-48"><a href="#cb15-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; = Test the highest order term =</span></span>
+<span id="cb15-49"><a href="#cb15-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; The highest order term             : emot:cons</span></span>
+<span id="cb15-50"><a href="#cb15-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; R-squared increase adding this term: 0.0119</span></span>
+<span id="cb15-51"><a href="#cb15-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; F test of R-squared increase       : F(1, 494) = 6.2335, p = 0.013</span></span>
+<span id="cb15-52"><a href="#cb15-52" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb15-53"><a href="#cb15-53" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Note:</span></span>
+<span id="cb15-54"><a href="#cb15-54" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Estimates and their statistics are based on the data after</span></span>
+<span id="cb15-55"><a href="#cb15-55" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   mean-centering, scaling, or standardization.</span></span>
+<span id="cb15-56"><a href="#cb15-56" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - [CI Lower, CI Upper] are bootstrap percentile confidence intervals.</span></span>
+<span id="cb15-57"><a href="#cb15-57" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Std. Error are not bootstrap SEs.</span></span></code></pre></div>
 <p>The 95% bootstrap percentile confidence interval of the partially
 standardized moderation effect is -0.2915 to -0.0124.</p>
 </div>
