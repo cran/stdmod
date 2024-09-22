@@ -2,7 +2,7 @@
 #'
 #' @description Plot the moderation effect in a regression model
 #'
-#' @details This function generate a basic [ggplot2] graph
+#' @details This function generate a basic `ggplot2` graph
 #'          typically found in psychology manuscripts. It tries to
 #'          check whether one or more variables are standardized, and
 #'          report this in the plot if required.
@@ -11,8 +11,8 @@
 #' It is not intended to be a flexible tool for a fine control on the plots.
 #'
 #' @return
-#'  A [ggplot2] graph. Plotted if not assigned to a name. It can
-#'  be further modified like a usual [ggplot2] graph.
+#'  A `ggplot2` graph. Plotted if not assigned to a name. It can
+#'  be further modified like a usual `ggplot2` graph.
 #'
 #' @param output The output
 #'                  of [stats::lm()], [std_selected()], or
@@ -243,6 +243,7 @@ plotmod <- function(output, x, w,
         if (is.numeric(w_values)) {
             w_levels <- sort(w_values, decreasing = TRUE)
             w_levels_labels <- as.character(w_levels)
+            w_method <- "user"
           } else {
             w_levels <- gen_levels(mf0[, w],
                                   method = w_method,
@@ -446,6 +447,9 @@ plotmod <- function(output, x, w,
                               "Low: ", w_from_mean_in_sd,
                               "SD below mean; Hi: ",
                               w_from_mean_in_sd, " SD above mean")
+          }
+        if (w_method == "user") {
+            cap_txt <- NULL
           }
       } else {
         cap_txt <- NULL

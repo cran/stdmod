@@ -1,3 +1,16 @@
+# stdmod 0.2.11
+
+## Miscellaneous
+
+- Updated tests for `testthat` 3rd
+  Edition. (0.2.10.2)
+
+## Bug Fixes
+
+- In `plotmod()`, labels regarding SDs
+  will no longer be displayed when
+  `w_values` is set. (0.2.10.1)
+
 # stdmod 0.2.10
 
 ## New Features
