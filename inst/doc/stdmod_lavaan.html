@@ -12,7 +12,7 @@
 
 <meta name="author" content="Shu Fai Cheung and David Weng Ngai Vong" />
 
-<meta name="date" content="2024-09-22" />
+<meta name="date" content="2026-01-04" />
 
 <title>Standardized Moderation Effect in a Path Model by stdmod_lavaan()</title>
 
@@ -341,7 +341,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <h1 class="title toc-ignore">Standardized Moderation Effect in a Path
 Model by stdmod_lavaan()</h1>
 <h4 class="author">Shu Fai Cheung and David Weng Ngai Vong</h4>
-<h4 class="date">2024-09-22</h4>
+<h4 class="date">2026-01-04</h4>
 
 
 
@@ -357,9 +357,7 @@ moderation effect in a path model fitted by
 <div id="setup-the-environment" class="section level1">
 <h1>Setup the Environment</h1>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(stdmod) <span class="co"># For computing the standardized moderation effect conveniently</span></span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(lavaan) <span class="co"># For doing path analysis in lavaan.</span></span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="co">#&gt; This is lavaan 0.6-18</span></span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="co">#&gt; lavaan is FREE software! Please report any bugs.</span></span></code></pre></div>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(lavaan) <span class="co"># For doing path analysis in lavaan.</span></span></code></pre></div>
 </div>
 <div id="load-the-dataset" class="section level1">
 <h1>Load the Dataset</h1>
@@ -384,7 +382,7 @@ cases.</p>
 <span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="st">&quot;</span></span>
 <span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">sem</span>(mod, test_mod1, <span class="at">fixed.x =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="fu">summary</span>(fit)</span>
-<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="co">#&gt; lavaan 0.6-18 ended normally after 1 iteration</span></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="co">#&gt; lavaan 0.6-21.2434 ended normally after 1 iteration</span></span>
 <span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a><span class="co">#&gt;   Estimator                                         ML</span></span>
 <span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a><span class="co">#&gt;   Optimization method                           NLMINB</span></span>
