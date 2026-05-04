@@ -1,11 +1,11 @@
-69a128dbf027cadffc1559a11c602fed *DESCRIPTION
+0a9c85a6d1b98683d38b89ea2d1f0986 *DESCRIPTION
 8c3cecf33fac0b52c7aceea8c9053f70 *NAMESPACE
-78d615647179b65ac184603aa05e7aed *NEWS.md
+b6784418d2104969f1dce38fa318332c *NEWS.md
 359b7381d5d42b311b2707878736ce56 *R/add1_stdmod.R
 c674dd378552923e43acf044d67ffc85 *R/coef_condeff.R
 6a4d57c1813062ab716d77a98e05d5c6 *R/coef_stdmod_lavaan.R
-54ae83c246579afc9d049988b983c15f *R/condeff.R
-a2cad88c5b7ee53d6e3c429b98c15335 *R/condeff_boot.R
+9f92db0eef6161ebc1c45c5de26e4b8d *R/condeff.R
+e544c7ad39ad75dda44b5b92733f474d *R/condeff_boot.R
 94b180ec786e342fd5db8812d2ef464d *R/confint_condeff.R
 d2f569568f60cbd1f9eeeb8293719617 *R/confint_stdmod.R
 c13098f18f17707b398e44e8914d8632 *R/confint_stdmod_lavaan.R
@@ -14,7 +14,7 @@ c13098f18f17707b398e44e8914d8632 *R/confint_stdmod_lavaan.R
 011e8ffd38686387c155146065c983bd *R/data_3.R
 72031af4c70fc8ae78123c32afe0845c *R/data_4.R
 6f8137ea4190236f6066ea7c4828973a *R/helpers.R
-835aff13ad89f7df7d8f9434264f86f8 *R/plotmod.R
+c8f88927b9f24153a5e20bb7e5d5ac5d *R/plotmod.R
 b8371c891c72326621a92704ee5e4f1c *R/plotmod_helpers.R
 72cffb18f38328faea4012f2ba7d2f35 *R/plotmod_helpers_2.R
 5205bf1f935faf550d059dd6ab479d99 *R/print_cond_eff.R
@@ -31,9 +31,9 @@ e349bf074345c6bc0697c23d0b08d9a4 *R/stdmod.R
 257522044f2464543934aebfa806b232 *R/sweep2.R
 293545003b6e728eee7a6eab0eba7cc3 *R/update_stdmod.R
 85ed3d4aebee4fcaaf532ca73a9a2bbf *R/vcov_stdmod.R
-cfb08ad094fd4b07431c303fa855b87e *README.md
-d54042561b90aafd8a9a202ea63e1e4b *build/partial.rdb
-281356e47bbd8aea8c6f53d12022afff *build/vignette.rds
+148f432b0a7bc6d40edc4cdd9fa9ba86 *README.md
+9d5d57306c989a862d29353812d857e7 *build/partial.rdb
+4aa111bcbba7d72bffead0f363d80b70 *build/vignette.rds
 cfac528a204b0a0ae0235a1f99bafb6a *data/sleep_emo_con.rda
 f1f88af1d468fc13dca3e58e09e7c83a *data/test_mod1.rda
 7b8802b1880748751497209ff8ca2362 *data/test_mod2.rda
@@ -49,7 +49,7 @@ da2d5a6104bcc221a88419a04f872f64 *inst/doc/moderation.Rmd
 3b8df70970aea9a11ce78eea1192f7ea *inst/doc/moderation.html
 de62b6958b6ebc23a2d1c81c421a6f0a *inst/doc/plotmod.R
 297bb5fa6b37e85c02b8c86641035eb5 *inst/doc/plotmod.Rmd
-d8cddfbce12508ec797ba1db62d2e98b *inst/doc/plotmod.html
+b96779660f7600cce85beb924dbcc3bc *inst/doc/plotmod.html
 fd470ee0f4e7a2818d8c460d56a89082 *inst/doc/std_selected.Rmd
 a5352f3c8268c591770949439c75667c *inst/doc/std_selected.html
 7001c356fab832095cec8e2ef58be82c *inst/doc/stdmod.Rmd
