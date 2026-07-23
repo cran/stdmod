@@ -12,7 +12,7 @@
 
 <meta name="author" content="Shu Fai Cheung and David Weng Ngai Vong" />
 
-<meta name="date" content="2026-01-04" />
+<meta name="date" content="2026-07-23" />
 
 <title>Standardized Moderation Effect by std_selected()</title>
 
@@ -341,10 +341,26 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <h1 class="title toc-ignore">Standardized Moderation Effect by
 std_selected()</h1>
 <h4 class="author">Shu Fai Cheung and David Weng Ngai Vong</h4>
-<h4 class="date">2026-01-04</h4>
+<h4 class="date">2026-07-23</h4>
 
 
 
+<blockquote>
+<p>For standardizing only selected variables and for properly
+standardizing product terms in regression models fitted by
+<code>stats::lm()</code>, the function <a href="https://sfcheung.github.io/betaselectr/articles/betaselectr_lm.html"><code>lm_betaselect()</code></a>
+from <a href="https://sfcheung.github.io/betaselectr/"><code>betaselectr</code></a>
+can be used instead of <code>std_selected()</code> and
+<code>std_selected_boot()</code>. The package also has supports models
+fitted by <code>stats::glm()</code>, such as logistic regression models.
+See <a href="https://sfcheung.github.io/betaselectr/articles/betaselectr_glm.html">this
+article</a> for a demonstration.</p>
+</blockquote>
+<blockquote>
+<p>However, if only mean-centering is needed, <code>stdmod</code> should
+be used because <code>betaselectr</code> does not support doing only
+mean-centering.</p>
+</blockquote>
 <div id="purpose" class="section level1">
 <h1>Purpose</h1>
 <p>This document demonstrates how to use <code>std_selected()</code>
@@ -360,12 +376,10 @@ in <code>vignette(&quot;stdmod&quot;, package = &quot;stdmod&quot;)</code> or at
 <h1>Load the Dataset</h1>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">data</span>(sleep_emo_con)</span>
 <span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">head</span>(sleep_emo_con, <span class="dv">3</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="co">#&gt; # A tibble: 3 × 6</span></span>
-<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="co">#&gt;   case_id sleep_duration conscientiousness emotional_stability   age gender</span></span>
-<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="co">#&gt;     &lt;int&gt;          &lt;dbl&gt;             &lt;dbl&gt;               &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; </span></span>
-<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="co">#&gt; 1       1              6               3.6                 3.6    20 female</span></span>
-<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="co">#&gt; 2       2              4               3.8                 2.4    20 female</span></span>
-<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="co">#&gt; 3       3              7               4.3                 2.7    20 female</span></span></code></pre></div>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="co">#&gt;   case_id sleep_duration conscientiousness emotional_stability age gender</span></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="co">#&gt; 1       1              6               3.6                 3.6  20 female</span></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="co">#&gt; 2       2              4               3.8                 2.4  20 female</span></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="co">#&gt; 3       3              7               4.3                 2.7  20 female</span></span></code></pre></div>
 <p>This data set has 500 cases of data. The variables are sleep
 duration, age, gender, and the scores from two personality scales,
 emotional stability and conscientiousness of the IPIP Big Five markers.
@@ -374,12 +388,10 @@ set.</p>
 <p>The names of some variables are shortened for readability:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">colnames</span>(sleep_emo_con)[<span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;cons&quot;</span>, <span class="st">&quot;emot&quot;</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="fu">head</span>(sleep_emo_con, <span class="dv">3</span>)</span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="co">#&gt; # A tibble: 3 × 6</span></span>
-<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="co">#&gt;   case_id sleep_duration  cons  emot   age gender</span></span>
-<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="co">#&gt;     &lt;int&gt;          &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; </span></span>
-<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="co">#&gt; 1       1              6   3.6   3.6    20 female</span></span>
-<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="co">#&gt; 2       2              4   3.8   2.4    20 female</span></span>
-<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="co">#&gt; 3       3              7   4.3   2.7    20 female</span></span></code></pre></div>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="co">#&gt;   case_id sleep_duration cons emot age gender</span></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="co">#&gt; 1       1              6  3.6  3.6  20 female</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="co">#&gt; 2       2              4  3.8  2.4  20 female</span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="co">#&gt; 3       3              7  4.3  2.7  20 female</span></span></code></pre></div>
 </div>
 <div id="moderated-regression" class="section level1">
 <h1>Moderated Regression</h1>

@@ -12,7 +12,7 @@
 
 <meta name="author" content="Shu Fai Cheung and David Weng Ngai Vong" />
 
-<meta name="date" content="2026-01-04" />
+<meta name="date" content="2026-07-23" />
 
 <title>Mean Center and Standardize Selected Variable by std_selected()</title>
 
@@ -341,10 +341,26 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <h1 class="title toc-ignore">Mean Center and Standardize Selected
 Variable by std_selected()</h1>
 <h4 class="author">Shu Fai Cheung and David Weng Ngai Vong</h4>
-<h4 class="date">2026-01-04</h4>
+<h4 class="date">2026-07-23</h4>
 
 
 
+<blockquote>
+<p>For standardizing only selected variables and for properly
+standardizing product terms in regression models fitted by
+<code>stats::lm()</code>, the function <a href="https://sfcheung.github.io/betaselectr/articles/betaselectr_lm.html"><code>lm_betaselect()</code></a>
+from <a href="https://sfcheung.github.io/betaselectr/"><code>betaselectr</code></a>
+can be used instead of <code>std_selected()</code> and
+<code>std_selected_boot()</code>. The package also has supports models
+fitted by <code>stats::glm()</code>, such as logistic regression models.
+See <a href="https://sfcheung.github.io/betaselectr/articles/betaselectr_glm.html">this
+article</a> for a demonstration.</p>
+</blockquote>
+<blockquote>
+<p>However, if only mean-centering is needed, <code>stdmod</code> should
+be used because <code>betaselectr</code> does not support doing only
+mean-centering.</p>
+</blockquote>
 <div id="purpose" class="section level1">
 <h1>Purpose</h1>
 <p>Instead of standardizing all variables, even variables that (a) are
